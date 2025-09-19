@@ -1,0 +1,30 @@
+[
+  {
+    "stem": "1 --- www.huabeisai.cn 第 1 页 共 1 页 第二十二届华罗庚金杯少年数学邀请赛 决赛试题参考",
+    "taxonomy": "数学应用题",
+    "steps": [],
+    "transitions": [
+      "理解题目要求",
+      "分析已知条件",
+      "选择解题方法",
+      "进行计算求解",
+      "验证答案合理性"
+    ],
+    "scoring": {
+      "total": 5,
+      "steps": []
+    },
+    "answer": "",
+    "analysis": "",
+    "knowledgePoints": [
+      "数学思维训练",
+      "应用题解题"
+    ],
+    "difficulty": "medium",
+    "gradeLevel": "小学四年级",
+    "source": "/Users/tywg001/Downloads/mathlearning/aoshu/第二十二届华罗庚金杯少年数学邀请赛 决赛试题参考答案 （小学中年级组）.pdf (Page 1)",
+    "id": "第二十二届华罗庚金杯少年数学邀请赛 决赛试题参考答案 （小学中年级组）_page1_block1",
+    "extraction_method": "enhanced_math_block",
+    "page_number": 1
+  }
+]

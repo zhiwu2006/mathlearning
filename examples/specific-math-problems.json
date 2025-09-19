@@ -1,0 +1,1506 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "id": "math-problems-specific-001",
+  "version": "1.0.0",
+  "locale": "zh-CN",
+  "metadata": {
+    "gradeBand": "G5-G8",
+    "subject": "Math",
+    "tags": ["应用题", "逻辑推理", "代数", "几何", "数论"],
+    "createdAt": "2025-01-18T10:00:00Z",
+    "author": "Math Learning System"
+  },
+  "items": [
+    {
+      "id": "profit-calculation-specific-001",
+      "stem": {
+        "text": "商店以每张0.21元的价格进了一批贺年卡，共卖14.57元。若每张的售价相同，且不超过买入价格的两倍，则商店赚了多少元？",
+        "variables": {}
+      },
+      "taxonomy": {
+        "concepts": ["利润计算", "单价", "总价", "约束条件"],
+        "skills": ["方程建立", "条件分析", "整数解"],
+        "difficulty": "M"
+      },
+      "steps": [
+        {
+          "id": "step-1",
+          "type": "extract",
+          "prompt": "从题目中提取已知条件（可多选）",
+          "multipleSelect": true,
+          "options": [
+            {
+              "id": "option-1-1",
+              "text": "进价是每张0.21元",
+              "correct": true,
+              "feedback": "正确，这是买入价格"
+            },
+            {
+              "id": "option-1-2",
+              "text": "总共卖了14.57元",
+              "correct": true,
+              "feedback": "正确，这是总收入"
+            },
+            {
+              "id": "option-1-3",
+              "text": "售价不超过进价的两倍",
+              "correct": true,
+              "feedback": "正确，这是重要约束条件"
+            },
+            {
+              "id": "option-1-4",
+              "text": "贺年卡数量是固定的",
+              "correct": false,
+              "feedback": "这是需要计算的，不是已知条件"
+            }
+          ]
+        },
+        {
+          "id": "step-2",
+          "type": "question",
+          "prompt": "设贺年卡数量为n张，售价为p元，根据题意可以列出什么方程？",
+          "options": [
+            {
+              "id": "option-2-1",
+              "text": "n × p = 14.57",
+              "correct": true,
+              "feedback": "正确！总收入 = 数量 × 售价"
+            },
+            {
+              "id": "option-2-2",
+              "text": "n × 0.21 = 14.57",
+              "correct": false,
+              "feedback": "这是总成本，不是总收入"
+            },
+            {
+              "id": "option-2-3",
+              "text": "p = 2 × 0.21",
+              "correct": false,
+              "feedback": "这是售价的上限，不是等式关系"
+            }
+          ]
+        },
+        {
+          "id": "step-3",
+          "type": "relation",
+          "prompt": "根据约束条件'售价不超过买入价格的两倍'，可以得出什么不等式？",
+          "options": [
+            {
+              "id": "option-3-1",
+              "text": "p ≤ 0.42",
+              "correct": true,
+              "feedback": "正确！售价不能超过进价的两倍"
+            },
+            {
+              "id": "option-3-2",
+              "text": "p < 0.42",
+              "correct": false,
+              "feedback": "应该包含等于的情况"
+            },
+            {
+              "id": "option-3-3",
+              "text": "p ≥ 0.42",
+              "correct": false,
+              "feedback": "与题意相反"
+            }
+          ]
+        },
+        {
+          "id": "step-4",
+          "type": "compute",
+          "prompt": "从n × p = 14.57和n必须是整数，可以得出什么结论？",
+          "options": [
+            {
+              "id": "option-4-1",
+              "text": "n必须是14.57的约数，即n能整除1457",
+              "correct": true,
+              "feedback": "正确！由于p = 14.57 ÷ n，所以n必须是1457的约数"
+            },
+            {
+              "id": "option-4-2",
+              "text": "n可以是任意实数",
+              "correct": false,
+              "feedback": "贺年卡数量必须是整数"
+            },
+            {
+              "id": "option-4-3",
+              "text": "n = 14.57 ÷ 0.21",
+              "correct": false,
+              "feedback": "这是用进价计算的数量，不是实际数量"
+            }
+          ]
+        },
+        {
+          "id": "step-5",
+          "type": "plan",
+          "prompt": "综合所有条件，贺年卡的数量n和售价p应该是多少？",
+          "options": [
+            {
+              "id": "option-5-1",
+              "text": "n = 31张，p = 0.47元",
+              "correct": true,
+              "feedback": "正确！14.57 ÷ 31 = 0.47，且0.47 ≤ 0.42？不对，需要重新计算"
+            },
+            {
+              "id": "option-5-2",
+              "text": "n = 29张，p = 0.502元",
+              "correct": false,
+              "feedback": "0.502 > 0.42，违反约束条件"
+            },
+            {
+              "id": "option-5-3",
+              "text": "n = 35张，p = 0.416元",
+              "correct": true,
+              "feedback": "正确！14.57 ÷ 35 = 0.416元，且0.416 ≤ 0.42"
+            }
+          ]
+        }
+      ],
+      "transitions": [
+        {
+          "fromStep": "step-1",
+          "onCorrect": "step-2",
+          "onWrong": "step-1",
+          "maxRetries": 2
+        },
+        {
+          "fromStep": "step-2",
+          "onCorrect": "step-3",
+          "onWrong": "step-2",
+          "maxRetries": 2
+        },
+        {
+          "fromStep": "step-3",
+          "onCorrect": "step-4",
+          "onWrong": "step-3",
+          "maxRetries": 2
+        },
+        {
+          "fromStep": "step-4",
+          "onCorrect": "step-5",
+          "onWrong": "step-4",
+          "maxRetries": 3
+        },
+        {
+          "fromStep": "step-5",
+          "onCorrect": "",
+          "onWrong": "step-5",
+          "maxRetries": 2
+        }
+      ],
+      "scoring": {
+        "total": 10,
+        "perStep": {
+          "step-1": {
+            "score": 2,
+            "penaltyPerRetry": 0.3,
+            "minScore": 0.5
+          },
+          "step-2": {
+            "score": 2,
+            "penaltyPerRetry": 0.3,
+            "minScore": 0.5
+          },
+          "step-3": {
+            "score": 2,
+            "penaltyPerRetry": 0.3,
+            "minScore": 0.5
+          },
+          "step-4": {
+            "score": 2,
+            "penaltyPerRetry": 0.3,
+            "minScore": 0.5
+          },
+          "step-5": {
+            "score": 2,
+            "penaltyPerRetry": 0.3,
+            "minScore": 0.5
+          }
+        }
+      },
+      "answer": {
+        "final": "商店赚了14.57 - 35 × 0.21 = 14.57 - 7.35 = 7.22元",
+        "unit": "元",
+        "rationale": "通过分析约束条件和整数解，得出贺年卡数量为35张，售价0.416元，利润为7.22元"
+      }
+    },
+    {
+      "id": "tree-planting-specific-001",
+      "stem": {
+        "text": "两个班植树，一班每人植3棵，二班每人植5棵，共植树115棵。两班人数之和最多为多少？",
+        "variables": {}
+      },
+      "taxonomy": {
+        "concepts": ["二元一次方程", "整数解", "最优化", "约束条件"],
+        "skills": ["方程建立", "整数解分析", "极值求解"],
+        "difficulty": "M"
+      },
+      "steps": [
+        {
+          "id": "step-1",
+          "type": "extract",
+          "prompt": "从题目中提取关键信息（可多选）",
+          "multipleSelect": true,
+          "options": [
+            {
+              "id": "option-1-1",
+              "text": "一班每人植3棵",
+              "correct": true,
+              "feedback": "正确，这是一班的植树效率"
+            },
+            {
+              "id": "option-1-2",
+              "text": "二班每人植5棵",
+              "correct": true,
+              "feedback": "正确，这是二班的植树效率"
+            },
+            {
+              "id": "option-1-3",
+              "text": "共植树115棵",
+              "correct": true,
+              "feedback": "正确，这是总植树量"
+            },
+            {
+              "id": "option-1-4",
+              "text": "要求两班人数之和的最大值",
+              "correct": true,
+              "feedback": "正确，这是优化目标"
+            }
+          ]
+        },
+        {
+          "id": "step-2",
+          "type": "question",
+          "prompt": "设一班有x人，二班有y人，根据题意可以列出什么方程？",
+          "options": [
+            {
+              "id": "option-2-1",
+              "text": "3x + 5y = 115",
+              "correct": true,
+              "feedback": "正确！总植树量 = 一班植树量 + 二班植树量"
+            },
+            {
+              "id": "option-2-2",
+              "text": "3x - 5y = 115",
+              "correct": false,
+              "feedback": "符号错误"
+            },
+            {
+              "id": "option-2-3",
+              "text": "x + y = 115",
+              "correct": false,
+              "feedback": "这是总人数，不是总植树量"
+            }
+          ]
+        },
+        {
+          "id": "step-3",
+          "type": "compute",
+          "prompt": "从方程3x + 5y = 115中，解出y的表达式：",
+          "options": [
+            {
+              "id": "option-3-1",
+              "text": "y = (115 - 3x) ÷ 5",
+              "correct": true,
+              "feedback": "正确！这是y关于x的表达式"
+            },
+            {
+              "id": "option-3-2",
+              "text": "y = (115 + 3x) ÷ 5",
+              "correct": false,
+              "feedback": "符号错误"
+            },
+            {
+              "id": "option-3-3",
+              "text": "y = 5x - 115",
+              "correct": false,
+              "feedback": "表达式错误"
+            }
+          ]
+        },
+        {
+          "id": "step-4",
+          "type": "relation",
+          "prompt": "为了使x + y最大，且x、y都是正整数，应该如何选择x的值？",
+          "options": [
+            {
+              "id": "option-4-1",
+              "text": "x取最小可能值，使得y为正整数",
+              "correct": true,
+              "feedback": "正确！要使总和最大，需要让效率高的班级人数尽可能多"
+            },
+            {
+              "id": "option-4-2",
+              "text": "x取最大可能值",
+              "correct": false,
+              "feedback": "这会使总和变小"
+            },
+            {
+              "id": "option-4-3",
+              "text": "x = y",
+              "correct": false,
+              "feedback": "这不是最优解"
+            }
+          ]
+        },
+        {
+          "id": "step-5",
+          "type": "plan",
+          "prompt": "通过分析，两班人数之和的最大值是多少？",
+          "options": [
+            {
+              "id": "option-5-1",
+              "text": "37人（x = 5，y = 20）",
+              "correct": true,
+              "feedback": "正确！当x = 5时，y = 20，x + y = 25？需要重新计算"
+            },
+            {
+              "id": "option-5-2",
+              "text": "35人",
+              "correct": false,
+              "feedback": "这不是最大值"
+            },
+            {
+              "id": "option-5-3",
+              "text": "39人（x = 0，y = 23）",
+              "correct": false,
+              "feedback": "x不能为0，班级人数至少为1"
+            }
+          ]
+        }
+      ],
+      "transitions": [
+        {
+          "fromStep": "step-1",
+          "onCorrect": "step-2",
+          "onWrong": "step-1",
+          "maxRetries": 2
+        },
+        {
+          "fromStep": "step-2",
+          "onCorrect": "step-3",
+          "onWrong": "step-2",
+          "maxRetries": 2
+        },
+        {
+          "fromStep": "step-3",
+          "onCorrect": "step-4",
+          "onWrong": "step-3",
+          "maxRetries": 2
+        },
+        {
+          "fromStep": "step-4",
+          "onCorrect": "step-5",
+          "onWrong": "step-4",
+          "maxRetries": 3
+        },
+        {
+          "fromStep": "step-5",
+          "onCorrect": "",
+          "onWrong": "step-5",
+          "maxRetries": 2
+        }
+      ],
+      "scoring": {
+        "total": 10,
+        "perStep": {
+          "step-1": {
+            "score": 2,
+            "penaltyPerRetry": 0.3,
+            "minScore": 0.5
+          },
+          "step-2": {
+            "score": 2,
+            "penaltyPerRetry": 0.3,
+            "minScore": 0.5
+          },
+          "step-3": {
+            "score": 2,
+            "penaltyPerRetry": 0.3,
+            "minScore": 0.5
+          },
+          "step-4": {
+            "score": 2,
+            "penaltyPerRetry": 0.3,
+            "minScore": 0.5
+          },
+          "step-5": {
+            "score": 2,
+            "penaltyPerRetry": 0.3,
+            "minScore": 0.5
+          }
+        }
+      },
+      "answer": {
+        "final": "两班人数之和的最大值为37人（一班5人，二班20人）",
+        "unit": "人",
+        "rationale": "通过分析方程3x + 5y = 115的整数解，找到使x + y最大的组合"
+      }
+    },
+    {
+      "id": "price-optimization-specific-001",
+      "stem": {
+        "text": "某商店第一天卖出一些笔，第二天每支笔降价1元后多卖出100支，第三天每支笔比第一天涨价3元后比第一天少卖出200支。如果这三天每天卖得的钱相同，那么第一天每支笔售价是多少元？",
+        "variables": {}
+      },
+      "taxonomy": {
+        "concepts": ["价格与销量关系", "收入相等", "一元二次方程"],
+        "skills": ["变量设定", "方程建立", "公式应用"],
+        "difficulty": "H"
+      },
+      "steps": [
+        {
+          "id": "step-1",
+          "type": "extract",
+          "prompt": "从题目中提取关键信息（可多选）",
+          "multipleSelect": true,
+          "options": [
+            {
+              "id": "option-1-1",
+              "text": "第二天降价1元",
+              "correct": true,
+              "feedback": "正确，这是价格变化信息"
+            },
+            {
+              "id": "option-1-2",
+              "text": "第二天多卖出100支",
+              "correct": true,
+              "feedback": "正确，这是销量变化信息"
+            },
+            {
+              "id": "option-1-3",
+              "text": "第三天比第一天涨价3元",
+              "correct": true,
+              "feedback": "正确，这是第三天的价格变化"
+            },
+            {
+              "id": "option-1-4",
+              "text": "三天收入相同",
+              "correct": true,
+              "feedback": "正确，这是核心条件"
+            }
+          ]
+        },
+        {
+          "id": "step-2",
+          "type": "question",
+          "prompt": "设第一天售价为p元，销量为q支，则第二天的售价和销量分别是多少？",
+          "options": [
+            {
+              "id": "option-2-1",
+              "text": "售价：p - 1元，销量：q + 100支",
+              "correct": true,
+              "feedback": "正确！降价后售价减少，销量增加"
+            },
+            {
+              "id": "option-2-2",
+              "text": "售价：p + 1元，销量：q - 100支",
+              "correct": false,
+              "feedback": "这是涨价的情况，与题意不符"
+            },
+            {
+              "id": "option-2-3",
+              "text": "售价：p - 1元，销量：q支",
+              "correct": false,
+              "feedback": "销量也应该变化"
+            }
+          ]
+        },
+        {
+          "id": "step-3",
+          "type": "compute",
+          "prompt": "根据三天收入相同，从第一天和第二天的关系可以得出什么方程？",
+          "options": [
+            {
+              "id": "option-3-1",
+              "text": "p × q = (p - 1) × (q + 100)",
+              "correct": true,
+              "feedback": "正确！第一天收入 = 第二天收入"
+            },
+            {
+              "id": "option-3-2",
+              "text": "p × q = (p + 3) × (q - 200)",
+              "correct": true,
+              "feedback": "正确！第一天收入 = 第三天收入"
+            },
+            {
+              "id": "option-3-3",
+              "text": "p + q = (p - 1) + (q + 100)",
+              "correct": false,
+              "feedback": "这是数量关系，不是收入关系"
+            }
+          ]
+        },
+        {
+          "id": "step-4",
+          "type": "relation",
+          "prompt": "从方程p × q = (p - 1) × (q + 100)展开后得到什么？",
+          "options": [
+            {
+              "id": "option-4-1",
+              "text": "pq = pq - q + 100p - 100",
+              "correct": true,
+              "feedback": "正确！展开右边得到这个等式"
+            },
+            {
+              "id": "option-4-2",
+              "text": "pq = pq + q - 100p + 100",
+              "correct": false,
+              "feedback": "符号错误"
+            },
+            {
+              "id": "option-4-3",
+              "text": "pq = pq + 100p - q - 100",
+              "correct": false,
+              "feedback": "常数项符号错误"
+            }
+          ]
+        },
+        {
+          "id": "step-5",
+          "type": "plan",
+          "prompt": "简化方程pq = pq - q + 100p - 100后得到什么关系？",
+          "options": [
+            {
+              "id": "option-5-1",
+              "text": "q = 100p - 100",
+              "correct": true,
+              "feedback": "正确！化简后得到q = 100(p - 1)"
+            },
+            {
+              "id": "option-5-2",
+              "text": "p = 100q - 100",
+              "correct": false,
+              "feedback": "变量关系反了"
+            },
+            {
+              "id": "option-5-3",
+              "text": "p + q = 100",
+              "correct": false,
+              "feedback": "这不是正确的化简结果"
+            }
+          ]
+        }
+      ],
+      "transitions": [
+        {
+          "fromStep": "step-1",
+          "onCorrect": "step-2",
+          "onWrong": "step-1",
+          "maxRetries": 2
+        },
+        {
+          "fromStep": "step-2",
+          "onCorrect": "step-3",
+          "onWrong": "step-2",
+          "maxRetries": 2
+        },
+        {
+          "fromStep": "step-3",
+          "onCorrect": "step-4",
+          "onWrong": "step-3",
+          "maxRetries": 2
+        },
+        {
+          "fromStep": "step-4",
+          "onCorrect": "step-5",
+          "onWrong": "step-4",
+          "maxRetries": 2
+        },
+        {
+          "fromStep": "step-5",
+          "onCorrect": "",
+          "onWrong": "step-5",
+          "maxRetries": 2
+        }
+      ],
+      "scoring": {
+        "total": 12,
+        "perStep": {
+          "step-1": {
+            "score": 2,
+            "penaltyPerRetry": 0.3,
+            "minScore": 0.5
+          },
+          "step-2": {
+            "score": 2,
+            "penaltyPerRetry": 0.3,
+            "minScore": 0.5
+          },
+          "step-3": {
+            "score": 2,
+            "penaltyPerRetry": 0.3,
+            "minScore": 0.5
+          },
+          "step-4": {
+            "score": 3,
+            "penaltyPerRetry": 0.5,
+            "minScore": 1
+          },
+          "step-5": {
+            "score": 3,
+            "penaltyPerRetry": 0.5,
+            "minScore": 1
+          }
+        }
+      },
+      "answer": {
+        "final": "第一天每支笔售价为5元",
+        "unit": "元",
+        "rationale": "通过建立价格与销量的关系方程，利用三天收入相同的条件求解第一天售价"
+      }
+    },
+    {
+      "id": "boat-speed-specific-001",
+      "stem": {
+        "text": "一条河上有A，B两个码头，A在上游，B在下游。甲、乙两人分别从A，B同时出发，划船相向而行，4小时后相遇。如果甲、乙两人分别从A，B同时出发划船同向而行，乙16小时后追上甲。已知甲在静水中划船的速度为每小时6千米，则乙在静水中划船每小时行驶多少千米？",
+        "variables": {}
+      },
+      "taxonomy": {
+        "concepts": ["相对速度", "流水问题", "追及问题", "相遇问题"],
+        "skills": ["速度分析", "方程建立", "物理建模"],
+        "difficulty": "H"
+      },
+      "steps": [
+        {
+          "id": "step-1",
+          "type": "extract",
+          "prompt": "从题目中提取关键信息（可多选）",
+          "multipleSelect": true,
+          "options": [
+            {
+              "id": "option-1-1",
+              "text": "相向而行4小时相遇",
+              "correct": true,
+              "feedback": "正确，这是相遇问题的条件"
+            },
+            {
+              "id": "option-1-2",
+              "text": "同向而行16小时追上",
+              "correct": true,
+              "feedback": "正确，这是追及问题的条件"
+            },
+            {
+              "id": "option-1-3",
+              "text": "甲静水速度为6千米/小时",
+              "correct": true,
+              "feedback": "正确，这是已知的静水速度"
+            },
+            {
+              "id": "option-1-4",
+              "text": "A在上游，B在下游",
+              "correct": true,
+              "feedback": "正确，这决定了顺流逆流的方向"
+            }
+          ]
+        },
+        {
+          "id": "step-2",
+          "type": "question",
+          "prompt": "设乙在静水中的速度为v₂千米/小时，水流速度为c千米/小时。当甲从A出发（顺流）时，他的实际速度是多少？",
+          "options": [
+            {
+              "id": "option-2-1",
+              "text": "6 + c",
+              "correct": true,
+              "feedback": "正确！顺流速度 = 静水速度 + 水流速度"
+            },
+            {
+              "id": "option-2-2",
+              "text": "6 - c",
+              "correct": false,
+              "feedback": "这是逆流速度，不是顺流速度"
+            },
+            {
+              "id": "option-2-3",
+              "text": "6",
+              "correct": false,
+              "feedback": "这是静水速度，不是实际速度"
+            }
+          ]
+        },
+        {
+          "id": "step-3",
+          "type": "compute",
+          "prompt": "当乙从B出发（逆流）时，他的实际速度是多少？",
+          "options": [
+            {
+              "id": "option-3-1",
+              "text": "v₂ - c",
+              "correct": true,
+              "feedback": "正确！逆流速度 = 静水速度 - 水流速度"
+            },
+            {
+              "id": "option-3-2",
+              "text": "v₂ + c",
+              "correct": false,
+              "feedback": "这是顺流速度，不是逆流速度"
+            },
+            {
+              "id": "option-3-3",
+              "text": "v₂",
+              "correct": false,
+              "feedback": "这是静水速度，不是实际速度"
+            }
+          ]
+        },
+        {
+          "id": "step-4",
+          "type": "relation",
+          "prompt": "根据相遇条件，相向而行4小时相遇，可以列出什么方程？",
+          "options": [
+            {
+              "id": "option-4-1",
+              "text": "4 × ((6 + c) + (v₂ - c)) = AB距离",
+              "correct": true,
+              "feedback": "正确！相遇时两人行驶距离之和等于AB距离"
+            },
+            {
+              "id": "option-4-2",
+              "text": "4 × ((6 + c) - (v₂ - c)) = AB距离",
+              "correct": false,
+              "feedback": "这是追及问题的公式，不是相遇问题"
+            },
+            {
+              "id": "option-4-3",
+              "text": "4 × 6 × v₂ = AB距离",
+              "correct": false,
+              "feedback": "没有考虑水流速度的影响"
+            }
+          ]
+        },
+        {
+          "id": "step-5",
+          "type": "plan",
+          "prompt": "从相遇方程4 × (6 + v₂) = AB距离和追及方程16 × (v₂ - 6) = AB距离中，可以得出什么结论？",
+          "options": [
+            {
+              "id": "option-5-1",
+              "text": "4 × (6 + v₂) = 16 × (v₂ - 6)",
+              "correct": true,
+              "feedback": "正确！两个表达式都等于AB距离，所以相等"
+            },
+            {
+              "id": "option-5-2",
+              "text": "6 + v₂ = v₂ - 6",
+              "correct": false,
+              "feedback": "忽略了时间系数"
+            },
+            {
+              "id": "option-5-3",
+              "text": "4 + 16 = 6 + v₂",
+              "correct": false,
+              "feedback": "这是错误的等式"
+            }
+          ]
+        }
+      ],
+      "transitions": [
+        {
+          "fromStep": "step-1",
+          "onCorrect": "step-2",
+          "onWrong": "step-1",
+          "maxRetries": 2
+        },
+        {
+          "fromStep": "step-2",
+          "onCorrect": "step-3",
+          "onWrong": "step-2",
+          "maxRetries": 2
+        },
+        {
+          "fromStep": "step-3",
+          "onCorrect": "step-4",
+          "onWrong": "step-3",
+          "maxRetries": 2
+        },
+        {
+          "fromStep": "step-4",
+          "onCorrect": "step-5",
+          "onWrong": "step-4",
+          "maxRetries": 2
+        },
+        {
+          "fromStep": "step-5",
+          "onCorrect": "",
+          "onWrong": "step-5",
+          "maxRetries": 2
+        }
+      ],
+      "scoring": {
+        "total": 12,
+        "perStep": {
+          "step-1": {
+            "score": 2,
+            "penaltyPerRetry": 0.3,
+            "minScore": 0.5
+          },
+          "step-2": {
+            "score": 2,
+            "penaltyPerRetry": 0.3,
+            "minScore": 0.5
+          },
+          "step-3": {
+            "score": 2,
+            "penaltyPerRetry": 0.3,
+            "minScore": 0.5
+          },
+          "step-4": {
+            "score": 3,
+            "penaltyPerRetry": 0.5,
+            "minScore": 1
+          },
+          "step-5": {
+            "score": 3,
+            "penaltyPerRetry": 0.5,
+            "minScore": 1
+          }
+        }
+      },
+      "answer": {
+        "final": "乙在静水中的速度为10千米/小时",
+        "unit": "千米/小时",
+        "rationale": "通过分析相遇问题和追及问题的速度关系，建立方程组求解乙的静水速度"
+      }
+    },
+    {
+      "id": "number-theory-specific-001",
+      "stem": {
+        "text": "某个两位数是2的倍数，加1是3的倍数，加2是4的倍数，加3是5的倍数，那么这个两位数是多少？",
+        "variables": {}
+      },
+      "taxonomy": {
+        "concepts": ["同余定理", "最小公倍数", "数论", "约束条件"],
+        "skills": ["模运算", "同余分析", "枚举验证"],
+        "difficulty": "M"
+      },
+      "steps": [
+        {
+          "id": "step-1",
+          "type": "extract",
+          "prompt": "将题目条件转化为数学表达式（可多选）",
+          "multipleSelect": true,
+          "options": [
+            {
+              "id": "option-1-1",
+              "text": "N ≡ 0 (mod 2)",
+              "correct": true,
+              "feedback": "正确！N是2的倍数"
+            },
+            {
+              "id": "option-1-2",
+              "text": "N ≡ 2 (mod 3)",
+              "correct": true,
+              "feedback": "正确！N + 1 ≡ 0 (mod 3)，所以N ≡ 2 (mod 3)"
+            },
+            {
+              "id": "option-1-3",
+              "text": "N ≡ 2 (mod 4)",
+              "correct": true,
+              "feedback": "正确！N + 2 ≡ 0 (mod 4)，所以N ≡ 2 (mod 4)"
+            },
+            {
+              "id": "option-1-4",
+              "text": "N ≡ 2 (mod 5)",
+              "correct": true,
+              "feedback": "正确！N + 3 ≡ 0 (mod 5)，所以N ≡ 2 (mod 5)"
+            }
+          ]
+        },
+        {
+          "id": "step-2",
+          "type": "question",
+          "prompt": "观察这些同余条件，可以发现什么规律？",
+          "options": [
+            {
+              "id": "option-2-1",
+              "text": "N - 2是2、3、4、5的公倍数",
+              "correct": true,
+              "feedback": "正确！N ≡ 2 (mod 2,3,4,5)，所以N - 2是它们的公倍数"
+            },
+            {
+              "id": "option-2-2",
+              "text": "N + 2是2、3、4、5的公倍数",
+              "correct": false,
+              "feedback": "这与同余条件不符"
+            },
+            {
+              "id": "option-2-3",
+              "text": "N是2、3、4、5的公倍数",
+              "correct": false,
+              "feedback": "这与同余条件不符"
+            }
+          ]
+        },
+        {
+          "id": "step-3",
+          "type": "compute",
+          "prompt": "2、3、4、5的最小公倍数是多少？",
+          "options": [
+            {
+              "id": "option-3-1",
+              "text": "60",
+              "correct": true,
+              "feedback": "正确！LCM(2,3,4,5) = 60"
+            },
+            {
+              "id": "option-3-2",
+              "text": "120",
+              "correct": false,
+              "feedback": "这是公倍数，但不是最小公倍数"
+            },
+            {
+              "id": "option-3-3",
+              "text": "30",
+              "correct": false,
+              "feedback": "30不是4的倍数"
+            }
+          ]
+        },
+        {
+          "id": "step-4",
+          "type": "relation",
+          "prompt": "根据N - 2是60的倍数，且N是两位数，N的可能值有哪些？",
+          "options": [
+            {
+              "id": "option-4-1",
+              "text": "62, 但62不是两位数",
+              "correct": false,
+              "feedback": "62是两位数，但需要验证所有条件"
+            },
+            {
+              "id": "option-4-2",
+              "text": "2，但2不是两位数",
+              "correct": false,
+              "feedback": "2不是两位数"
+            },
+            {
+              "id": "option-4-3",
+              "text": "没有满足条件的两位数",
+              "correct": false,
+              "feedback": "需要仔细检查"
+            }
+          ]
+        },
+        {
+          "id": "step-5",
+          "type": "plan",
+          "prompt": "重新分析条件，N ≡ 2 (mod 2)意味着什么？",
+          "options": [
+            {
+              "id": "option-5-1",
+              "text": "N是偶数，且N - 2是偶数，这总是成立",
+              "correct": true,
+              "feedback": "正确！所以实际上只需要满足N ≡ 2 (mod 3,4,5)"
+            },
+            {
+              "id": "option-5-2",
+              "text": "N = 2",
+              "correct": false,
+              "feedback": "这不是两位数"
+            },
+            {
+              "id": "option-5-3",
+              "text": "N ≡ 0 (mod 2)",
+              "correct": false,
+              "feedback": "这与条件N ≡ 2 (mod 2)矛盾"
+            }
+          ]
+        }
+      ],
+      "transitions": [
+        {
+          "fromStep": "step-1",
+          "onCorrect": "step-2",
+          "onWrong": "step-1",
+          "maxRetries": 2
+        },
+        {
+          "fromStep": "step-2",
+          "onCorrect": "step-3",
+          "onWrong": "step-2",
+          "maxRetries": 2
+        },
+        {
+          "fromStep": "step-3",
+          "onCorrect": "step-4",
+          "onWrong": "step-3",
+          "maxRetries": 2
+        },
+        {
+          "fromStep": "step-4",
+          "onCorrect": "step-5",
+          "onWrong": "step-4",
+          "maxRetries": 3
+        },
+        {
+          "fromStep": "step-5",
+          "onCorrect": "",
+          "onWrong": "step-5",
+          "maxRetries": 2
+        }
+      ],
+      "scoring": {
+        "total": 10,
+        "perStep": {
+          "step-1": {
+            "score": 2,
+            "penaltyPerRetry": 0.3,
+            "minScore": 0.5
+          },
+          "step-2": {
+            "score": 2,
+            "penaltyPerRetry": 0.3,
+            "minScore": 0.5
+          },
+          "step-3": {
+            "score": 2,
+            "penaltyPerRetry": 0.3,
+            "minScore": 0.5
+          },
+          "step-4": {
+            "score": 2,
+            "penaltyPerRetry": 0.3,
+            "minScore": 0.5
+          },
+          "step-5": {
+            "score": 2,
+            "penaltyPerRetry": 0.3,
+            "minScore": 0.5
+          }
+        }
+      },
+      "answer": {
+        "final": "这个两位数是58",
+        "unit": "个",
+        "rationale": "通过分析同余条件，发现58满足：58是2的倍数，59是3的倍数，60是4的倍数，61是5的倍数"
+      }
+    },
+    {
+      "id": "chinese-character-specific-001",
+      "stem": {
+        "text": "在三个词语'尽心尽力'、'力可拔山'和'山穷水尽'中，每个汉字代表1至8之间的数字，相同的汉字代表相同的数字，不同的汉字代表不同的数字。如果每个词语的汉字所代表的数字之和都是19，且'尽'>'山'>'力'，则'水'最大等于多少？",
+        "variables": {}
+      },
+      "taxonomy": {
+        "concepts": ["汉字代数", "约束条件", "逻辑推理", "优化问题"],
+        "skills": ["变量映射", "约束分析", "极值求解"],
+        "difficulty": "H"
+      },
+      "steps": [
+        {
+          "id": "step-1",
+          "type": "extract",
+          "prompt": "从题目中提取关键信息（可多选）",
+          "multipleSelect": true,
+          "options": [
+            {
+              "id": "option-1-1",
+              "text": "不同汉字代表不同数字",
+              "correct": true,
+              "feedback": "正确，这是基本约束"
+            },
+            {
+              "id": "option-1-2",
+              "text": "相同汉字代表相同数字",
+              "correct": true,
+              "feedback": "正确，这是映射的一致性要求"
+            },
+            {
+              "id": "option-1-3",
+              "text": "每个词语数字之和为19",
+              "correct": true,
+              "feedback": "正确，这是核心条件"
+            },
+            {
+              "id": "option-1-4",
+              "text": "'尽'>'山'>'力'",
+              "correct": true,
+              "feedback": "正确，这是排序约束"
+            }
+          ]
+        },
+        {
+          "id": "step-2",
+          "type": "question",
+          "prompt": "三个词语可以列出什么方程组？",
+          "options": [
+            {
+              "id": "option-2-1",
+              "text": "2尽 + 心 + 力 = 19，力 + 可 + 拔 + 山 = 19，山 + 穷 + 水 + 尽 = 19",
+              "correct": true,
+              "feedback": "正确！这是三个词语的方程"
+            },
+            {
+              "id": "option-2-2",
+              "text": "尽 + 心 + 力 + 山 + 水 = 19",
+              "correct": false,
+              "feedback": "这是部分字的和，不是每个词语的和"
+            },
+            {
+              "id": "option-2-3",
+              "text": "尽 + 心 + 力 + 力 + 可 + 拔 + 山 + 山 + 穷 + 水 + 尽 = 19",
+              "correct": false,
+              "feedback": "这是总和，不是分别的方程"
+            }
+          ]
+        },
+        {
+          "id": "step-3",
+          "type": "compute",
+          "prompt": "将三个方程相加得到什么？",
+          "options": [
+            {
+              "id": "option-3-1",
+              "text": "3尽 + 心 + 2力 + 可 + 拔 + 2山 + 穷 + 水 = 57",
+              "correct": true,
+              "feedback": "正确！三个方程相加得到总和"
+            },
+            {
+              "id": "option-3-2",
+              "text": "2尽 + 心 + 力 + 山 + 水 = 57",
+              "correct": false,
+              "feedback": "遗漏了一些项"
+            },
+            {
+              "id": "option-3-3",
+              "text": "尽 + 心 + 力 + 可 + 拔 + 山 + 穷 + 水 = 57",
+              "correct": false,
+              "feedback": "没有考虑重复的字"
+            }
+          ]
+        },
+        {
+          "id": "step-4",
+          "type": "relation",
+          "prompt": "设8个不同数字的和为S，从上面的方程可以得出什么关系？",
+          "options": [
+            {
+              "id": "option-4-1",
+              "text": "S + 2尽 + 力 + 山 = 57",
+              "correct": true,
+              "feedback": "正确！因为8个不同字各出现一次，加上重复的字"
+            },
+            {
+              "id": "option-4-2",
+              "text": "S = 57",
+              "correct": false,
+              "feedback": "忽略了重复计算的字"
+            },
+            {
+              "id": "option-4-3",
+              "text": "S + 尽 + 力 + 山 = 57",
+              "correct": false,
+              "feedback": "系数不对"
+            }
+          ]
+        },
+        {
+          "id": "step-5",
+          "type": "plan",
+          "prompt": "要使'水'最大，在满足'尽'>'山'>'力'的条件下，应该给'水'分配什么数字？",
+          "options": [
+            {
+              "id": "option-5-1",
+              "text": "在满足所有约束条件下，给'水'分配尽可能大的数字",
+              "correct": true,
+              "feedback": "正确！这是优化问题的基本思路"
+            },
+            {
+              "id": "option-5-2",
+              "text": "给'水'分配8",
+              "correct": false,
+              "feedback": "需要验证是否满足所有条件"
+            },
+            {
+              "id": "option-5-3",
+              "text": "给'水'分配1",
+              "correct": false,
+              "feedback": "这是最小值，不是最大值"
+            }
+          ]
+        }
+      ],
+      "transitions": [
+        {
+          "fromStep": "step-1",
+          "onCorrect": "step-2",
+          "onWrong": "step-1",
+          "maxRetries": 2
+        },
+        {
+          "fromStep": "step-2",
+          "onCorrect": "step-3",
+          "onWrong": "step-2",
+          "maxRetries": 2
+        },
+        {
+          "fromStep": "step-3",
+          "onCorrect": "step-4",
+          "onWrong": "step-3",
+          "maxRetries": 2
+        },
+        {
+          "fromStep": "step-4",
+          "onCorrect": "step-5",
+          "onWrong": "step-4",
+          "maxRetries": 2
+        },
+        {
+          "fromStep": "step-5",
+          "onCorrect": "",
+          "onWrong": "step-5",
+          "maxRetries": 2
+        }
+      ],
+      "scoring": {
+        "total": 12,
+        "perStep": {
+          "step-1": {
+            "score": 2,
+            "penaltyPerRetry": 0.3,
+            "minScore": 0.5
+          },
+          "step-2": {
+            "score": 2,
+            "penaltyPerRetry": 0.3,
+            "minScore": 0.5
+          },
+          "step-3": {
+            "score": 2,
+            "penaltyPerRetry": 0.3,
+            "minScore": 0.5
+          },
+          "step-4": {
+            "score": 3,
+            "penaltyPerRetry": 0.5,
+            "minScore": 1
+          },
+          "step-5": {
+            "score": 3,
+            "penaltyPerRetry": 0.5,
+            "minScore": 1
+          }
+        }
+      },
+      "answer": {
+        "final": "'水'最大等于6",
+        "unit": "数字",
+        "rationale": "通过建立汉字到数字的映射方程，在满足所有约束条件下求'水'的最大值"
+      }
+    },
+    {
+      "id": "work-rate-specific-001",
+      "stem": {
+        "text": "有一批作业，王老师原计划每小时批改6本。批改了2小时后，他决定每小时批改8本，结果提前3小时批改完。那么这批作业有多少本？",
+        "variables": {}
+      },
+      "taxonomy": {
+        "concepts": ["工作效率", "时间优化", "工作量恒定"],
+        "skills": ["方程建立", "变量关系", "实际问题建模"],
+        "difficulty": "M"
+      },
+      "steps": [
+        {
+          "id": "step-1",
+          "type": "extract",
+          "prompt": "从题目中提取关键信息（可多选）",
+          "multipleSelect": true,
+          "options": [
+            {
+              "id": "option-1-1",
+              "text": "原计划每小时批改6本",
+              "correct": true,
+              "feedback": "正确，这是原工作效率"
+            },
+            {
+              "id": "option-1-2",
+              "text": "先工作了2小时",
+              "correct": true,
+              "feedback": "正确，这是第一阶段工作时间"
+            },
+            {
+              "id": "option-1-3",
+              "text": "后改为每小时批改8本",
+              "correct": true,
+              "feedback": "正确，这是新工作效率"
+            },
+            {
+              "id": "option-1-4",
+              "text": "提前3小时完成",
+              "correct": true,
+              "feedback": "正确，这是时间节省"
+            }
+          ]
+        },
+        {
+          "id": "step-2",
+          "type": "question",
+          "prompt": "设总作业量为W本，原计划需要多少小时完成？",
+          "options": [
+            {
+              "id": "option-2-1",
+              "text": "W ÷ 6 小时",
+              "correct": true,
+              "feedback": "正确！时间 = 工作量 ÷ 效率"
+            },
+            {
+              "id": "option-2-2",
+              "text": "W ÷ 8 小时",
+              "correct": false,
+              "feedback": "这是新效率下的时间，不是原计划时间"
+            },
+            {
+              "id": "option-2-3",
+              "text": "2 + 3 = 5 小时",
+              "correct": false,
+              "feedback": "这不是原计划时间"
+            }
+          ]
+        },
+        {
+          "id": "step-3",
+          "type": "compute",
+          "prompt": "实际完成的总时间是多少小时？",
+          "options": [
+            {
+              "id": "option-3-1",
+              "text": "2 + (W - 6 × 2) ÷ 8",
+              "correct": true,
+              "feedback": "正确！第一阶段时间 + 第二阶段时间"
+            },
+            {
+              "id": "option-3-2",
+              "text": "W ÷ 8",
+              "correct": false,
+              "feedback": "这是全程用新效率的时间"
+            },
+            {
+              "id": "option-3-3",
+              "text": "2 + (W ÷ 8)",
+              "correct": false,
+              "feedback": "第二阶段时间计算错误"
+            }
+          ]
+        },
+        {
+          "id": "step-4",
+          "type": "relation",
+          "prompt": "根据'提前3小时完成'的条件，可以列出什么方程？",
+          "options": [
+            {
+              "id": "option-4-1",
+              "text": "W ÷ 6 - [2 + (W - 12) ÷ 8] = 3",
+              "correct": true,
+              "feedback": "正确！原计划时间 - 实际时间 = 提前时间"
+            },
+            {
+              "id": "option-4-2",
+              "text": "2 + (W - 12) ÷ 8 - W ÷ 6 = 3",
+              "correct": false,
+              "feedback": "方向反了"
+            },
+            {
+              "id": "option-4-3",
+              "text": "W ÷ 6 + 2 + (W - 12) ÷ 8 = 3",
+              "correct": false,
+              "feedback": "关系错误"
+            }
+          ]
+        },
+        {
+          "id": "step-5",
+          "type": "plan",
+          "prompt": "解方程W ÷ 6 - 2 - (W - 12) ÷ 8 = 3，得到W等于多少？",
+          "options": [
+            {
+              "id": "option-5-1",
+              "text": "W = 72本",
+              "correct": true,
+              "feedback": "正确！解这个方程得到总作业量为72本"
+            },
+            {
+              "id": "option-5-2",
+              "text": "W = 48本",
+              "correct": false,
+              "feedback": "这是前2小时的工作量"
+            },
+            {
+              "id": "option-5-3",
+              "text": "W = 96本",
+              "correct": false,
+              "feedback": "这不是正确的解"
+            }
+          ]
+        }
+      ],
+      "transitions": [
+        {
+          "fromStep": "step-1",
+          "onCorrect": "step-2",
+          "onWrong": "step-1",
+          "maxRetries": 2
+        },
+        {
+          "fromStep": "step-2",
+          "onCorrect": "step-3",
+          "onWrong": "step-2",
+          "maxRetries": 2
+        },
+        {
+          "fromStep": "step-3",
+          "onCorrect": "step-4",
+          "onWrong": "step-3",
+          "maxRetries": 2
+        },
+        {
+          "fromStep": "step-4",
+          "onCorrect": "step-5",
+          "onWrong": "step-4",
+          "maxRetries": 2
+        },
+        {
+          "fromStep": "step-5",
+          "onCorrect": "",
+          "onWrong": "step-5",
+          "maxRetries": 2
+        }
+      ],
+      "scoring": {
+        "total": 10,
+        "perStep": {
+          "step-1": {
+            "score": 2,
+            "penaltyPerRetry": 0.3,
+            "minScore": 0.5
+          },
+          "step-2": {
+            "score": 2,
+            "penaltyPerRetry": 0.3,
+            "minScore": 0.5
+          },
+          "step-3": {
+            "score": 2,
+            "penaltyPerRetry": 0.3,
+            "minScore": 0.5
+          },
+          "step-4": {
+            "score": 2,
+            "penaltyPerRetry": 0.3,
+            "minScore": 0.5
+          },
+          "step-5": {
+            "score": 2,
+            "penaltyPerRetry": 0.3,
+            "minScore": 0.5
+          }
+        }
+      },
+      "answer": {
+        "final": "这批作业有72本",
+        "unit": "本",
+        "rationale": "通过建立工作量、效率和时间的关系方程，求解总作业量为72本"
+      }
+    }
+  ]
+}

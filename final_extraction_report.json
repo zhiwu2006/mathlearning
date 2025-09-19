@@ -1,0 +1,190 @@
+{
+  "extraction_summary": {
+    "methods_tested": [
+      "Original OCR",
+      "Enhanced OCR",
+      "Existing Clean",
+      "Targeted OCR"
+    ],
+    "total_methods": 4,
+    "pdf_files_processed": [
+      "第二十二届华罗庚金杯少年数学邀请赛 决赛试题参考答案 （小学中年级组）.pdf",
+      "一本数学思维训练四年级.pdf",
+      "学霸提优大试卷四年级上册数学人教版.pdf"
+    ],
+    "extraction_methods_used": [
+      "Standard PDF text extraction",
+      "OCR with PyMuPDF and Tesseract",
+      "Enhanced formatting and cleaning",
+      "Comprehensive processing pipeline"
+    ]
+  },
+  "method_comparisons": {
+    "Original OCR": {
+      "method": "Original OCR",
+      "count": 34,
+      "avg_stem_length": 94.52941176470588,
+      "with_answers": 0,
+      "with_analysis": 0,
+      "difficulty_dist": {
+        "easy": 26,
+        "hard": 5,
+        "medium": 3
+      },
+      "taxonomy_dist": {
+        "math": 34
+      },
+      "knowledge_points": [
+        "几何图形",
+        "基础运算",
+        "时间计算"
+      ]
+    },
+    "Enhanced OCR": {
+      "method": "Enhanced OCR",
+      "count": 37,
+      "avg_stem_length": 132.64864864864865,
+      "with_answers": 0,
+      "with_analysis": 0,
+      "difficulty_dist": {
+        "easy": 20,
+        "hard": 15,
+        "medium": 2
+      },
+      "taxonomy_dist": {
+        "数学应用题": 29,
+        "计算题": 6,
+        "填空题": 1,
+        "选择题": 1
+      },
+      "knowledge_points": [
+        "乘除运算",
+        "计算工具使用",
+        "时间问题",
+        "数学思维训练",
+        "加减运算",
+        "几何图形",
+        "规律探索",
+        "计量单位"
+      ]
+    },
+    "Existing Clean": {
+      "method": "Existing Clean",
+      "count": 65,
+      "avg_stem_length": 46.92307692307692,
+      "with_answers": 65,
+      "with_analysis": 65,
+      "difficulty_dist": {
+        "medium": 24,
+        "easy": 39,
+        "hard": 2
+      },
+      "taxonomy_dist": {
+        "math": 65
+      },
+      "knowledge_points": [
+        "面积计算",
+        "统计图表",
+        "基础运算",
+        "加法运算",
+        "除法运算",
+        "乘法运算"
+      ]
+    },
+    "Targeted OCR": {
+      "method": "Targeted OCR",
+      "count": 93,
+      "avg_stem_length": 85.6989247311828,
+      "with_answers": 0,
+      "with_analysis": 0,
+      "difficulty_dist": {
+        "hard": 14,
+        "easy": 54,
+        "medium": 25
+      },
+      "taxonomy_dist": {
+        "math": 93
+      },
+      "knowledge_points": [
+        "面积计算",
+        "统计图表",
+        "基础运算",
+        "加法运算",
+        "除法运算",
+        "乘法运算"
+      ]
+    }
+  },
+  "quality_assessment": {
+    "best_method": "Targeted OCR",
+    "best_method_stats": {
+      "method": "Targeted OCR",
+      "count": 93,
+      "avg_stem_length": 85.6989247311828,
+      "with_answers": 0,
+      "with_analysis": 0,
+      "difficulty_dist": {
+        "hard": 14,
+        "easy": 54,
+        "medium": 25
+      },
+      "taxonomy_dist": {
+        "math": 93
+      },
+      "knowledge_points": [
+        "面积计算",
+        "统计图表",
+        "基础运算",
+        "加法运算",
+        "除法运算",
+        "乘法运算"
+      ]
+    },
+    "best_content_quality": "Enhanced OCR",
+    "best_content_stats": {
+      "method": "Enhanced OCR",
+      "count": 37,
+      "avg_stem_length": 132.64864864864865,
+      "with_answers": 0,
+      "with_analysis": 0,
+      "difficulty_dist": {
+        "easy": 20,
+        "hard": 15,
+        "medium": 2
+      },
+      "taxonomy_dist": {
+        "数学应用题": 29,
+        "计算题": 6,
+        "填空题": 1,
+        "选择题": 1
+      },
+      "knowledge_points": [
+        "乘除运算",
+        "计算工具使用",
+        "时间问题",
+        "数学思维训练",
+        "加减运算",
+        "几何图形",
+        "规律探索",
+        "计量单位"
+      ]
+    }
+  },
+  "recommendations": {
+    "for_scanned_pdfs": "Use OCR with PyMuPDF and Tesseract for Chinese math content",
+    "for_text_pdfs": "Use standard text extraction with enhanced formatting",
+    "best_approach": "Combined approach with automatic detection of PDF type",
+    "quality_improvements": [
+      "Enhanced OCR preprocessing for better Chinese character recognition",
+      "Advanced formatting to match system structure",
+      "Better knowledge point categorization",
+      "Improved difficulty assessment based on content complexity"
+    ],
+    "future_improvements": [
+      "Integration with markitdown MCP for markdown conversion",
+      "Better OCR post-processing to fix common recognition errors",
+      "Automated duplicate detection and merging",
+      "Enhanced knowledge point extraction using NLP"
+    ]
+  }
+}

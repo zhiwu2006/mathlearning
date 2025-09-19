@@ -1,0 +1,2278 @@
+[
+  {
+    "id": "一本数学思维训练四年级_6_1",
+    "source": "/Users/tywg001/Downloads/mathlearning/aoshu/一本数学思维训练四年级.pdf (Page 6)",
+    "stem": "转化思维 类型 1 加法中的多位数计算和类型 2 乘除法中的多位数计算类型 3 混合运算中的多位数计算:第 4 周 相遇问题与追及问题 整体思维 类型 1 相遇问题.2 W 3 往返多次的相遇问题.YE on srrnsnnasnsnsrannanonsss (2 第 5 周 PUIG 类型 1 WET EUE E trr 第 6 周 容扩原理进阶 , E 米型 1 三量容斥问题求总量类型 2 三量容斥问题求部分:第 7 周 平面图形计数进阶 :",
+    "taxonomy": "math",
+    "steps": [
+      "理解题目要求",
+      "确定运算顺序",
+      "进行计算",
+      "检查结果"
+    ],
+    "transitions": [
+      "首先，我们需要仔细阅读题目，理解题目的要求。",
+      "接下来，根据题目特点选择合适的解题方法。",
+      "然后，按照步骤进行计算或推理。",
+      "最后，检查答案是否合理和正确。"
+    ],
+    "scoring": {
+      "total": 5,
+      "steps": [
+        1,
+        1,
+        2,
+        1
+      ]
+    },
+    "answer": "需要根据具体计算得出",
+    "analysis": "本题考查了基本的数学运算能力，需要仔细理解题目要求。",
+    "knowledgePoints": [
+      "加法运算",
+      "除法运算"
+    ],
+    "difficulty": "medium",
+    "type": "calculation",
+    "gradeLevel": "4"
+  },
+  {
+    "id": "一本数学思维训练四年级_11_1",
+    "source": "/Users/tywg001/Downloads/mathlearning/aoshu/一本数学思维训练四年级.pdf (Page 11)",
+    "stem": "图解思路: 第一步: 分析数列类型",
+    "taxonomy": "math",
+    "steps": [
+      "分析题目",
+      "确定解题思路",
+      "进行解答",
+      "验证结果"
+    ],
+    "transitions": [
+      "首先，我们需要仔细阅读题目，理解题目的要求。",
+      "接下来，根据题目特点选择合适的解题方法。",
+      "然后，按照步骤进行计算或推理。",
+      "最后，检查答案是否合理和正确。"
+    ],
+    "scoring": {
+      "total": 5,
+      "steps": [
+        1,
+        1,
+        2,
+        1
+      ]
+    },
+    "answer": "需要根据具体计算得出",
+    "analysis": "这类题目有助于培养学生的逻辑思维和计算能力。",
+    "knowledgePoints": [
+      "基础运算"
+    ],
+    "difficulty": "easy",
+    "type": "calculation",
+    "gradeLevel": "4"
+  },
+  {
+    "id": "一本数学思维训练四年级_26_1",
+    "source": "/Users/tywg001/Downloads/mathlearning/aoshu/一本数学思维训练四年级.pdf (Page 26)",
+    "stem": ") 82 折思维 o 视频计题 计算: (1)=x ( ) (2)X =( ) (3)X Qa vk afw , (4)at 计算,二",
+    "taxonomy": "math",
+    "steps": [
+      "理解题目要求",
+      "确定运算顺序",
+      "进行计算",
+      "检查结果"
+    ],
+    "transitions": [
+      "首先，我们需要仔细阅读题目，理解题目的要求。",
+      "接下来，根据题目特点选择合适的解题方法。",
+      "然后，按照步骤进行计算或推理。",
+      "最后，检查答案是否合理和正确。"
+    ],
+    "scoring": {
+      "total": 5,
+      "steps": [
+        1,
+        1,
+        2,
+        1
+      ]
+    },
+    "answer": "需要根据具体计算得出",
+    "analysis": "本题考查了基本的数学运算能力，需要仔细理解题目要求。",
+    "knowledgePoints": [
+      "基础运算"
+    ],
+    "difficulty": "medium",
+    "type": "calculation",
+    "gradeLevel": "4"
+  },
+  {
+    "id": "一本数学思维训练四年级_31_1",
+    "source": "/Users/tywg001/Downloads/mathlearning/aoshu/一本数学思维训练四年级.pdf (Page 31)",
+    "stem": "判断问题类型时,是中有相向而行 这一描述的，一般属 于相遇问题",
+    "taxonomy": "math",
+    "steps": [
+      "分析题目",
+      "确定解题思路",
+      "进行解答",
+      "验证结果"
+    ],
+    "transitions": [
+      "首先，我们需要仔细阅读题目，理解题目的要求。",
+      "接下来，根据题目特点选择合适的解题方法。",
+      "然后，按照步骤进行计算或推理。",
+      "最后，检查答案是否合理和正确。"
+    ],
+    "scoring": {
+      "total": 5,
+      "steps": [
+        1,
+        1,
+        2,
+        1
+      ]
+    },
+    "answer": "需要根据具体计算得出",
+    "analysis": "这类题目有助于培养学生的逻辑思维和计算能力。",
+    "knowledgePoints": [
+      "基础运算"
+    ],
+    "difficulty": "easy",
+    "type": "true_false",
+    "gradeLevel": "4"
+  },
+  {
+    "id": "一本数学思维训练四年级_41_2",
+    "source": "/Users/tywg001/Downloads/mathlearning/aoshu/一本数学思维训练四年级.pdf (Page 41)",
+    "stem": "加法原理: 明确完蕊一件事情需要分几类，每一类相互独 立， 利用加法原理，把每一类的方法数相加",
+    "taxonomy": "math",
+    "steps": [
+      "分析题目",
+      "确定解题思路",
+      "进行解答",
+      "验证结果"
+    ],
+    "transitions": [
+      "首先，我们需要仔细阅读题目，理解题目的要求。",
+      "接下来，根据题目特点选择合适的解题方法。",
+      "然后，按照步骤进行计算或推理。",
+      "最后，检查答案是否合理和正确。"
+    ],
+    "scoring": {
+      "total": 5,
+      "steps": [
+        1,
+        1,
+        2,
+        1
+      ]
+    },
+    "answer": "需要根据具体计算得出",
+    "analysis": "这类题目有助于培养学生的逻辑思维和计算能力。",
+    "knowledgePoints": [
+      "加法运算"
+    ],
+    "difficulty": "easy",
+    "type": "calculation",
+    "gradeLevel": "4"
+  },
+  {
+    "id": "一本数学思维训练四年级_41_3",
+    "source": "/Users/tywg001/Downloads/mathlearning/aoshu/一本数学思维训练四年级.pdf (Page 41)",
+    "stem": "较复杂的计数问题中，有时需要我们先分类，菊后在每一类 中分步计数，需要锋售使用加法原理和磁法原理",
+    "taxonomy": "math",
+    "steps": [
+      "分析题目",
+      "确定解题思路",
+      "进行解答",
+      "验证结果"
+    ],
+    "transitions": [
+      "首先，我们需要仔细阅读题目，理解题目的要求。",
+      "接下来，根据题目特点选择合适的解题方法。",
+      "然后，按照步骤进行计算或推理。",
+      "最后，检查答案是否合理和正确。"
+    ],
+    "scoring": {
+      "total": 5,
+      "steps": [
+        1,
+        1,
+        2,
+        1
+      ]
+    },
+    "answer": "需要根据具体计算得出",
+    "analysis": "这类题目有助于培养学生的逻辑思维和计算能力。",
+    "knowledgePoints": [
+      "加法运算"
+    ],
+    "difficulty": "easy",
+    "type": "calculation",
+    "gradeLevel": "4"
+  },
+  {
+    "id": "学霸提优大试卷四年级上册数学人教版_6_2",
+    "source": "/Users/tywg001/Downloads/mathlearning/aoshu/学霸提优大试卷四年级上册数学人教版.pdf (Page 6)",
+    "stem": "一个八位数,如果在它前面添上一个 3,得到的数是原 数约是( )万",
+    "taxonomy": "math",
+    "steps": [
+      "分析题目",
+      "确定解题思路",
+      "进行解答",
+      "验证结果"
+    ],
+    "transitions": [
+      "首先，我们需要仔细阅读题目，理解题目的要求。",
+      "接下来，根据题目特点选择合适的解题方法。",
+      "然后，按照步骤进行计算或推理。",
+      "最后，检查答案是否合理和正确。"
+    ],
+    "scoring": {
+      "total": 5,
+      "steps": [
+        1,
+        1,
+        2,
+        1
+      ]
+    },
+    "answer": "需要根据具体计算得出",
+    "analysis": "这类题目有助于培养学生的逻辑思维和计算能力。",
+    "knowledgePoints": [
+      "基础运算"
+    ],
+    "difficulty": "easy",
+    "type": "calculation",
+    "gradeLevel": "4"
+  },
+  {
+    "id": "学霸提优大试卷四年级上册数学人教版_7_1",
+    "source": "/Users/tywg001/Downloads/mathlearning/aoshu/学霸提优大试卷四年级上册数学人教版.pdf (Page 7)",
+    "stem": "8和四个02按要求组成一个八位数， 金纪念币面额为 10 元,发行数量 枚",
+    "taxonomy": "math",
+    "steps": [
+      "分析题目",
+      "确定解题思路",
+      "进行解答",
+      "验证结果"
+    ],
+    "transitions": [
+      "首先，我们需要仔细阅读题目，理解题目的要求。",
+      "接下来，根据题目特点选择合适的解题方法。",
+      "然后，按照步骤进行计算或推理。",
+      "最后，检查答案是否合理和正确。"
+    ],
+    "scoring": {
+      "total": 5,
+      "steps": [
+        1,
+        1,
+        2,
+        1
+      ]
+    },
+    "answer": "需要根据具体计算得出",
+    "analysis": "这类题目有助于培养学生的逻辑思维和计算能力。",
+    "knowledgePoints": [
+      "基础运算"
+    ],
+    "difficulty": "easy",
+    "type": "calculation",
+    "gradeLevel": "4"
+  },
+  {
+    "id": "学霸提优大试卷四年级上册数学人教版_7_2",
+    "source": "/Users/tywg001/Downloads/mathlearning/aoshu/学霸提优大试卷四年级上册数学人教版.pdf (Page 7)",
+    "stem": "E E r E HE ait T K HL Y CE ,请你用",
+    "taxonomy": "math",
+    "steps": [
+      "分析题目",
+      "确定解题思路",
+      "进行解答",
+      "验证结果"
+    ],
+    "transitions": [
+      "首先，我们需要仔细阅读题目，理解题目的要求。",
+      "接下来，根据题目特点选择合适的解题方法。",
+      "然后，按照步骤进行计算或推理。",
+      "最后，检查答案是否合理和正确。"
+    ],
+    "scoring": {
+      "total": 5,
+      "steps": [
+        1,
+        1,
+        2,
+        1
+      ]
+    },
+    "answer": "需要根据具体计算得出",
+    "analysis": "这类题目有助于培养学生的逻辑思维和计算能力。",
+    "knowledgePoints": [
+      "基础运算"
+    ],
+    "difficulty": "easy",
+    "type": "calculation",
+    "gradeLevel": "4"
+  },
+  {
+    "id": "学霸提优大试卷四年级上册数学人教版_7_3",
+    "source": "/Users/tywg001/Downloads/mathlearning/aoshu/学霸提优大试卷四年级上册数学人教版.pdf (Page 7)",
+    "stem": "数学课上,刘老师出了这样一道计算题",
+    "taxonomy": "math",
+    "steps": [
+      "理解题目要求",
+      "确定运算顺序",
+      "进行计算",
+      "检查结果"
+    ],
+    "transitions": [
+      "首先，我们需要仔细阅读题目，理解题目的要求。",
+      "接下来，根据题目特点选择合适的解题方法。",
+      "然后，按照步骤进行计算或推理。",
+      "最后，检查答案是否合理和正确。"
+    ],
+    "scoring": {
+      "total": 5,
+      "steps": [
+        1,
+        1,
+        2,
+        1
+      ]
+    },
+    "answer": "需要根据具体计算得出",
+    "analysis": "本题考查了基本的数学运算能力，需要仔细理解题目要求。",
+    "knowledgePoints": [
+      "基础运算"
+    ],
+    "difficulty": "easy",
+    "type": "calculation",
+    "gradeLevel": "4"
+  },
+  {
+    "id": "学霸提优大试卷四年级上册数学人教版_7_4",
+    "source": "/Users/tywg001/Downloads/mathlearning/aoshu/学霸提优大试卷四年级上册数学人教版.pdf (Page 7)",
+    "stem": ". n, wm 8 ft : hays , En 六于三 圭 MEN EE E E EEEE( T qa 条] [PP 数相加,中间数是( ) ,所以这 9 个数之和就是 总计(大写) 万 件 佰 拾 元 分 如下所示,有些算式等号两边完全对称,我们称之为 2",
+    "taxonomy": "math",
+    "steps": [
+      "分析题目",
+      "确定解题思路",
+      "进行解答",
+      "验证结果"
+    ],
+    "transitions": [
+      "首先，我们需要仔细阅读题目，理解题目的要求。",
+      "接下来，根据题目特点选择合适的解题方法。",
+      "然后，按照步骤进行计算或推理。",
+      "最后，检查答案是否合理和正确。"
+    ],
+    "scoring": {
+      "total": 5,
+      "steps": [
+        1,
+        1,
+        2,
+        1
+      ]
+    },
+    "answer": "需要根据具体计算得出",
+    "analysis": "这类题目有助于培养学生的逻辑思维和计算能力。",
+    "knowledgePoints": [
+      "基础运算"
+    ],
+    "difficulty": "medium",
+    "type": "calculation",
+    "gradeLevel": "4"
+  },
+  {
+    "id": "学霸提优大试卷四年级上册数学人教版_7_5",
+    "source": "/Users/tywg001/Downloads/mathlearning/aoshu/学霸提优大试卷四年级上册数学人教版.pdf (Page 7)",
+    "stem": "N- l N Y r wt rE id 79 : = 和是个科技迷,这天他打开关注的科技探索队长 公众号,发现公众号粉丝及获赞数是四舍五人到万位 93x=( ) x( ) _ 统计的(如图)",
+    "taxonomy": "math",
+    "steps": [
+      "理解题目要求",
+      "确定运算顺序",
+      "进行计算",
+      "检查结果"
+    ],
+    "transitions": [
+      "首先，我们需要仔细阅读题目，理解题目的要求。",
+      "接下来，根据题目特点选择合适的解题方法。",
+      "然后，按照步骤进行计算或推理。",
+      "最后，检查答案是否合理和正确。"
+    ],
+    "scoring": {
+      "total": 5,
+      "steps": [
+        1,
+        1,
+        2,
+        1
+      ]
+    },
+    "answer": "需要根据具体计算得出",
+    "analysis": "这类题目有助于培养学生的逻辑思维和计算能力。",
+    "knowledgePoints": [
+      "统计图表"
+    ],
+    "difficulty": "medium",
+    "type": "word_problem",
+    "gradeLevel": "4"
+  },
+  {
+    "id": "学霸提优大试卷四年级上册数学人教版_8_2",
+    "source": "/Users/tywg001/Downloads/mathlearning/aoshu/学霸提优大试卷四年级上册数学人教版.pdf (Page 8)",
+    "stem": "( UE 米的正方形面积和是 1 T TK",
+    "taxonomy": "math",
+    "steps": [
+      "分析题目",
+      "确定解题思路",
+      "进行解答",
+      "验证结果"
+    ],
+    "transitions": [
+      "首先，我们需要仔细阅读题目，理解题目的要求。",
+      "接下来，根据题目特点选择合适的解题方法。",
+      "然后，按照步骤进行计算或推理。",
+      "最后，检查答案是否合理和正确。"
+    ],
+    "scoring": {
+      "total": 5,
+      "steps": [
+        1,
+        1,
+        2,
+        1
+      ]
+    },
+    "answer": "需要根据具体计算得出",
+    "analysis": "这类题目有助于培养学生的逻辑思维和计算能力。",
+    "knowledgePoints": [
+      "面积计算"
+    ],
+    "difficulty": "medium",
+    "type": "calculation",
+    "gradeLevel": "4"
+  },
+  {
+    "id": "学霸提优大试卷四年级上册数学人教版_8_4",
+    "source": "/Users/tywg001/Downloads/mathlearning/aoshu/学霸提优大试卷四年级上册数学人教版.pdf (Page 8)",
+    "stem": "边长是 米的正方形,它的面积是(",
+    "taxonomy": "math",
+    "steps": [
+      "分析题目",
+      "确定解题思路",
+      "进行解答",
+      "验证结果"
+    ],
+    "transitions": [
+      "首先，我们需要仔细阅读题目，理解题目的要求。",
+      "接下来，根据题目特点选择合适的解题方法。",
+      "然后，按照步骤进行计算或推理。",
+      "最后，检查答案是否合理和正确。"
+    ],
+    "scoring": {
+      "total": 5,
+      "steps": [
+        1,
+        1,
+        2,
+        1
+      ]
+    },
+    "answer": "需要根据具体计算得出",
+    "analysis": "这类题目有助于培养学生的逻辑思维和计算能力。",
+    "knowledgePoints": [
+      "面积计算"
+    ],
+    "difficulty": "medium",
+    "type": "calculation",
+    "gradeLevel": "4"
+  },
+  {
+    "id": "学霸提优大试卷四年级上册数学人教版_8_5",
+    "source": "/Users/tywg001/Downloads/mathlearning/aoshu/学霸提优大试卷四年级上册数学人教版.pdf (Page 8)",
+    "stem": "一块土地的面积用公顷或平方千米作单位不会改变 o si t rt E ay toh aad LPE E WE I 22 T or EE Y 4 WT 6公硕=( I H=( PT TK , i P 每 L Y 2 yy : ; 士丹 ,每株牡丹的占地面积大约是 2 平方米,一共 : ET HK = ( )公顷 Zz",
+    "taxonomy": "math",
+    "steps": [
+      "分析题目",
+      "确定解题思路",
+      "进行解答",
+      "验证结果"
+    ],
+    "transitions": [
+      "首先，我们需要仔细阅读题目，理解题目的要求。",
+      "接下来，根据题目特点选择合适的解题方法。",
+      "然后，按照步骤进行计算或推理。",
+      "最后，检查答案是否合理和正确。"
+    ],
+    "scoring": {
+      "total": 5,
+      "steps": [
+        1,
+        1,
+        2,
+        1
+      ]
+    },
+    "answer": "需要根据具体计算得出",
+    "analysis": "这类题目有助于培养学生的逻辑思维和计算能力。",
+    "knowledgePoints": [
+      "面积计算"
+    ],
+    "difficulty": "hard",
+    "type": "calculation",
+    "gradeLevel": "4"
+  },
+  {
+    "id": "学霸提优大试卷四年级上册数学人教版_8_6",
+    "source": "/Users/tywg001/Downloads/mathlearning/aoshu/学霸提优大试卷四年级上册数学人教版.pdf (Page 8)",
+    "stem": "新疆维吾尔自治区是我国陆地面积最大的省级行政 由 X_它的面积约是 8",
+    "taxonomy": "math",
+    "steps": [
+      "分析题目",
+      "确定解题思路",
+      "进行解答",
+      "验证结果"
+    ],
+    "transitions": [
+      "首先，我们需要仔细阅读题目，理解题目的要求。",
+      "接下来，根据题目特点选择合适的解题方法。",
+      "然后，按照步骤进行计算或推理。",
+      "最后，检查答案是否合理和正确。"
+    ],
+    "scoring": {
+      "total": 5,
+      "steps": [
+        1,
+        1,
+        2,
+        1
+      ]
+    },
+    "answer": "需要根据具体计算得出",
+    "analysis": "这类题目有助于培养学生的逻辑思维和计算能力。",
+    "knowledgePoints": [
+      "面积计算"
+    ],
+    "difficulty": "medium",
+    "type": "calculation",
+    "gradeLevel": "4"
+  },
+  {
+    "id": "学霸提优大试卷四年级上册数学人教版_8_7",
+    "source": "/Users/tywg001/Downloads/mathlearning/aoshu/学霸提优大试卷四年级上册数学人教版.pdf (Page 8)",
+    "stem": "一块长方形麦田,长 米,宽米,那么它的占地 TN 会册土地六约有( ，",
+    "taxonomy": "math",
+    "steps": [
+      "分析题目",
+      "确定解题思路",
+      "进行解答",
+      "验证结果"
+    ],
+    "transitions": [
+      "首先，我们需要仔细阅读题目，理解题目的要求。",
+      "接下来，根据题目特点选择合适的解题方法。",
+      "然后，按照步骤进行计算或推理。",
+      "最后，检查答案是否合理和正确。"
+    ],
+    "scoring": {
+      "total": 5,
+      "steps": [
+        1,
+        1,
+        2,
+        1
+      ]
+    },
+    "answer": "需要根据具体计算得出",
+    "analysis": "这类题目有助于培养学生的逻辑思维和计算能力。",
+    "knowledgePoints": [
+      "面积计算"
+    ],
+    "difficulty": "easy",
+    "type": "calculation",
+    "gradeLevel": "4"
+  },
+  {
+    "id": "学霸提优大试卷四年级上册数学人教版_8_8",
+    "source": "/Users/tywg001/Downloads/mathlearning/aoshu/学霸提优大试卷四年级上册数学人教版.pdf (Page 8)",
+    "stem": "必这个问题,其中正确的 友 ! a a ln patty onli = 选择 ( 每 r 2 分 ; 共 20 分) 有 ) 种 al 1",
+    "taxonomy": "math",
+    "steps": [
+      "分析题目",
+      "确定解题思路",
+      "进行解答",
+      "验证结果"
+    ],
+    "transitions": [
+      "首先，我们需要仔细阅读题目，理解题目的要求。",
+      "接下来，根据题目特点选择合适的解题方法。",
+      "然后，按照步骤进行计算或推理。",
+      "最后，检查答案是否合理和正确。"
+    ],
+    "scoring": {
+      "total": 5,
+      "steps": [
+        1,
+        1,
+        2,
+        1
+      ]
+    },
+    "answer": "需要根据具体计算得出",
+    "analysis": "这类题目有助于培养学生的逻辑思维和计算能力。",
+    "knowledgePoints": [
+      "基础运算"
+    ],
+    "difficulty": "medium",
+    "type": "multiple_choice",
+    "gradeLevel": "4"
+  },
+  {
+    "id": "学霸提优大试卷四年级上册数学人教版_8_9",
+    "source": "/Users/tywg001/Downloads/mathlearning/aoshu/学霸提优大试卷四年级上册数学人教版.pdf (Page 8)",
+    "stem": "占地面积最接近 1 公顷的地方是( ， )",
+    "taxonomy": "math",
+    "steps": [
+      "分析题目",
+      "确定解题思路",
+      "进行解答",
+      "验证结果"
+    ],
+    "transitions": [
+      "首先，我们需要仔细阅读题目，理解题目的要求。",
+      "接下来，根据题目特点选择合适的解题方法。",
+      "然后，按照步骤进行计算或推理。",
+      "最后，检查答案是否合理和正确。"
+    ],
+    "scoring": {
+      "total": 5,
+      "steps": [
+        1,
+        1,
+        2,
+        1
+      ]
+    },
+    "answer": "需要根据具体计算得出",
+    "analysis": "这类题目有助于培养学生的逻辑思维和计算能力。",
+    "knowledgePoints": [
+      "面积计算"
+    ],
+    "difficulty": "medium",
+    "type": "calculation",
+    "gradeLevel": "4"
+  },
+  {
+    "id": "学霸提优大试卷四年级上册数学人教版_8_10",
+    "source": "/Users/tywg001/Downloads/mathlearning/aoshu/学霸提优大试卷四年级上册数学人教版.pdf (Page 8)",
+    "stem": "我国第二大岛屿海南岛的陆地面积约为(",
+    "taxonomy": "math",
+    "steps": [
+      "分析题目",
+      "确定解题思路",
+      "进行解答",
+      "验证结果"
+    ],
+    "transitions": [
+      "首先，我们需要仔细阅读题目，理解题目的要求。",
+      "接下来，根据题目特点选择合适的解题方法。",
+      "然后，按照步骤进行计算或推理。",
+      "最后，检查答案是否合理和正确。"
+    ],
+    "scoring": {
+      "total": 5,
+      "steps": [
+        1,
+        1,
+        2,
+        1
+      ]
+    },
+    "answer": "需要根据具体计算得出",
+    "analysis": "这类题目有助于培养学生的逻辑思维和计算能力。",
+    "knowledgePoints": [
+      "面积计算"
+    ],
+    "difficulty": "medium",
+    "type": "calculation",
+    "gradeLevel": "4"
+  },
+  {
+    "id": "学霸提优大试卷四年级上册数学人教版_8_11",
+    "source": "/Users/tywg001/Downloads/mathlearning/aoshu/学霸提优大试卷四年级上册数学人教版.pdf (Page 8)",
+    "stem": "一块正方形果园的占地面积是 1 公顷,现在要把这 20 E",
+    "taxonomy": "math",
+    "steps": [
+      "分析题目",
+      "确定解题思路",
+      "进行解答",
+      "验证结果"
+    ],
+    "transitions": [
+      "首先，我们需要仔细阅读题目，理解题目的要求。",
+      "接下来，根据题目特点选择合适的解题方法。",
+      "然后，按照步骤进行计算或推理。",
+      "最后，检查答案是否合理和正确。"
+    ],
+    "scoring": {
+      "total": 5,
+      "steps": [
+        1,
+        1,
+        2,
+        1
+      ]
+    },
+    "answer": "需要根据具体计算得出",
+    "analysis": "这类题目有助于培养学生的逻辑思维和计算能力。",
+    "knowledgePoints": [
+      "面积计算"
+    ],
+    "difficulty": "medium",
+    "type": "calculation",
+    "gradeLevel": "4"
+  },
+  {
+    "id": "学霸提优大试卷四年级上册数学人教版_8_13",
+    "source": "/Users/tywg001/Downloads/mathlearning/aoshu/学霸提优大试卷四年级上册数学人教版.pdf (Page 8)",
+    "stem": "黄河是中华文明最主要的发沽地,人们称其为母亲 一算 ,扩建后果园的占地面积增加了( )公顷",
+    "taxonomy": "math",
+    "steps": [
+      "分析题目",
+      "确定解题思路",
+      "进行解答",
+      "验证结果"
+    ],
+    "transitions": [
+      "首先，我们需要仔细阅读题目，理解题目的要求。",
+      "接下来，根据题目特点选择合适的解题方法。",
+      "然后，按照步骤进行计算或推理。",
+      "最后，检查答案是否合理和正确。"
+    ],
+    "scoring": {
+      "total": 5,
+      "steps": [
+        1,
+        1,
+        2,
+        1
+      ]
+    },
+    "answer": "需要根据具体计算得出",
+    "analysis": "这类题目有助于培养学生的逻辑思维和计算能力。",
+    "knowledgePoints": [
+      "面积计算"
+    ],
+    "difficulty": "medium",
+    "type": "calculation",
+    "gradeLevel": "4"
+  },
+  {
+    "id": "学霸提优大试卷四年级上册数学人教版_11_1",
+    "source": "/Users/tywg001/Downloads/mathlearning/aoshu/学霸提优大试卷四年级上册数学人教版.pdf (Page 11)",
+    "stem": "把角的度数、角分别与对应的角的类别连起来",
+    "taxonomy": "math",
+    "steps": [
+      "分析题目",
+      "确定解题思路",
+      "进行解答",
+      "验证结果"
+    ],
+    "transitions": [
+      "首先，我们需要仔细阅读题目，理解题目的要求。",
+      "接下来，根据题目特点选择合适的解题方法。",
+      "然后，按照步骤进行计算或推理。",
+      "最后，检查答案是否合理和正确。"
+    ],
+    "scoring": {
+      "total": 5,
+      "steps": [
+        1,
+        1,
+        2,
+        1
+      ]
+    },
+    "answer": "需要根据具体计算得出",
+    "analysis": "这类题目有助于培养学生的逻辑思维和计算能力。",
+    "knowledgePoints": [
+      "基础运算"
+    ],
+    "difficulty": "easy",
+    "type": "calculation",
+    "gradeLevel": "4"
+  },
+  {
+    "id": "学霸提优大试卷四年级上册数学人教版_11_2",
+    "source": "/Users/tywg001/Downloads/mathlearning/aoshu/学霸提优大试卷四年级上册数学人教版.pdf (Page 11)",
+    "stem": "1. 看图填空。(4 分 23 12 。 8。 9。 (1)M21 = 15,22=( 了 o 酌 本 酚 十 本 a (2) WP, 21 = 20,22=( C) MI",
+    "taxonomy": "math",
+    "steps": [
+      "分析题目",
+      "确定解题思路",
+      "进行解答",
+      "验证结果"
+    ],
+    "transitions": [
+      "首先，我们需要仔细阅读题目，理解题目的要求。",
+      "接下来，根据题目特点选择合适的解题方法。",
+      "然后，按照步骤进行计算或推理。",
+      "最后，检查答案是否合理和正确。"
+    ],
+    "scoring": {
+      "total": 5,
+      "steps": [
+        1,
+        1,
+        2,
+        1
+      ]
+    },
+    "answer": "需要根据具体计算得出",
+    "analysis": "这类题目有助于培养学生的逻辑思维和计算能力。",
+    "knowledgePoints": [
+      "基础运算"
+    ],
+    "difficulty": "medium",
+    "type": "fill_in_blank",
+    "gradeLevel": "4"
+  },
+  {
+    "id": "学霸提优大试卷四年级上册数学人教版_11_3",
+    "source": "/Users/tywg001/Downloads/mathlearning/aoshu/学霸提优大试卷四年级上册数学人教版.pdf (Page 11)",
+    "stem": "3. 先估计,再测量。(6 分) a a 2",
+    "taxonomy": "math",
+    "steps": [
+      "分析题目",
+      "确定解题思路",
+      "进行解答",
+      "验证结果"
+    ],
+    "transitions": [
+      "首先，我们需要仔细阅读题目，理解题目的要求。",
+      "接下来，根据题目特点选择合适的解题方法。",
+      "然后，按照步骤进行计算或推理。",
+      "最后，检查答案是否合理和正确。"
+    ],
+    "scoring": {
+      "total": 5,
+      "steps": [
+        1,
+        1,
+        2,
+        1
+      ]
+    },
+    "answer": "需要根据具体计算得出",
+    "analysis": "这类题目有助于培养学生的逻辑思维和计算能力。",
+    "knowledgePoints": [
+      "基础运算"
+    ],
+    "difficulty": "easy",
+    "type": "calculation",
+    "gradeLevel": "4"
+  },
+  {
+    "id": "学霸提优大试卷四年级上册数学人教版_11_4",
+    "source": "/Users/tywg001/Downloads/mathlearning/aoshu/学霸提优大试卷四年级上册数学人教版.pdf (Page 11)",
+    "stem": "如图是一张长方形纸片折起来以后形成的图形,求 2 3 一 Z1 的度数",
+    "taxonomy": "math",
+    "steps": [
+      "分析题目",
+      "确定解题思路",
+      "进行解答",
+      "验证结果"
+    ],
+    "transitions": [
+      "首先，我们需要仔细阅读题目，理解题目的要求。",
+      "接下来，根据题目特点选择合适的解题方法。",
+      "然后，按照步骤进行计算或推理。",
+      "最后，检查答案是否合理和正确。"
+    ],
+    "scoring": {
+      "total": 5,
+      "steps": [
+        1,
+        1,
+        2,
+        1
+      ]
+    },
+    "answer": "需要根据具体计算得出",
+    "analysis": "这类题目有助于培养学生的逻辑思维和计算能力。",
+    "knowledgePoints": [
+      "基础运算"
+    ],
+    "difficulty": "easy",
+    "type": "calculation",
+    "gradeLevel": "4"
+  },
+  {
+    "id": "学霸提优大试卷四年级上册数学人教版_11_6",
+    "source": "/Users/tywg001/Downloads/mathlearning/aoshu/学霸提优大试卷四年级上册数学人教版.pdf (Page 11)",
+    "stem": "如图,上1 = 62",
+    "taxonomy": "math",
+    "steps": [
+      "分析题目",
+      "确定解题思路",
+      "进行解答",
+      "验证结果"
+    ],
+    "transitions": [
+      "首先，我们需要仔细阅读题目，理解题目的要求。",
+      "接下来，根据题目特点选择合适的解题方法。",
+      "然后，按照步骤进行计算或推理。",
+      "最后，检查答案是否合理和正确。"
+    ],
+    "scoring": {
+      "total": 5,
+      "steps": [
+        1,
+        1,
+        2,
+        1
+      ]
+    },
+    "answer": "需要根据具体计算得出",
+    "analysis": "这类题目有助于培养学生的逻辑思维和计算能力。",
+    "knowledgePoints": [
+      "基础运算"
+    ],
+    "difficulty": "easy",
+    "type": "calculation",
+    "gradeLevel": "4"
+  },
+  {
+    "id": "学霸提优大试卷四年级上册数学人教版_16_1",
+    "source": "/Users/tywg001/Downloads/mathlearning/aoshu/学霸提优大试卷四年级上册数学人教版.pdf (Page 16)",
+    "stem": "9 这五个数字组成一个三位数乘两位数的算 4",
+    "taxonomy": "math",
+    "steps": [
+      "分析题目",
+      "确定解题思路",
+      "进行解答",
+      "验证结果"
+    ],
+    "transitions": [
+      "首先，我们需要仔细阅读题目，理解题目的要求。",
+      "接下来，根据题目特点选择合适的解题方法。",
+      "然后，按照步骤进行计算或推理。",
+      "最后，检查答案是否合理和正确。"
+    ],
+    "scoring": {
+      "total": 5,
+      "steps": [
+        1,
+        1,
+        2,
+        1
+      ]
+    },
+    "answer": "需要根据具体计算得出",
+    "analysis": "这类题目有助于培养学生的逻辑思维和计算能力。",
+    "knowledgePoints": [
+      "基础运算"
+    ],
+    "difficulty": "easy",
+    "type": "calculation",
+    "gradeLevel": "4"
+  },
+  {
+    "id": "学霸提优大试卷四年级上册数学人教版_16_2",
+    "source": "/Users/tywg001/Downloads/mathlearning/aoshu/学霸提优大试卷四年级上册数学人教版.pdf (Page 16)",
+    "stem": "六百多乘二十多,积一定是五位数",
+    "taxonomy": "math",
+    "steps": [
+      "分析题目",
+      "确定解题思路",
+      "进行解答",
+      "验证结果"
+    ],
+    "transitions": [
+      "首先，我们需要仔细阅读题目，理解题目的要求。",
+      "接下来，根据题目特点选择合适的解题方法。",
+      "然后，按照步骤进行计算或推理。",
+      "最后，检查答案是否合理和正确。"
+    ],
+    "scoring": {
+      "total": 5,
+      "steps": [
+        1,
+        1,
+        2,
+        1
+      ]
+    },
+    "answer": "需要根据具体计算得出",
+    "analysis": "这类题目有助于培养学生的逻辑思维和计算能力。",
+    "knowledgePoints": [
+      "基础运算"
+    ],
+    "difficulty": "easy",
+    "type": "calculation",
+    "gradeLevel": "4"
+  },
+  {
+    "id": "学霸提优大试卷四年级上册数学人教版_16_3",
+    "source": "/Users/tywg001/Downloads/mathlearning/aoshu/学霸提优大试卷四年级上册数学人教版.pdf (Page 16)",
+    "stem": "L x33 = 2x44 CHT 0) UH a, x 30 20 x 30 由5x30 最无的两伺数和最小的二们数的积是( ? - Y s 又 bl é YPNE s LE Lys us a 和 4",
+    "taxonomy": "math",
+    "steps": [
+      "理解题目要求",
+      "确定运算顺序",
+      "进行计算",
+      "检查结果"
+    ],
+    "transitions": [
+      "首先，我们需要仔细阅读题目，理解题目的要求。",
+      "接下来，根据题目特点选择合适的解题方法。",
+      "然后，按照步骤进行计算或推理。",
+      "最后，检查答案是否合理和正确。"
+    ],
+    "scoring": {
+      "total": 5,
+      "steps": [
+        1,
+        1,
+        2,
+        1
+      ]
+    },
+    "answer": "需要根据具体计算得出",
+    "analysis": "这类题目有助于培养学生的逻辑思维和计算能力。",
+    "knowledgePoints": [
+      "基础运算"
+    ],
+    "difficulty": "medium",
+    "type": "calculation",
+    "gradeLevel": "4"
+  },
+  {
+    "id": "学霸提优大试卷四年级上册数学人教版_16_4",
+    "source": "/Users/tywg001/Downloads/mathlearning/aoshu/学霸提优大试卷四年级上册数学人教版.pdf (Page 16)",
+    "stem": "x63 的积是( ) 位数; 的75 倍是( jj",
+    "taxonomy": "math",
+    "steps": [
+      "分析题目",
+      "确定解题思路",
+      "进行解答",
+      "验证结果"
+    ],
+    "transitions": [
+      "首先，我们需要仔细阅读题目，理解题目的要求。",
+      "接下来，根据题目特点选择合适的解题方法。",
+      "然后，按照步骤进行计算或推理。",
+      "最后，检查答案是否合理和正确。"
+    ],
+    "scoring": {
+      "total": 5,
+      "steps": [
+        1,
+        1,
+        2,
+        1
+      ]
+    },
+    "answer": "需要根据具体计算得出",
+    "analysis": "这类题目有助于培养学生的逻辑思维和计算能力。",
+    "knowledgePoints": [
+      "基础运算"
+    ],
+    "difficulty": "easy",
+    "type": "calculation",
+    "gradeLevel": "4"
+  },
+  {
+    "id": "学霸提优大试卷四年级上册数学人教版_16_6",
+    "source": "/Users/tywg001/Downloads/mathlearning/aoshu/学霸提优大试卷四年级上册数学人教版.pdf (Page 16)",
+    "stem": "用坚式计算 时,5 与 2 EE) x40 = 20x= 22x= x11 in x54( ) x21 ( ) 63x",
+    "taxonomy": "math",
+    "steps": [
+      "理解题目要求",
+      "确定运算顺序",
+      "进行计算",
+      "检查结果"
+    ],
+    "transitions": [
+      "首先，我们需要仔细阅读题目，理解题目的要求。",
+      "接下来，根据题目特点选择合适的解题方法。",
+      "然后，按照步骤进行计算或推理。",
+      "最后，检查答案是否合理和正确。"
+    ],
+    "scoring": {
+      "total": 5,
+      "steps": [
+        1,
+        1,
+        2,
+        1
+      ]
+    },
+    "answer": "需要根据具体计算得出",
+    "analysis": "本题考查了基本的数学运算能力，需要仔细理解题目要求。",
+    "knowledgePoints": [
+      "基础运算"
+    ],
+    "difficulty": "medium",
+    "type": "calculation",
+    "gradeLevel": "4"
+  },
+  {
+    "id": "学霸提优大试卷四年级上册数学人教版_16_7",
+    "source": "/Users/tywg001/Downloads/mathlearning/aoshu/学霸提优大试卷四年级上册数学人教版.pdf (Page 16)",
+    "stem": "。(每题3分,共18 分) : 5",
+    "taxonomy": "math",
+    "steps": [
+      "分析题目",
+      "确定解题思路",
+      "进行解答",
+      "验证结果"
+    ],
+    "transitions": [
+      "首先，我们需要仔细阅读题目，理解题目的要求。",
+      "接下来，根据题目特点选择合适的解题方法。",
+      "然后，按照步骤进行计算或推理。",
+      "最后，检查答案是否合理和正确。"
+    ],
+    "scoring": {
+      "total": 5,
+      "steps": [
+        1,
+        1,
+        2,
+        1
+      ]
+    },
+    "answer": "需要根据具体计算得出",
+    "analysis": "这类题目有助于培养学生的逻辑思维和计算能力。",
+    "knowledgePoints": [
+      "基础运算"
+    ],
+    "difficulty": "easy",
+    "type": "calculation",
+    "gradeLevel": "4"
+  },
+  {
+    "id": "学霸提优大试卷四年级上册数学人教版_16_8",
+    "source": "/Users/tywg001/Downloads/mathlearning/aoshu/学霸提优大试卷四年级上册数学人教版.pdf (Page 16)",
+    "stem": "摩天轮每天的营业时间是 9;:30,一次可同时 断计算正确的是(",
+    "taxonomy": "math",
+    "steps": [
+      "理解题目要求",
+      "确定运算顺序",
+      "进行计算",
+      "检查结果"
+    ],
+    "transitions": [
+      "首先，我们需要仔细阅读题目，理解题目的要求。",
+      "接下来，根据题目特点选择合适的解题方法。",
+      "然后，按照步骤进行计算或推理。",
+      "最后，检查答案是否合理和正确。"
+    ],
+    "scoring": {
+      "total": 5,
+      "steps": [
+        1,
+        1,
+        2,
+        1
+      ]
+    },
+    "answer": "需要根据具体计算得出",
+    "analysis": "本题考查了基本的数学运算能力，需要仔细理解题目要求。",
+    "knowledgePoints": [
+      "基础运算"
+    ],
+    "difficulty": "easy",
+    "type": "calculation",
+    "gradeLevel": "4"
+  },
+  {
+    "id": "学霸提优大试卷四年级上册数学人教版_16_9",
+    "source": "/Users/tywg001/Downloads/mathlearning/aoshu/学霸提优大试卷四年级上册数学人教版.pdf (Page 16)",
+    "stem": "要使[] 32x19 的积是四位数, HC) ;要 C",
+    "taxonomy": "math",
+    "steps": [
+      "分析题目",
+      "确定解题思路",
+      "进行解答",
+      "验证结果"
+    ],
+    "transitions": [
+      "首先，我们需要仔细阅读题目，理解题目的要求。",
+      "接下来，根据题目特点选择合适的解题方法。",
+      "然后，按照步骤进行计算或推理。",
+      "最后，检查答案是否合理和正确。"
+    ],
+    "scoring": {
+      "total": 5,
+      "steps": [
+        1,
+        1,
+        2,
+        1
+      ]
+    },
+    "answer": "需要根据具体计算得出",
+    "analysis": "这类题目有助于培养学生的逻辑思维和计算能力。",
+    "knowledgePoints": [
+      "基础运算"
+    ],
+    "difficulty": "easy",
+    "type": "calculation",
+    "gradeLevel": "4"
+  },
+  {
+    "id": "学霸提优大试卷四年级上册数学人教版_16_10",
+    "source": "/Users/tywg001/Downloads/mathlearning/aoshu/学霸提优大试卷四年级上册数学人教版.pdf (Page 16)",
+    "stem": "一盒纽扣有 颗,根据如网的竖式判断,下面说法 8",
+    "taxonomy": "math",
+    "steps": [
+      "分析题目",
+      "确定解题思路",
+      "进行解答",
+      "验证结果"
+    ],
+    "transitions": [
+      "首先，我们需要仔细阅读题目，理解题目的要求。",
+      "接下来，根据题目特点选择合适的解题方法。",
+      "然后，按照步骤进行计算或推理。",
+      "最后，检查答案是否合理和正确。"
+    ],
+    "scoring": {
+      "total": 5,
+      "steps": [
+        1,
+        1,
+        2,
+        1
+      ]
+    },
+    "answer": "需要根据具体计算得出",
+    "analysis": "这类题目有助于培养学生的逻辑思维和计算能力。",
+    "knowledgePoints": [
+      "基础运算"
+    ],
+    "difficulty": "easy",
+    "type": "true_false",
+    "gradeLevel": "4"
+  },
+  {
+    "id": "学霸提优大试卷四年级上册数学人教版_16_12",
+    "source": "/Users/tywg001/Downloads/mathlearning/aoshu/学霸提优大试卷四年级上册数学人教版.pdf (Page 16)",
+    "stem": "时,5 与 2 EE) x40 = 20x= 22x= x11 in x54( ) x21 ( ) 63x. 5x2 . 5x20 2. 列竖式计算",
+    "taxonomy": "math",
+    "steps": [
+      "理解题目要求",
+      "确定运算顺序",
+      "进行计算",
+      "检查结果"
+    ],
+    "transitions": [
+      "首先，我们需要仔细阅读题目，理解题目的要求。",
+      "接下来，根据题目特点选择合适的解题方法。",
+      "然后，按照步骤进行计算或推理。",
+      "最后，检查答案是否合理和正确。"
+    ],
+    "scoring": {
+      "total": 5,
+      "steps": [
+        1,
+        1,
+        2,
+        1
+      ]
+    },
+    "answer": "需要根据具体计算得出",
+    "analysis": "本题考查了基本的数学运算能力，需要仔细理解题目要求。",
+    "knowledgePoints": [
+      "基础运算"
+    ],
+    "difficulty": "medium",
+    "type": "calculation",
+    "gradeLevel": "4"
+  },
+  {
+    "id": "学霸提优大试卷四年级上册数学人教版_21_1",
+    "source": "/Users/tywg001/Downloads/mathlearning/aoshu/学霸提优大试卷四年级上册数学人教版.pdf (Page 21)",
+    "stem": "一辆压路机每分钟行驶 25 米,碾压轮的宽度是2米， 选择的信息是( )和( ，，) ,提出的问题是: : 如果所压的道路不重复,压路机 10 小时共太路多少 tit? (4 分) CHE",
+    "taxonomy": "math",
+    "steps": [
+      "分析题目",
+      "确定解题思路",
+      "进行解答",
+      "验证结果"
+    ],
+    "transitions": [
+      "首先，我们需要仔细阅读题目，理解题目的要求。",
+      "接下来，根据题目特点选择合适的解题方法。",
+      "然后，按照步骤进行计算或推理。",
+      "最后，检查答案是否合理和正确。"
+    ],
+    "scoring": {
+      "total": 5,
+      "steps": [
+        1,
+        1,
+        2,
+        1
+      ]
+    },
+    "answer": "需要根据具体计算得出",
+    "analysis": "这类题目有助于培养学生的逻辑思维和计算能力。",
+    "knowledgePoints": [
+      "基础运算"
+    ],
+    "difficulty": "medium",
+    "type": "multiple_choice",
+    "gradeLevel": "4"
+  },
+  {
+    "id": "学霸提优大试卷四年级上册数学人教版_21_2",
+    "source": "/Users/tywg001/Downloads/mathlearning/aoshu/学霸提优大试卷四年级上册数学人教版.pdf (Page 21)",
+    "stem": "一座大桥全长 米 ,一列火车通过大桥时每分钟 5",
+    "taxonomy": "math",
+    "steps": [
+      "分析题目",
+      "确定解题思路",
+      "进行解答",
+      "验证结果"
+    ],
+    "transitions": [
+      "首先，我们需要仔细阅读题目，理解题目的要求。",
+      "接下来，根据题目特点选择合适的解题方法。",
+      "然后，按照步骤进行计算或推理。",
+      "最后，检查答案是否合理和正确。"
+    ],
+    "scoring": {
+      "total": 5,
+      "steps": [
+        1,
+        1,
+        2,
+        1
+      ]
+    },
+    "answer": "需要根据具体计算得出",
+    "analysis": "这类题目有助于培养学生的逻辑思维和计算能力。",
+    "knowledgePoints": [
+      "基础运算"
+    ],
+    "difficulty": "easy",
+    "type": "calculation",
+    "gradeLevel": "4"
+  },
+  {
+    "id": "学霸提优大试卷四年级上册数学人教版_21_3",
+    "source": "/Users/tywg001/Downloads/mathlearning/aoshu/学霸提优大试卷四年级上册数学人教版.pdf (Page 21)",
+    "stem": "画一面,量一量,填一填",
+    "taxonomy": "math",
+    "steps": [
+      "分析题目",
+      "确定解题思路",
+      "进行解答",
+      "验证结果"
+    ],
+    "transitions": [
+      "首先，我们需要仔细阅读题目，理解题目的要求。",
+      "接下来，根据题目特点选择合适的解题方法。",
+      "然后，按照步骤进行计算或推理。",
+      "最后，检查答案是否合理和正确。"
+    ],
+    "scoring": {
+      "total": 5,
+      "steps": [
+        1,
+        1,
+        2,
+        1
+      ]
+    },
+    "answer": "需要根据具体计算得出",
+    "analysis": "这类题目有助于培养学生的逻辑思维和计算能力。",
+    "knowledgePoints": [
+      "基础运算"
+    ],
+    "difficulty": "easy",
+    "type": "calculation",
+    "gradeLevel": "4"
+  },
+  {
+    "id": "学霸提优大试卷四年级上册数学人教版_21_5",
+    "source": "/Users/tywg001/Downloads/mathlearning/aoshu/学霸提优大试卷四年级上册数学人教版.pdf (Page 21)",
+    "stem": "(5)最接近6 亿的九位数; ) (2)请你再选择一组信息,提出一个根据时间和速度， 人 (6)近似数是 8 亿的最大九位数: ) 求路程的问题",
+    "taxonomy": "math",
+    "steps": [
+      "分析题目",
+      "确定解题思路",
+      "进行解答",
+      "验证结果"
+    ],
+    "transitions": [
+      "首先，我们需要仔细阅读题目，理解题目的要求。",
+      "接下来，根据题目特点选择合适的解题方法。",
+      "然后，按照步骤进行计算或推理。",
+      "最后，检查答案是否合理和正确。"
+    ],
+    "scoring": {
+      "total": 5,
+      "steps": [
+        1,
+        1,
+        2,
+        1
+      ]
+    },
+    "answer": "需要根据具体计算得出",
+    "analysis": "这类题目有助于培养学生的逻辑思维和计算能力。",
+    "knowledgePoints": [
+      "基础运算"
+    ],
+    "difficulty": "medium",
+    "type": "multiple_choice",
+    "gradeLevel": "4"
+  },
+  {
+    "id": "学霸提优大试卷四年级上册数学人教版_26_1",
+    "source": "/Users/tywg001/Downloads/mathlearning/aoshu/学霸提优大试卷四年级上册数学人教版.pdf (Page 26)",
+    "stem": "小新在计算一个三位数除以1 时,把 15 看成5,并计 相 从n 目",
+    "taxonomy": "math",
+    "steps": [
+      "理解题目要求",
+      "确定运算顺序",
+      "进行计算",
+      "检查结果"
+    ],
+    "transitions": [
+      "首先，我们需要仔细阅读题目，理解题目的要求。",
+      "接下来，根据题目特点选择合适的解题方法。",
+      "然后，按照步骤进行计算或推理。",
+      "最后，检查答案是否合理和正确。"
+    ],
+    "scoring": {
+      "total": 5,
+      "steps": [
+        1,
+        1,
+        2,
+        1
+      ]
+    },
+    "answer": "需要根据具体计算得出",
+    "analysis": "本题考查了基本的数学运算能力，需要仔细理解题目要求。",
+    "knowledgePoints": [
+      "基础运算"
+    ],
+    "difficulty": "easy",
+    "type": "calculation",
+    "gradeLevel": "4"
+  },
+  {
+    "id": "学霸提优大试卷四年级上册数学人教版_26_2",
+    "source": "/Users/tywg001/Downloads/mathlearning/aoshu/学霸提优大试卷四年级上册数学人教版.pdf (Page 26)",
+    "stem": "WY, ) P 80 s , TLL 算出了结果",
+    "taxonomy": "math",
+    "steps": [
+      "分析题目",
+      "确定解题思路",
+      "进行解答",
+      "验证结果"
+    ],
+    "transitions": [
+      "首先，我们需要仔细阅读题目，理解题目的要求。",
+      "接下来，根据题目特点选择合适的解题方法。",
+      "然后，按照步骤进行计算或推理。",
+      "最后，检查答案是否合理和正确。"
+    ],
+    "scoring": {
+      "total": 5,
+      "steps": [
+        1,
+        1,
+        2,
+        1
+      ]
+    },
+    "answer": "需要根据具体计算得出",
+    "analysis": "这类题目有助于培养学生的逻辑思维和计算能力。",
+    "knowledgePoints": [
+      "基础运算"
+    ],
+    "difficulty": "easy",
+    "type": "calculation",
+    "gradeLevel": "4"
+  },
+  {
+    "id": "学霸提优大试卷四年级上册数学人教版_26_3",
+    "source": "/Users/tywg001/Downloads/mathlearning/aoshu/学霸提优大试卷四年级上册数学人教版.pdf (Page 26)",
+    "stem": "0 ,商的末尾不一定是 0, ( ) 四 计算 (共 32 5y ) o 2",
+    "taxonomy": "math",
+    "steps": [
+      "理解题目要求",
+      "确定运算顺序",
+      "进行计算",
+      "检查结果"
+    ],
+    "transitions": [
+      "首先，我们需要仔细阅读题目，理解题目的要求。",
+      "接下来，根据题目特点选择合适的解题方法。",
+      "然后，按照步骤进行计算或推理。",
+      "最后，检查答案是否合理和正确。"
+    ],
+    "scoring": {
+      "total": 5,
+      "steps": [
+        1,
+        1,
+        2,
+        1
+      ]
+    },
+    "answer": "需要根据具体计算得出",
+    "analysis": "本题考查了基本的数学运算能力，需要仔细理解题目要求。",
+    "knowledgePoints": [
+      "基础运算"
+    ],
+    "difficulty": "easy",
+    "type": "calculation",
+    "gradeLevel": "4"
+  },
+  {
+    "id": "学霸提优大试卷四年级上册数学人教版_26_5",
+    "source": "/Users/tywg001/Downloads/mathlearning/aoshu/学霸提优大试卷四年级上册数学人教版.pdf (Page 26)",
+    "stem": "被除效和除数同时扩大到原来的 10 倍,商也扩大到 := = 24x5 = 3: I I, TE) 原来的 10 倍",
+    "taxonomy": "math",
+    "steps": [
+      "分析题目",
+      "确定解题思路",
+      "进行解答",
+      "验证结果"
+    ],
+    "transitions": [
+      "首先，我们需要仔细阅读题目，理解题目的要求。",
+      "接下来，根据题目特点选择合适的解题方法。",
+      "然后，按照步骤进行计算或推理。",
+      "最后，检查答案是否合理和正确。"
+    ],
+    "scoring": {
+      "total": 5,
+      "steps": [
+        1,
+        1,
+        2,
+        1
+      ]
+    },
+    "answer": "需要根据具体计算得出",
+    "analysis": "这类题目有助于培养学生的逻辑思维和计算能力。",
+    "knowledgePoints": [
+      "基础运算"
+    ],
+    "difficulty": "medium",
+    "type": "calculation",
+    "gradeLevel": "4"
+  },
+  {
+    "id": "学霸提优大试卷四年级上册数学人教版_26_7",
+    "source": "/Users/tywg001/Downloads/mathlearning/aoshu/学霸提优大试卷四年级上册数学人教版.pdf (Page 26)",
+    "stem": "根据= 15 ,直接写出下面各题的结果",
+    "taxonomy": "math",
+    "steps": [
+      "分析题目",
+      "确定解题思路",
+      "进行解答",
+      "验证结果"
+    ],
+    "transitions": [
+      "首先，我们需要仔细阅读题目，理解题目的要求。",
+      "接下来，根据题目特点选择合适的解题方法。",
+      "然后，按照步骤进行计算或推理。",
+      "最后，检查答案是否合理和正确。"
+    ],
+    "scoring": {
+      "total": 5,
+      "steps": [
+        1,
+        1,
+        2,
+        1
+      ]
+    },
+    "answer": "需要根据具体计算得出",
+    "analysis": "这类题目有助于培养学生的逻辑思维和计算能力。",
+    "knowledgePoints": [
+      "基础运算"
+    ],
+    "difficulty": "easy",
+    "type": "calculation",
+    "gradeLevel": "4"
+  },
+  {
+    "id": "学霸提优大试卷四年级上册数学人教版_26_8",
+    "source": "/Users/tywg001/Downloads/mathlearning/aoshu/学霸提优大试卷四年级上册数学人教版.pdf (Page 26)",
+    "stem": "我国公安部交管局下发通知:从 年6月1日起， = ( ) t k a p tit! at! bnt N 46 4 E I ir EP N a 曙 ()= ( ) [68 = 28] 9) [63] [32] : H , EE 元去商场购买头盔,每个 gg 7D I 根据右面的竖式,你认为下面说法正确 () ()= ( ) a ; Gama 8a 3 =",
+    "taxonomy": "math",
+    "steps": [
+      "分析题目",
+      "确定解题思路",
+      "进行解答",
+      "验证结果"
+    ],
+    "transitions": [
+      "首先，我们需要仔细阅读题目，理解题目的要求。",
+      "接下来，根据题目特点选择合适的解题方法。",
+      "然后，按照步骤进行计算或推理。",
+      "最后，检查答案是否合理和正确。"
+    ],
+    "scoring": {
+      "total": 5,
+      "steps": [
+        1,
+        1,
+        2,
+        1
+      ]
+    },
+    "answer": "需要根据具体计算得出",
+    "analysis": "这类题目有助于培养学生的逻辑思维和计算能力。",
+    "knowledgePoints": [
+      "基础运算"
+    ],
+    "difficulty": "medium",
+    "type": "calculation",
+    "gradeLevel": "4"
+  },
+  {
+    "id": "学霸提优大试卷四年级上册数学人教版_26_10",
+    "source": "/Users/tywg001/Downloads/mathlearning/aoshu/学霸提优大试卷四年级上册数学人教版.pdf (Page 26)",
+    "stem": "过程 a ys 单元综合测试卷( ) 少天能看元? 右面爸陈计算过程中,虚线 和仿寺 NE M T t) 时间时 路程千米 at 二 34 一填空",
+    "taxonomy": "math",
+    "steps": [
+      "理解题目要求",
+      "确定运算顺序",
+      "进行计算",
+      "检查结果"
+    ],
+    "transitions": [
+      "首先，我们需要仔细阅读题目，理解题目的要求。",
+      "接下来，根据题目特点选择合适的解题方法。",
+      "然后，按照步骤进行计算或推理。",
+      "最后，检查答案是否合理和正确。"
+    ],
+    "scoring": {
+      "total": 5,
+      "steps": [
+        1,
+        1,
+        2,
+        1
+      ]
+    },
+    "answer": "需要根据具体计算得出",
+    "analysis": "本题考查了基本的数学运算能力，需要仔细理解题目要求。",
+    "knowledgePoints": [
+      "基础运算"
+    ],
+    "difficulty": "hard",
+    "type": "fill_in_blank",
+    "gradeLevel": "4"
+  },
+  {
+    "id": "学霸提优大试卷四年级上册数学人教版_26_11",
+    "source": "/Users/tywg001/Downloads/mathlearning/aoshu/学霸提优大试卷四年级上册数学人教版.pdf (Page 26)",
+    "stem": "WY, ) P 80 s , TLL 算出了结果",
+    "taxonomy": "math",
+    "steps": [
+      "分析题目",
+      "确定解题思路",
+      "进行解答",
+      "验证结果"
+    ],
+    "transitions": [
+      "首先，我们需要仔细阅读题目，理解题目的要求。",
+      "接下来，根据题目特点选择合适的解题方法。",
+      "然后，按照步骤进行计算或推理。",
+      "最后，检查答案是否合理和正确。"
+    ],
+    "scoring": {
+      "total": 5,
+      "steps": [
+        1,
+        1,
+        2,
+        1
+      ]
+    },
+    "answer": "需要根据具体计算得出",
+    "analysis": "这类题目有助于培养学生的逻辑思维和计算能力。",
+    "knowledgePoints": [
+      "基础运算"
+    ],
+    "difficulty": "easy",
+    "type": "calculation",
+    "gradeLevel": "4"
+  },
+  {
+    "id": "学霸提优大试卷四年级上册数学人教版_31_1",
+    "source": "/Users/tywg001/Downloads/mathlearning/aoshu/学霸提优大试卷四年级上册数学人教版.pdf (Page 31)",
+    "stem": "上海到北京各车型运行时间和票价统计图如下",
+    "taxonomy": "math",
+    "steps": [
+      "分析题目",
+      "确定解题思路",
+      "进行解答",
+      "验证结果"
+    ],
+    "transitions": [
+      "首先，我们需要仔细阅读题目，理解题目的要求。",
+      "接下来，根据题目特点选择合适的解题方法。",
+      "然后，按照步骤进行计算或推理。",
+      "最后，检查答案是否合理和正确。"
+    ],
+    "scoring": {
+      "total": 5,
+      "steps": [
+        1,
+        1,
+        2,
+        1
+      ]
+    },
+    "answer": "需要根据具体计算得出",
+    "analysis": "这类题目有助于培养学生的逻辑思维和计算能力。",
+    "knowledgePoints": [
+      "统计图表"
+    ],
+    "difficulty": "easy",
+    "type": "calculation",
+    "gradeLevel": "4"
+  },
+  {
+    "id": "学霸提优大试卷四年级上册数学人教版_31_2",
+    "source": "/Users/tywg001/Downloads/mathlearning/aoshu/学霸提优大试卷四年级上册数学人教版.pdf (Page 31)",
+    "stem": "在一个条形统计图中,如果用 1 K a po lomry : - : 2",
+    "taxonomy": "math",
+    "steps": [
+      "理解题目要求",
+      "确定运算顺序",
+      "进行计算",
+      "检查结果"
+    ],
+    "transitions": [
+      "首先，我们需要仔细阅读题目，理解题目的要求。",
+      "接下来，根据题目特点选择合适的解题方法。",
+      "然后，按照步骤进行计算或推理。",
+      "最后，检查答案是否合理和正确。"
+    ],
+    "scoring": {
+      "total": 5,
+      "steps": [
+        1,
+        1,
+        2,
+        1
+      ]
+    },
+    "answer": "需要根据具体计算得出",
+    "analysis": "这类题目有助于培养学生的逻辑思维和计算能力。",
+    "knowledgePoints": [
+      "统计图表"
+    ],
+    "difficulty": "easy",
+    "type": "calculation",
+    "gradeLevel": "4"
+  },
+  {
+    "id": "学霸提优大试卷四年级上册数学人教版_31_3",
+    "source": "/Users/tywg001/Downloads/mathlearning/aoshu/学霸提优大试卷四年级上册数学人教版.pdf (Page 31)",
+    "stem": "WP E 已 十天国加 [ a 、 : 月天一一上二二二 了于最长? (4 分) 和类小新最高,小妮最矮,小遍比小兰高,小兰的身高是 j= 厘米",
+    "taxonomy": "math",
+    "steps": [
+      "分析题目",
+      "确定解题思路",
+      "进行解答",
+      "验证结果"
+    ],
+    "transitions": [
+      "首先，我们需要仔细阅读题目，理解题目的要求。",
+      "接下来，根据题目特点选择合适的解题方法。",
+      "然后，按照步骤进行计算或推理。",
+      "最后，检查答案是否合理和正确。"
+    ],
+    "scoring": {
+      "total": 5,
+      "steps": [
+        1,
+        1,
+        2,
+        1
+      ]
+    },
+    "answer": "需要根据具体计算得出",
+    "analysis": "这类题目有助于培养学生的逻辑思维和计算能力。",
+    "knowledgePoints": [
+      "基础运算"
+    ],
+    "difficulty": "medium",
+    "type": "calculation",
+    "gradeLevel": "4"
+  },
+  {
+    "id": "学霸提优大试卷四年级上册数学人教版_36_1",
+    "source": "/Users/tywg001/Downloads/mathlearning/aoshu/学霸提优大试卷四年级上册数学人教版.pdf (Page 36)",
+    "stem": "x20 的积的中间有一个 0",
+    "taxonomy": "math",
+    "steps": [
+      "分析题目",
+      "确定解题思路",
+      "进行解答",
+      "验证结果"
+    ],
+    "transitions": [
+      "首先，我们需要仔细阅读题目，理解题目的要求。",
+      "接下来，根据题目特点选择合适的解题方法。",
+      "然后，按照步骤进行计算或推理。",
+      "最后，检查答案是否合理和正确。"
+    ],
+    "scoring": {
+      "total": 5,
+      "steps": [
+        1,
+        1,
+        2,
+        1
+      ]
+    },
+    "answer": "需要根据具体计算得出",
+    "analysis": "这类题目有助于培养学生的逻辑思维和计算能力。",
+    "knowledgePoints": [
+      "基础运算"
+    ],
+    "difficulty": "easy",
+    "type": "calculation",
+    "gradeLevel": "4"
+  },
+  {
+    "id": "学霸提优大试卷四年级上册数学人教版_36_3",
+    "source": "/Users/tywg001/Downloads/mathlearning/aoshu/学霸提优大试卷四年级上册数学人教版.pdf (Page 36)",
+    "stem": "x12 的积是( ) 位数;x45 的积的末尾有 KE 16 = (0",
+    "taxonomy": "math",
+    "steps": [
+      "分析题目",
+      "确定解题思路",
+      "进行解答",
+      "验证结果"
+    ],
+    "transitions": [
+      "首先，我们需要仔细阅读题目，理解题目的要求。",
+      "接下来，根据题目特点选择合适的解题方法。",
+      "然后，按照步骤进行计算或推理。",
+      "最后，检查答案是否合理和正确。"
+    ],
+    "scoring": {
+      "total": 5,
+      "steps": [
+        1,
+        1,
+        2,
+        1
+      ]
+    },
+    "answer": "需要根据具体计算得出",
+    "analysis": "这类题目有助于培养学生的逻辑思维和计算能力。",
+    "knowledgePoints": [
+      "基础运算"
+    ],
+    "difficulty": "easy",
+    "type": "calculation",
+    "gradeLevel": "4"
+  },
+  {
+    "id": "学霸提优大试卷四年级上册数学人教版_36_4",
+    "source": "/Users/tywg001/Downloads/mathlearning/aoshu/学霸提优大试卷四年级上册数学人教版.pdf (Page 36)",
+    "stem": "因为7:2 = 31,所以=31",
+    "taxonomy": "math",
+    "steps": [
+      "分析题目",
+      "确定解题思路",
+      "进行解答",
+      "验证结果"
+    ],
+    "transitions": [
+      "首先，我们需要仔细阅读题目，理解题目的要求。",
+      "接下来，根据题目特点选择合适的解题方法。",
+      "然后，按照步骤进行计算或推理。",
+      "最后，检查答案是否合理和正确。"
+    ],
+    "scoring": {
+      "total": 5,
+      "steps": [
+        1,
+        1,
+        2,
+        1
+      ]
+    },
+    "answer": "需要根据具体计算得出",
+    "analysis": "这类题目有助于培养学生的逻辑思维和计算能力。",
+    "knowledgePoints": [
+      "基础运算"
+    ],
+    "difficulty": "easy",
+    "type": "calculation",
+    "gradeLevel": "4"
+  },
+  {
+    "id": "学霸提优大试卷四年级上册数学人教版_36_7",
+    "source": "/Users/tywg001/Downloads/mathlearning/aoshu/学霸提优大试卷四年级上册数学人教版.pdf (Page 36)",
+    "stem": "下面的式子中 得数大于 的是 ) x30= x15 = 14x= x60= 这趟列车的平均速度可以写作 )",
+    "taxonomy": "math",
+    "steps": [
+      "分析题目",
+      "确定解题思路",
+      "进行解答",
+      "验证结果"
+    ],
+    "transitions": [
+      "首先，我们需要仔细阅读题目，理解题目的要求。",
+      "接下来，根据题目特点选择合适的解题方法。",
+      "然后，按照步骤进行计算或推理。",
+      "最后，检查答案是否合理和正确。"
+    ],
+    "scoring": {
+      "total": 5,
+      "steps": [
+        1,
+        1,
+        2,
+        1
+      ]
+    },
+    "answer": "需要根据具体计算得出",
+    "analysis": "这类题目有助于培养学生的逻辑思维和计算能力。",
+    "knowledgePoints": [
+      "基础运算"
+    ],
+    "difficulty": "medium",
+    "type": "calculation",
+    "gradeLevel": "4"
+  },
+  {
+    "id": "学霸提优大试卷四年级上册数学人教版_36_9",
+    "source": "/Users/tywg001/Downloads/mathlearning/aoshu/学霸提优大试卷四年级上册数学人教版.pdf (Page 36)",
+    "stem": "用坚式计算,市 的要验算",
+    "taxonomy": "math",
+    "steps": [
+      "理解题目要求",
+      "确定运算顺序",
+      "进行计算",
+      "检查结果"
+    ],
+    "transitions": [
+      "首先，我们需要仔细阅读题目，理解题目的要求。",
+      "接下来，根据题目特点选择合适的解题方法。",
+      "然后，按照步骤进行计算或推理。",
+      "最后，检查答案是否合理和正确。"
+    ],
+    "scoring": {
+      "total": 5,
+      "steps": [
+        1,
+        1,
+        2,
+        1
+      ]
+    },
+    "answer": "需要根据具体计算得出",
+    "analysis": "本题考查了基本的数学运算能力，需要仔细理解题目要求。",
+    "knowledgePoints": [
+      "基础运算"
+    ],
+    "difficulty": "easy",
+    "type": "calculation",
+    "gradeLevel": "4"
+  },
+  {
+    "id": "学霸提优大试卷四年级上册数学人教版_36_10",
+    "source": "/Users/tywg001/Downloads/mathlearning/aoshu/学霸提优大试卷四年级上册数学人教版.pdf (Page 36)",
+    "stem": "甲乙两人骑摩托车,甲的速度是 54 TIME, ZI ( ) W E 3,4 不变,积是( )o 已 度是15 米秒 谁的速度重快? ) 让 知W:N=50,如果太扩大到原来的5倍,六不变,商是 gp ， (I I 同时扩大到原来的5 信,商是 Gp a n ts nlr sss C)",
+    "taxonomy": "math",
+    "steps": [
+      "分析题目",
+      "确定解题思路",
+      "进行解答",
+      "验证结果"
+    ],
+    "transitions": [
+      "首先，我们需要仔细阅读题目，理解题目的要求。",
+      "接下来，根据题目特点选择合适的解题方法。",
+      "然后，按照步骤进行计算或推理。",
+      "最后，检查答案是否合理和正确。"
+    ],
+    "scoring": {
+      "total": 5,
+      "steps": [
+        1,
+        1,
+        2,
+        1
+      ]
+    },
+    "answer": "需要根据具体计算得出",
+    "analysis": "这类题目有助于培养学生的逻辑思维和计算能力。",
+    "knowledgePoints": [
+      "基础运算"
+    ],
+    "difficulty": "medium",
+    "type": "calculation",
+    "gradeLevel": "4"
+  },
+  {
+    "id": "学霸提优大试卷四年级上册数学人教版_36_11",
+    "source": "/Users/tywg001/Downloads/mathlearning/aoshu/学霸提优大试卷四年级上册数学人教版.pdf (Page 36)",
+    "stem": "小新想用计算器计算 ,按得太快,结果错误地 7",
+    "taxonomy": "math",
+    "steps": [
+      "理解题目要求",
+      "确定运算顺序",
+      "进行计算",
+      "检查结果"
+    ],
+    "transitions": [
+      "首先，我们需要仔细阅读题目，理解题目的要求。",
+      "接下来，根据题目特点选择合适的解题方法。",
+      "然后，按照步骤进行计算或推理。",
+      "最后，检查答案是否合理和正确。"
+    ],
+    "scoring": {
+      "total": 5,
+      "steps": [
+        1,
+        1,
+        2,
+        1
+      ]
+    },
+    "answer": "需要根据具体计算得出",
+    "analysis": "本题考查了基本的数学运算能力，需要仔细理解题目要求。",
+    "knowledgePoints": [
+      "基础运算"
+    ],
+    "difficulty": "easy",
+    "type": "calculation",
+    "gradeLevel": "4"
+  },
+  {
+    "id": "学霸提优大试卷四年级上册数学人教版_36_12",
+    "source": "/Users/tywg001/Downloads/mathlearning/aoshu/学霸提优大试卷四年级上册数学人教版.pdf (Page 36)",
+    "stem": "把下面的竖式填写完整",
+    "taxonomy": "math",
+    "steps": [
+      "分析题目",
+      "确定解题思路",
+      "进行解答",
+      "验证结果"
+    ],
+    "transitions": [
+      "首先，我们需要仔细阅读题目，理解题目的要求。",
+      "接下来，根据题目特点选择合适的解题方法。",
+      "然后，按照步骤进行计算或推理。",
+      "最后，检查答案是否合理和正确。"
+    ],
+    "scoring": {
+      "total": 5,
+      "steps": [
+        1,
+        1,
+        2,
+        1
+      ]
+    },
+    "answer": "需要根据具体计算得出",
+    "analysis": "这类题目有助于培养学生的逻辑思维和计算能力。",
+    "knowledgePoints": [
+      "基础运算"
+    ],
+    "difficulty": "easy",
+    "type": "calculation",
+    "gradeLevel": "4"
+  },
+  {
+    "id": "学霸提优大试卷四年级上册数学人教版_36_13",
+    "source": "/Users/tywg001/Downloads/mathlearning/aoshu/学霸提优大试卷四年级上册数学人教版.pdf (Page 36)",
+    "stem": "小凯在计算一道乘法题时错把一个因数 42 看成了地方",
+    "taxonomy": "math",
+    "steps": [
+      "理解题目要求",
+      "确定运算顺序",
+      "进行计算",
+      "检查结果"
+    ],
+    "transitions": [
+      "首先，我们需要仔细阅读题目，理解题目的要求。",
+      "接下来，根据题目特点选择合适的解题方法。",
+      "然后，按照步骤进行计算或推理。",
+      "最后，检查答案是否合理和正确。"
+    ],
+    "scoring": {
+      "total": 5,
+      "steps": [
+        1,
+        1,
+        2,
+        1
+      ]
+    },
+    "answer": "需要根据具体计算得出",
+    "analysis": "本题考查了基本的数学运算能力，需要仔细理解题目要求。",
+    "knowledgePoints": [
+      "乘法运算"
+    ],
+    "difficulty": "easy",
+    "type": "calculation",
+    "gradeLevel": "4"
+  },
+  {
+    "id": "学霸提优大试卷四年级上册数学人教版_36_15",
+    "source": "/Users/tywg001/Downloads/mathlearning/aoshu/学霸提优大试卷四年级上册数学人教版.pdf (Page 36)",
+    "stem": "一道乘法题时错把一个因数 42 看成了地方",
+    "taxonomy": "math",
+    "steps": [
+      "分析题目",
+      "确定解题思路",
+      "进行解答",
+      "验证结果"
+    ],
+    "transitions": [
+      "首先，我们需要仔细阅读题目，理解题目的要求。",
+      "接下来，根据题目特点选择合适的解题方法。",
+      "然后，按照步骤进行计算或推理。",
+      "最后，检查答案是否合理和正确。"
+    ],
+    "scoring": {
+      "total": 5,
+      "steps": [
+        1,
+        1,
+        2,
+        1
+      ]
+    },
+    "answer": "需要根据具体计算得出",
+    "analysis": "这类题目有助于培养学生的逻辑思维和计算能力。",
+    "knowledgePoints": [
+      "乘法运算"
+    ],
+    "difficulty": "easy",
+    "type": "calculation",
+    "gradeLevel": "4"
+  },
+  {
+    "id": "学霸提优大试卷四年级上册数学人教版_41_2",
+    "source": "/Users/tywg001/Downloads/mathlearning/aoshu/学霸提优大试卷四年级上册数学人教版.pdf (Page 41)",
+    "stem": "小源想用平底锅前牛排,锅里每次最多只能前两份牛 顺序排列 ,那么第 ET HE )色的",
+    "taxonomy": "math",
+    "steps": [
+      "分析题目",
+      "确定解题思路",
+      "进行解答",
+      "验证结果"
+    ],
+    "transitions": [
+      "首先，我们需要仔细阅读题目，理解题目的要求。",
+      "接下来，根据题目特点选择合适的解题方法。",
+      "然后，按照步骤进行计算或推理。",
+      "最后，检查答案是否合理和正确。"
+    ],
+    "scoring": {
+      "total": 5,
+      "steps": [
+        1,
+        1,
+        2,
+        1
+      ]
+    },
+    "answer": "需要根据具体计算得出",
+    "analysis": "这类题目有助于培养学生的逻辑思维和计算能力。",
+    "knowledgePoints": [
+      "基础运算"
+    ],
+    "difficulty": "easy",
+    "type": "calculation",
+    "gradeLevel": "4"
+  },
+  {
+    "id": "学霸提优大试卷四年级上册数学人教版_41_3",
+    "source": "/Users/tywg001/Downloads/mathlearning/aoshu/学霸提优大试卷四年级上册数学人教版.pdf (Page 41)",
+    "stem": "请你根据数据完成统计表 ,绘制统计图",
+    "taxonomy": "math",
+    "steps": [
+      "分析题目",
+      "确定解题思路",
+      "进行解答",
+      "验证结果"
+    ],
+    "transitions": [
+      "首先，我们需要仔细阅读题目，理解题目的要求。",
+      "接下来，根据题目特点选择合适的解题方法。",
+      "然后，按照步骤进行计算或推理。",
+      "最后，检查答案是否合理和正确。"
+    ],
+    "scoring": {
+      "total": 5,
+      "steps": [
+        1,
+        1,
+        2,
+        1
+      ]
+    },
+    "answer": "需要根据具体计算得出",
+    "analysis": "这类题目有助于培养学生的逻辑思维和计算能力。",
+    "knowledgePoints": [
+      "统计图表"
+    ],
+    "difficulty": "easy",
+    "type": "calculation",
+    "gradeLevel": "4"
+  },
+  {
+    "id": "学霸提优大试卷四年级上册数学人教版_41_5",
+    "source": "/Users/tywg001/Downloads/mathlearning/aoshu/学霸提优大试卷四年级上册数学人教版.pdf (Page 41)",
+    "stem": "21 名战士要坐船过河 ,渡口处只有一条能载5 人的小 Th 船(无船工) ,他们村全部小过河去,至少要使用这条 C EI 小船渡河(",
+    "taxonomy": "math",
+    "steps": [
+      "分析题目",
+      "确定解题思路",
+      "进行解答",
+      "验证结果"
+    ],
+    "transitions": [
+      "首先，我们需要仔细阅读题目，理解题目的要求。",
+      "接下来，根据题目特点选择合适的解题方法。",
+      "然后，按照步骤进行计算或推理。",
+      "最后，检查答案是否合理和正确。"
+    ],
+    "scoring": {
+      "total": 5,
+      "steps": [
+        1,
+        1,
+        2,
+        1
+      ]
+    },
+    "answer": "需要根据具体计算得出",
+    "analysis": "这类题目有助于培养学生的逻辑思维和计算能力。",
+    "knowledgePoints": [
+      "基础运算"
+    ],
+    "difficulty": "medium",
+    "type": "calculation",
+    "gradeLevel": "4"
+  }
+]

@@ -1,0 +1,22 @@
+{
+  "extraction_method": "comprehensive_ocr_enhanced",
+  "total_extracted": 37,
+  "unique_problems": 0,
+  "quality_metrics": {
+    "avg_stem_length": 132.64864864864865,
+    "problems_with_answers": 0,
+    "problems_with_analysis": 0,
+    "difficulty_distribution": {
+      "easy": 20,
+      "medium": 2,
+      "hard": 15
+    },
+    "taxonomy_distribution": {
+      "数学应用题": 29,
+      "计算题": 6,
+      "填空题": 1,
+      "选择题": 1
+    }
+  },
+  "extraction_quality": "enhanced_ocr_with_formatting"
+}
