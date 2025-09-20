@@ -1,7 +1,9 @@
 'use client';
 
+import React from 'react';
 import { ProblemSet, Item } from '@/types/problem';
 import { getProblemTypes } from '@/lib/problemTypes';
+import { learningProgressManager } from '@/lib/learningProgress';
 
 interface ProblemSelectorProps {
   problemSet: ProblemSet;
@@ -18,6 +20,44 @@ export default function ProblemSelector({
   filteredIndices,
   showTypeFilter = false,
 }: ProblemSelectorProps) {
+  // 获取学习状态信息和样式
+  const getLearningStatusInfo = (problemId: string) => {
+    const progress = learningProgressManager.getProgress(problemId);
+
+    switch (progress.status) {
+      case 'unlearned':
+        return {
+          label: '未学习',
+          color: 'bg-gray-100 text-gray-600 border-gray-200',
+          icon: '📝'
+        };
+      case 'learned':
+        return {
+          label: '已学习',
+          color: 'bg-blue-100 text-blue-600 border-blue-200',
+          icon: '✅'
+        };
+      case 'familiar':
+        return {
+          label: '熟悉',
+          color: 'bg-green-100 text-green-600 border-green-200',
+          icon: '🎯'
+        };
+      case 'unfamiliar':
+        return {
+          label: '不熟悉',
+          color: 'bg-red-100 text-red-600 border-red-200',
+          icon: '⚠️'
+        };
+      default:
+        return {
+          label: '未学习',
+          color: 'bg-gray-100 text-gray-600 border-gray-200',
+          icon: '📝'
+        };
+    }
+  };
+
   const getProblemPreview = (item: Item) => {
     // 获取题目前20个字符作为预览
     const preview = item.stem.text.substring(0, 30);
@@ -69,6 +109,9 @@ export default function ProblemSelector({
         {(filteredIndices || problemSet.items.map((_, i) => i)).map((index) => {
           const item = problemSet.items[index];
           const problemTypes = getProblemTypes(item);
+          const learningStatus = getLearningStatusInfo(item.id);
+          const progress = learningProgressManager.getProgress(item.id);
+
           return (
           <button
             key={item.id}
@@ -93,6 +136,19 @@ export default function ProblemSelector({
                   <span className="text-xs text-gray-500">
                     题目 {index + 1}
                   </span>
+                  {/* 学习状态标记 */}
+                  <span className={`
+                    inline-flex items-center px-2 py-1 rounded-full text-xs font-medium border
+                    ${learningStatus.color}
+                  `}>
+                    {learningStatus.icon} {learningStatus.label}
+                  </span>
+                  {/* 重做次数标记 */}
+                  {progress.retryCount > 0 && (
+                    <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-orange-100 text-orange-600 border-orange-200">
+                      🔄 重做 {progress.retryCount}
+                    </span>
+                  )}
                 </div>
                 <div className="text-sm text-gray-700 font-medium leading-relaxed">
                   {getProblemPreview(item)}

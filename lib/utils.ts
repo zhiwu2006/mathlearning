@@ -11,11 +11,34 @@ export function renderTemplate(template: string, context: Record<string, number>
 
   return template.replace(/\$\{([^}]+)\}/g, (_, expr) => {
     try {
-      const vars = Object.assign({}, context);
-      // 安全起见，仅允许变量与基本运算
-      const fn = new Function(...Object.keys(vars), `return (${expr});`);
-      return fn(...Object.values(vars)).toString();
-    } catch {
+      // 简单变量替换，支持基本运算
+      const trimmedExpr = expr.trim();
+
+      // 直接变量引用
+      if (context.hasOwnProperty(trimmedExpr)) {
+        return context[trimmedExpr].toString();
+      }
+
+      // 简单数学运算（仅支持 +, -, *, /, (, ) 和数字）
+      if (/^[\d+\-*/().\s]+$/.test(trimmedExpr)) {
+        // 安全的数学表达式计算
+        const result = Function('"use strict"; return (' + trimmedExpr + ')')();
+        return result.toString();
+      }
+
+      // 变量间的简单运算
+      const mathExpr = trimmedExpr.replace(/[a-zA-Z_][a-zA-Z0-9_]*/g, (match) => {
+        return context.hasOwnProperty(match) ? context[match].toString() : '0';
+      });
+
+      if (/^[\d+\-*/().\s]+$/.test(mathExpr)) {
+        const result = Function('"use strict"; return (' + mathExpr + ')')();
+        return result.toString();
+      }
+
+      return '?';
+    } catch (error) {
+      console.warn('Template rendering error:', error);
       return '?';
     }
   });

@@ -1,7 +1,8 @@
 'use client';
 
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { ProblemSet } from '@/types/problem';
+import { ProblemDataManager } from '@/lib/problemDataManager';
 
 interface QuestionImporterProps {
   onImport: (problemSet: ProblemSet) => void;
@@ -12,8 +13,18 @@ interface QuestionImporterProps {
 export default function QuestionImporter({ onImport, onClose, isOpen }: QuestionImporterProps) {
   const [importData, setImportData] = useState('');
   const [validationErrors, setValidationErrors] = useState<string[]>([]);
+  const [successMessage, setSuccessMessage] = useState<string>('');
+  const [storageStats, setStorageStats] = useState({ totalItems: 0, tags: [] as string[] });
   const [isDragging, setIsDragging] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
+
+  // 获取存储状态
+  useEffect(() => {
+    if (isOpen) {
+      const stats = ProblemDataManager.getStorageStats();
+      setStorageStats(stats);
+    }
+  }, [isOpen]);
 
   if (!isOpen) return null;
 
@@ -160,10 +171,17 @@ export default function QuestionImporter({ onImport, onClose, isOpen }: Question
         if (!data.metadata.createdAt) data.metadata.createdAt = new Date().toISOString();
         if (!data.metadata.author) data.metadata.author = "Imported";
 
+        const newItemsCount = data.items.length;
         onImport(data);
         setValidationErrors([]);
+        setSuccessMessage(`成功导入 ${newItemsCount} 道题目！已与现有题目合并。`);
         setImportData('');
-        onClose();
+
+        // 2秒后自动关闭
+        setTimeout(() => {
+          onClose();
+          setSuccessMessage('');
+        }, 2000);
       }
     } catch (error) {
       setValidationErrors(['JSON 格式错误']);
@@ -202,8 +220,13 @@ export default function QuestionImporter({ onImport, onClose, isOpen }: Question
             </button>
           </div>
           <p className="mt-2 text-blue-100">
-            支持 JSON 格式的题目文件导入
+            支持 JSON 格式的题目文件导入（合并模式，不会覆盖原有题目）
           </p>
+          {storageStats.totalItems > 0 && (
+            <p className="mt-1 text-blue-200 text-sm">
+              本地已存储 {storageStats.totalItems} 道题目，下次启动将自动加载
+            </p>
+          )}
         </div>
 
         <div className="p-6">
@@ -254,6 +277,14 @@ export default function QuestionImporter({ onImport, onClose, isOpen }: Question
               className="w-full h-64 p-4 border border-gray-300 rounded-lg font-mono text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
             />
           </div>
+
+          {/* 成功信息 */}
+          {successMessage && (
+            <div className="mb-6 p-4 bg-green-50 border border-green-200 rounded-lg">
+              <h3 className="text-lg font-medium text-green-800 mb-2">✅ 导入成功</h3>
+              <p className="text-sm text-green-700">{successMessage}</p>
+            </div>
+          )}
 
           {/* 错误信息 */}
           {validationErrors.length > 0 && (

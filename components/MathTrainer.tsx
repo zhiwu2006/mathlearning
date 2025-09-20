@@ -13,7 +13,10 @@ import SummaryModal from './SummaryModal';
 import QuestionImporter from './QuestionImporter';
 import ProblemEditor from './ProblemEditor';
 import ProblemTypeFilter from './ProblemTypeFilter';
+import LearningStatsPanel from './LearningStatsPanel';
 import { classifyProblem } from '@/lib/problemTypes';
+import { learningProgressManager } from '@/lib/learningProgress';
+import { ProblemDataManager } from '@/lib/problemDataManager';
 
 interface MathTrainerProps {
   problemSet: ProblemSet;
@@ -53,20 +56,34 @@ export default function MathTrainer({ problemSet }: MathTrainerProps) {
   const [selectedProblemTypes, setSelectedProblemTypes] = useState<string[]>([]);
   const [showTypeFilter, setShowTypeFilter] = useState(false);
   const [currentProblemSet, setCurrentProblemSet] = useState(problemSet);
+  const [showLearningStats, setShowLearningStats] = useState(false);
 
-  // 计算筛选后的题目索引
+  // 计算筛选后的题目索引（包含智能推荐）
   const getFilteredProblemIndices = () => {
+    let filteredIndices: number[];
+
+    // 首先按题型筛选
     if (selectedProblemTypes.length === 0) {
-      return problemSet.items.map((_, index) => index);
+      filteredIndices = problemSet.items.map((_, index) => index);
+    } else {
+      filteredIndices = problemSet.items
+        .map((item, index) => ({ item, index }))
+        .filter(({ item }) => {
+          const problemTypes = classifyProblem(item);
+          return selectedProblemTypes.some(typeId => problemTypes.includes(typeId));
+        })
+        .map(({ index }) => index);
     }
 
-    return problemSet.items
-      .map((item, index) => ({ item, index }))
-      .filter(({ item }) => {
-        const problemTypes = classifyProblem(item);
-        return selectedProblemTypes.some(typeId => problemTypes.includes(typeId));
-      })
-      .map(({ index }) => index);
+    // 应用智能推荐排序
+    if (filteredIndices.length > 0) {
+      const problemIds = filteredIndices.map(index => problemSet.items[index].id);
+      const prioritizedIndices = learningProgressManager.getPrioritizedProblemIndices(problemIds);
+      // 将优先级索引映射回原索引
+      filteredIndices = prioritizedIndices.map(prioritizedIndex => filteredIndices[prioritizedIndex]);
+    }
+
+    return filteredIndices;
   };
 
   const filteredIndices = getFilteredProblemIndices();
@@ -81,13 +98,44 @@ export default function MathTrainer({ problemSet }: MathTrainerProps) {
 
   // 处理题目导入
   const handleImport = useCallback((newProblemSet: ProblemSet) => {
-    setCurrentProblemSet(newProblemSet);
-    // 重置状态
+    // 合并题目而不是替换
+    setCurrentProblemSet(prev => {
+      // 创建合并后的题目列表
+      const existingIds = new Set(prev.items.map(item => item.id));
+      const newItems = newProblemSet.items.filter(item => !existingIds.has(item.id));
+
+      // 如果没有新题目，返回原来的 ProblemSet
+      if (newItems.length === 0) {
+        return prev;
+      }
+
+      // 合并 metadata 标签
+      const mergedTags = Array.from(new Set([...prev.metadata.tags, ...newProblemSet.metadata.tags]));
+
+      return {
+        ...prev,
+        metadata: {
+          ...prev.metadata,
+          tags: mergedTags,
+          // 更新时间戳
+          createdAt: new Date().toISOString(),
+        },
+        items: [...prev.items, ...newItems],
+      };
+    });
+
+    // 保存合并后的题目到本地存储
+    setTimeout(() => {
+      const mergedSet = ProblemDataManager.mergeProblemSets(currentProblemSet, newProblemSet);
+      ProblemDataManager.saveToStorage(mergedSet);
+    }, 100);
+
+    // 重置状态到第一题（保持原有状态如果正在使用中）
     setState(prev => ({
       ...prev,
-      itemIdx: 0,
+      itemIdx: 0, // 重置到第一题以便查看新导入的题目
       stepIdx: 0,
-      vars: instantiateVariables(newProblemSet.items[0].stem.variables),
+      vars: currentProblemSet.items[0]?.stem.variables ? instantiateVariables(currentProblemSet.items[0].stem.variables) : {},
       retries: {},
       score: 0,
       startTime: new Date(),
@@ -98,7 +146,7 @@ export default function MathTrainer({ problemSet }: MathTrainerProps) {
     setFeedback({ isVisible: false, message: '' });
     setShowNextButton(false);
     setSelectedOptions(new Set());
-  }, []);
+  }, [currentProblemSet.items]);
 
   // 处理题目编辑
   const handleProblemSetUpdate = useCallback((updatedProblemSet: ProblemSet) => {
@@ -291,6 +339,9 @@ export default function MathTrainer({ problemSet }: MathTrainerProps) {
       elapsed,
     });
 
+    // 更新学习进度
+    learningProgressManager.updateAnswerResult(currentItem.id, isCorrect);
+
     // 处理路由
     const transition = currentItem.transitions.find(t => t.fromStep === stepId);
     if (transition) {
@@ -413,6 +464,10 @@ export default function MathTrainer({ problemSet }: MathTrainerProps) {
   // 重置题目
   const handleReset = useCallback(() => {
     console.log('重做本题按钮被点击了');
+
+    // 记录重做次数
+    learningProgressManager.incrementRetry(currentItem.id);
+
     const vars = instantiateVariables(currentItem.stem.variables);
     setState(prev => ({
       ...prev,
@@ -441,6 +496,10 @@ export default function MathTrainer({ problemSet }: MathTrainerProps) {
   // 切换题目
   const handleProblemSelect = useCallback((index: number) => {
     const newItem = problemSet.items[index];
+
+    // 记录题目访问和学习进度
+    learningProgressManager.updateAccess(newItem.id);
+
     const vars = instantiateVariables(newItem.stem.variables);
 
     setState(prev => ({
@@ -538,6 +597,18 @@ export default function MathTrainer({ problemSet }: MathTrainerProps) {
               <span className="text-sm font-medium">
                 题型筛选 {selectedProblemTypes.length > 0 && `(${selectedProblemTypes.length})`}
               </span>
+            </button>
+
+            {/* 学习进度统计按钮 */}
+            <button
+              onClick={() => setShowLearningStats(true)}
+              className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-indigo-500 to-purple-500 text-white rounded-lg hover:from-indigo-600 hover:to-purple-600 transition-all transform hover:scale-105 shadow-md"
+              title="学习进度统计"
+            >
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+              </svg>
+              <span className="text-sm font-medium">学习进度</span>
             </button>
 
             {/* 导入按钮 */}
@@ -800,6 +871,13 @@ export default function MathTrainer({ problemSet }: MathTrainerProps) {
         onProblemSetUpdate={handleProblemSetUpdate}
         onClose={() => setShowEditor(false)}
         isOpen={showEditor}
+      />
+
+      {/* 学习进度统计面板 */}
+      <LearningStatsPanel
+        problemIds={problemSet.items.map(item => item.id)}
+        isVisible={showLearningStats}
+        onToggle={() => setShowLearningStats(!showLearningStats)}
       />
     </div>
   );

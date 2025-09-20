@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import MathTrainer from '@/components/MathTrainer';
 import { ProblemSet } from '@/types/problem';
 import { testProblemSet } from '@/lib/test-data';
+import { ProblemDataManager } from '@/lib/problemDataManager';
 
 export default function Home() {
   const [problemSet, setProblemSet] = useState<ProblemSet | null>(null);
@@ -11,10 +12,22 @@ export default function Home() {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    // 加载示例题库
+    // 加载题库的优先级：本地存储 → 网络文件 → 测试数据
     const loadProblemSet = async () => {
       try {
         console.log('开始加载题库...');
+
+        // 1. 首先尝试从本地存储加载
+        const storedData = ProblemDataManager.loadFromStorage();
+        if (storedData) {
+          console.log('从本地存储加载题库成功');
+          setProblemSet(storedData);
+          setLoading(false);
+          return;
+        }
+
+        // 2. 如果本地没有，尝试从网络加载
+        console.log('本地存储无数据，尝试从网络加载...');
         const response = await fetch('/data/complete-math-problems.json');
         console.log('响应状态:', response.status);
 
@@ -23,12 +36,21 @@ export default function Home() {
         }
 
         const data = await response.json();
-        console.log('题库数据加载成功:', data);
+        console.log('网络题库数据加载成功:', data);
+
+        // 验证数据格式
+        if (!data || !data.items || !Array.isArray(data.items)) {
+          throw new Error('题库数据格式不正确');
+        }
+
+        // 保存到本地存储
+        ProblemDataManager.saveToStorage(data);
         setProblemSet(data);
       } catch (error) {
         console.error('加载题库失败:', error);
         setError(error instanceof Error ? error.message : '未知错误');
-        // 使用测试数据作为备选
+
+        // 3. 最后使用测试数据作为备选
         console.log('使用测试数据作为备选...');
         setProblemSet(testProblemSet);
       } finally {
