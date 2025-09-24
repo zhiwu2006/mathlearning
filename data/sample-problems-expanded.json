@@ -1,0 +1,663 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "id": "pset-math-primary-001",
+  "version": "1.0.0",
+  "locale": "zh-CN",
+  "metadata": {
+    "gradeBand": "G3-G4",
+    "subject": "Math",
+    "tags": [
+      "差倍",
+      "条形图",
+      "两步运算",
+      "平均分配",
+      "选项扩充",
+      "四选项标准化"
+    ],
+    "createdAt": "2025-01-18T10:00:00Z",
+    "author": "Math Learning System",
+    "expandedAt": "2025-09-24T07:40:16.106Z",
+    "expansionVersion": "1.0.0"
+  },
+  "items": [
+    {
+      "id": "item-pen-001",
+      "stem": {
+        "text": "文具店有钢笔${a}支，圆珠笔的数量比钢笔多一半。两种笔一共有多少支？",
+        "variables": {
+          "a": {
+            "type": "int",
+            "range": {
+              "min": 12,
+              "max": 48
+            },
+            "constraints": [
+              "a % 2 == 0"
+            ]
+          }
+        }
+      },
+      "taxonomy": {
+        "concepts": [
+          "倍数关系",
+          "总-部分"
+        ],
+        "skills": [
+          "条件分类",
+          "关系建模",
+          "两步运算"
+        ],
+        "difficulty": "M"
+      },
+      "steps": [
+        {
+          "id": "s1",
+          "type": "extract",
+          "prompt": "下列哪些属于直接条件？（可多选）",
+          "multipleSelect": true,
+          "options": [
+            {
+              "id": "s1o1",
+              "text": "钢笔有${a}支",
+              "correct": true,
+              "feedback": "直接给出的具体数量，无需计算即可使用"
+            },
+            {
+              "id": "s1o2",
+              "text": "圆珠笔是钢笔的1.5倍",
+              "correct": false,
+              "distractorType": "inference",
+              "feedback": "这是经过推理后的等价表述，属于间接条件"
+            },
+            {
+              "id": "s1o3",
+              "text": "要求两种笔的总数",
+              "correct": false,
+              "distractorType": "goal-vs-condition",
+              "feedback": "这是问题目标，不是已知条件"
+            }
+          ],
+          "hints": [
+            "先找出题干中的具体数字和单位",
+            "哪些信息不需要计算就可以直接使用？"
+          ]
+        },
+        {
+          "id": "s2",
+          "type": "question",
+          "prompt": "本题最终求什么？单位是什么？",
+          "options": [
+            {
+              "id": "s2o1",
+              "text": "圆珠笔的数量，单位：支",
+              "correct": false,
+              "feedback": "这只是中间量，不是最终要求的结果"
+            },
+            {
+              "id": "s2o3",
+              "text": "钢笔数量，单位：支",
+              "correct": false,
+              "feedback": "这是已知量，不是要求求解的"
+            },
+            {
+              "id": "s2o4",
+              "text": "相等",
+              "correct": false,
+              "feedback": "错误。请重新理解题目内容"
+            },
+            {
+              "id": "s2o2",
+              "text": "两种笔的总数，单位：支",
+              "correct": true,
+              "feedback": "正确：明确了目标和单位"
+            }
+          ]
+        },
+        {
+          "id": "s3",
+          "type": "relation",
+          "prompt": "以下哪个关系式最合适？",
+          "options": [
+            {
+              "id": "s3o3",
+              "text": "总数 = 钢笔 × 圆珠笔",
+              "correct": false,
+              "distractorType": "结构错误",
+              "feedback": "总数应该是相加关系，不是相乘关系"
+            },
+            {
+              "id": "s3o2",
+              "text": "圆珠笔 = 钢笔 × 2；总数 = 钢笔 + 圆珠笔",
+              "correct": false,
+              "distractorType": "倍数误解",
+              "feedback": "把'多一半'误解成了'多一倍'"
+            },
+            {
+              "id": "s3o4",
+              "text": "基本",
+              "correct": false,
+              "feedback": "错误。请重新理解题目内容"
+            },
+            {
+              "id": "s3o1",
+              "text": "圆珠笔 = 钢笔 + 钢笔的一半；总数 = 钢笔 + 圆珠笔",
+              "correct": true,
+              "feedback": "正确理解了'多一半'的含义并建立了正确的关系"
+            }
+          ],
+          "hints": [
+            "'多一半' = 原来的数量再加上原来数量的一半",
+            "先求出圆珠笔的数量，再求总数"
+          ]
+        },
+        {
+          "id": "s4",
+          "type": "plan",
+          "prompt": "最合理的解题步骤是？",
+          "options": [
+            {
+              "id": "s4o1",
+              "text": "先求圆珠笔数量，再求两种笔总数",
+              "correct": true,
+              "feedback": "正确的思路：先部分后整体"
+            },
+            {
+              "id": "s4o2",
+              "text": "直接把钢笔数量×1.5得到总数",
+              "correct": false,
+              "distractorType": "结构误配",
+              "feedback": "这样只得到了圆珠笔的数量，漏掉了钢笔本身"
+            },
+            {
+              "id": "s4o4",
+              "text": "第三",
+              "correct": false,
+              "feedback": "错误。请重新理解题目内容"
+            },
+            {
+              "id": "s4o3",
+              "text": "很少",
+              "correct": false,
+              "feedback": "错误。请重新理解题目内容"
+            }
+          ]
+        },
+        {
+          "id": "s5",
+          "type": "compute",
+          "prompt": "圆珠笔的数量是多少？",
+          "options": [
+            {
+              "id": "s5o1",
+              "text": "${a} + ${a}/2",
+              "correct": true,
+              "feedback": "正确：钢笔加上钢笔的一半"
+            },
+            {
+              "id": "s5o2",
+              "text": "${a} × 2",
+              "correct": false,
+              "distractorType": "倍数误解",
+              "feedback": "这是'多一倍'的计算，不是'多一半'"
+            },
+            {
+              "id": "s5o3",
+              "text": "${a}/2",
+              "correct": false,
+              "distractorType": "漏加原量",
+              "feedback": "忘记加上原来的钢笔数量"
+            }
+          ],
+          "validation": {
+            "unit": "支"
+          }
+        },
+        {
+          "id": "s6",
+          "type": "compute",
+          "prompt": "两种笔一共有多少支？",
+          "options": [
+            {
+              "id": "s6o2",
+              "text": "${a} × 1.5",
+              "correct": false,
+              "distractorType": "漏类",
+              "feedback": "这样只计算了圆珠笔的数量，没有包括钢笔"
+            },
+            {
+              "id": "s6o1",
+              "text": "${a} + (${a} + ${a}/2)",
+              "correct": true,
+              "feedback": "正确：钢笔数量加上圆珠笔数量"
+            }
+          ],
+          "validation": {
+            "unit": "支"
+          },
+          "hints": [
+            "总数是两类笔数量的总和"
+          ]
+        },
+        {
+          "id": "s7",
+          "type": "check",
+          "prompt": "以下哪项最能验证结果合理？",
+          "options": [
+            {
+              "id": "s7o2",
+              "text": "总数应小于钢笔数量",
+              "correct": false,
+              "distractorType": "单调性错误",
+              "feedback": "总数必定大于任何一个部分的数量"
+            },
+            {
+              "id": "s7o4",
+              "text": "平均",
+              "correct": false,
+              "feedback": "错误。请重新理解题目内容"
+            },
+            {
+              "id": "s7o1",
+              "text": "圆珠笔约为钢笔的1.5倍，总数应约为2.5倍的钢笔数",
+              "correct": true,
+              "feedback": "正确的数量级估算"
+            },
+            {
+              "id": "s7o3",
+              "text": "可能",
+              "correct": false,
+              "feedback": "错误。请重新理解题目内容"
+            }
+          ]
+        }
+      ],
+      "transitions": [
+        {
+          "fromStep": "s1",
+          "onCorrect": "s2",
+          "onWrong": "s1",
+          "maxRetries": 2
+        },
+        {
+          "fromStep": "s2",
+          "onCorrect": "s3",
+          "onWrong": "s2",
+          "maxRetries": 2
+        },
+        {
+          "fromStep": "s3",
+          "onCorrect": "s4",
+          "onWrong": "s3",
+          "maxRetries": 2
+        },
+        {
+          "fromStep": "s4",
+          "onCorrect": "s5",
+          "onWrong": "s4",
+          "maxRetries": 2
+        },
+        {
+          "fromStep": "s5",
+          "onCorrect": "s6",
+          "onWrong": "s5",
+          "maxRetries": 2
+        },
+        {
+          "fromStep": "s6",
+          "onCorrect": "s7",
+          "onWrong": "s6",
+          "maxRetries": 2
+        },
+        {
+          "fromStep": "s7",
+          "onCorrect": "",
+          "onWrong": "s7",
+          "maxRetries": 1
+        }
+      ],
+      "scoring": {
+        "total": 10,
+        "perStep": {
+          "s1": {
+            "score": 1,
+            "penaltyPerRetry": 0.2,
+            "minScore": 0.2
+          },
+          "s2": {
+            "score": 1,
+            "penaltyPerRetry": 0.2,
+            "minScore": 0.2
+          },
+          "s3": {
+            "score": 2,
+            "penaltyPerRetry": 0.4,
+            "minScore": 0.4
+          },
+          "s4": {
+            "score": 2,
+            "penaltyPerRetry": 0.4,
+            "minScore": 0.4
+          },
+          "s5": {
+            "score": 2,
+            "penaltyPerRetry": 0.4,
+            "minScore": 0.4
+          },
+          "s6": {
+            "score": 1,
+            "penaltyPerRetry": 0.2,
+            "minScore": 0.2
+          },
+          "s7": {
+            "score": 1,
+            "penaltyPerRetry": 0.2,
+            "minScore": 0.2
+          }
+        }
+      },
+      "answer": {
+        "final": "(3/2)×${a}",
+        "unit": "支",
+        "rationale": "圆珠笔=1.5×钢笔，总数=钢笔+圆珠笔=2.5×钢笔"
+      }
+    },
+    {
+      "id": "item-color-pencil-001",
+      "stem": {
+        "text": "学校买来${total}支彩笔，分给${classes}个班，每班分到相同数量，还剩${remaining}支。每班分到多少支？",
+        "variables": {
+          "total": {
+            "type": "int",
+            "range": {
+              "min": 30,
+              "max": 100
+            },
+            "constraints": [
+              "total % classes == remaining"
+            ]
+          },
+          "classes": {
+            "type": "int",
+            "range": {
+              "min": 2,
+              "max": 6
+            }
+          },
+          "remaining": {
+            "type": "int",
+            "range": {
+              "min": 0,
+              "max": 10
+            }
+          }
+        }
+      },
+      "taxonomy": {
+        "concepts": [
+          "平均分配",
+          "剩余问题",
+          "两步运算"
+        ],
+        "skills": [
+          "条件分类",
+          "关系建模",
+          "顺序规划"
+        ],
+        "difficulty": "M"
+      },
+      "steps": [
+        {
+          "id": "s1",
+          "type": "extract",
+          "prompt": "哪些是直接条件？（可多选）",
+          "multipleSelect": true,
+          "options": [
+            {
+              "id": "s1o1",
+              "text": "共有${total}支彩笔",
+              "correct": true,
+              "feedback": "直接给出的总数"
+            },
+            {
+              "id": "s1o2",
+              "text": "分给${classes}个班",
+              "correct": true,
+              "feedback": "直接给出的班级数量"
+            },
+            {
+              "id": "s1o3",
+              "text": "还剩${remaining}支",
+              "correct": true,
+              "feedback": "直接给出的剩余数量"
+            },
+            {
+              "id": "s1o4",
+              "text": "每班分到的数量",
+              "correct": false,
+              "feedback": "这是要求求解的目标，不是已知条件"
+            }
+          ]
+        },
+        {
+          "id": "s2",
+          "type": "question",
+          "prompt": "本题要求什么？单位是什么？",
+          "options": [
+            {
+              "id": "s2o3",
+              "text": "增加",
+              "correct": false,
+              "feedback": "错误。请重新理解题目内容"
+            },
+            {
+              "id": "s2o4",
+              "text": "中间",
+              "correct": false,
+              "feedback": "错误。请重新理解题目内容"
+            },
+            {
+              "id": "s2o1",
+              "text": "可分配的彩笔总数，单位：支",
+              "correct": false,
+              "feedback": "这是中间量"
+            },
+            {
+              "id": "s2o2",
+              "text": "每班分到的数量，单位：支",
+              "correct": true,
+              "feedback": "正确：明确了最终目标和单位"
+            }
+          ]
+        },
+        {
+          "id": "s3",
+          "type": "plan",
+          "prompt": "最合理的解题步骤是？",
+          "options": [
+            {
+              "id": "s3o3",
+              "text": "最大",
+              "correct": false,
+              "feedback": "错误。请重新理解题目内容"
+            },
+            {
+              "id": "s3o2",
+              "text": "直接总数除以班级数",
+              "correct": false,
+              "distractorType": "忽略剩余",
+              "feedback": "忽略了剩余的部分，这样会导致分配不完整"
+            },
+            {
+              "id": "s3o1",
+              "text": "先从总数中减去剩余，再平均分配",
+              "correct": true,
+              "feedback": "正确：先处理不可分配部分，再进行平均分配"
+            },
+            {
+              "id": "s3o4",
+              "text": "第三",
+              "correct": false,
+              "feedback": "错误。请重新理解题目内容"
+            }
+          ]
+        },
+        {
+          "id": "s4",
+          "type": "compute",
+          "prompt": "可以分配的彩笔有多少支？",
+          "options": [
+            {
+              "id": "s4o2",
+              "text": "${total} + ${remaining}",
+              "correct": false,
+              "distractorType": "运算错误",
+              "feedback": "应该减去剩余，不是加上"
+            },
+            {
+              "id": "s4o1",
+              "text": "${total} - ${remaining}",
+              "correct": true,
+              "feedback": "正确：从总数中减去剩余部分"
+            }
+          ],
+          "validation": {
+            "unit": "支"
+          }
+        },
+        {
+          "id": "s5",
+          "type": "compute",
+          "prompt": "每班分到多少支？",
+          "options": [
+            {
+              "id": "s5o2",
+              "text": "${total} ÷ ${classes}",
+              "correct": false,
+              "distractorType": "忽略剩余",
+              "feedback": "没有先减去剩余部分"
+            },
+            {
+              "id": "s5o1",
+              "text": "(${total} - ${remaining}) ÷ ${classes}",
+              "correct": true,
+              "feedback": "正确：可分配数量除以班级数"
+            }
+          ],
+          "validation": {
+            "unit": "支"
+          }
+        },
+        {
+          "id": "s6",
+          "type": "check",
+          "prompt": "哪种检验方法最合理？",
+          "options": [
+            {
+              "id": "s6o2",
+              "text": "每班数量应该小于总数",
+              "correct": false,
+              "distractorType": "检验不充分",
+              "feedback": "这只是必要条件，不是充分条件"
+            },
+            {
+              "id": "s6o4",
+              "text": "全部",
+              "correct": false,
+              "feedback": "错误。请重新理解题目内容"
+            },
+            {
+              "id": "s6o1",
+              "text": "(每班数量 × 班级数) + 剩余 = 总数",
+              "correct": true,
+              "feedback": "正确的逆运算检验"
+            },
+            {
+              "id": "s6o3",
+              "text": "最后",
+              "correct": false,
+              "feedback": "错误。请重新理解题目内容"
+            }
+          ]
+        }
+      ],
+      "transitions": [
+        {
+          "fromStep": "s1",
+          "onCorrect": "s2",
+          "onWrong": "s1",
+          "maxRetries": 2
+        },
+        {
+          "fromStep": "s2",
+          "onCorrect": "s3",
+          "onWrong": "s2",
+          "maxRetries": 2
+        },
+        {
+          "fromStep": "s3",
+          "onCorrect": "s4",
+          "onWrong": "s3",
+          "maxRetries": 2
+        },
+        {
+          "fromStep": "s4",
+          "onCorrect": "s5",
+          "onWrong": "s4",
+          "maxRetries": 2
+        },
+        {
+          "fromStep": "s5",
+          "onCorrect": "s6",
+          "onWrong": "s5",
+          "maxRetries": 2
+        },
+        {
+          "fromStep": "s6",
+          "onCorrect": "",
+          "onWrong": "s6",
+          "maxRetries": 1
+        }
+      ],
+      "scoring": {
+        "total": 10,
+        "perStep": {
+          "s1": {
+            "score": 1.5,
+            "penaltyPerRetry": 0.3,
+            "minScore": 0.3
+          },
+          "s2": {
+            "score": 1,
+            "penaltyPerRetry": 0.2,
+            "minScore": 0.2
+          },
+          "s3": {
+            "score": 2,
+            "penaltyPerRetry": 0.4,
+            "minScore": 0.4
+          },
+          "s4": {
+            "score": 2,
+            "penaltyPerRetry": 0.4,
+            "minScore": 0.4
+          },
+          "s5": {
+            "score": 2,
+            "penaltyPerRetry": 0.4,
+            "minScore": 0.4
+          },
+          "s6": {
+            "score": 1.5,
+            "penaltyPerRetry": 0.3,
+            "minScore": 0.3
+          }
+        }
+      },
+      "answer": {
+        "final": "(${total}-${remaining})÷${classes}",
+        "unit": "支",
+        "rationale": "先从总数中减去剩余部分，再平均分配给各个班级"
+      }
+    }
+  ]
+}

@@ -247,10 +247,21 @@ export class ProblemDataManager {
 
   /**
    * 自动发现并加载data目录下的所有JSON题库文件
+   * 优先使用扩充后的题库文件（4选项版本）
    */
   static async loadAllProblemSets(): Promise<ProblemSet | null> {
-    // 常见的题库文件名模式
-    const commonProblemFiles = [
+    // 优先使用扩充后的题库文件（4选项版本）
+    const expandedProblemFiles = [
+      'complete-math-problems-expanded.json',
+      'periodic-problems-week3-expanded.json',
+      'sum-difference-problems-week4-expanded.json',
+      'hualuogeng-cup-problems-expanded.json',
+      'sample-problems-expanded.json',
+      'periodic-problems-simple-fixed-expanded.json'
+    ];
+
+    // 备用原始题库文件
+    const fallbackProblemFiles = [
       'complete-math-problems.json',
       'periodic-problems.json',
       'sum-difference-problems-week4.json',
@@ -261,8 +272,29 @@ export class ProblemDataManager {
       'periodic-problems-simple.json'
     ];
 
-    const fileUrls = commonProblemFiles.map(filename => `/data/${filename}`);
+    // 首先尝试加载扩充后的题库
+    console.log('优先尝试加载扩充后的题库文件...');
+    const expandedResult = await this.loadAndMergeProblemSets(
+      expandedProblemFiles.map(filename => `/data/${filename}`)
+    );
 
-    return this.loadAndMergeProblemSets(fileUrls);
+    if (expandedResult) {
+      console.log('成功加载扩充后的题库文件（4选项版本）');
+      return expandedResult;
+    }
+
+    // 如果扩充后的题库加载失败，使用原始题库
+    console.log('扩充题库加载失败，使用原始题库文件...');
+    const fallbackResult = await this.loadAndMergeProblemSets(
+      fallbackProblemFiles.map(filename => `/data/${filename}`)
+    );
+
+    if (fallbackResult) {
+      console.log('成功加载原始题库文件');
+      return fallbackResult;
+    }
+
+    console.error('所有题库文件都加载失败');
+    return null;
   }
 }
