@@ -1,0 +1,73 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "id": "pset-periodic-problems-001",
+  "version": "1.0.0",
+  "locale": "zh-CN",
+  "metadata": {
+    "gradeBand": "G4-G5",
+    "subject": "Math",
+    "tags": ["周期问题", "有余数除法", "规律性", "数学建模"],
+    "description": "周期问题专项训练，包含求位置、简单应用、复杂应用等多种类型"
+  },
+  "items": [
+    {
+      "id": "periodic-position-001",
+      "stem": {
+        "text": "有一串珠子，按照'三红二蓝一白'的顺序重复排列。(1)第50颗珠子是什么颜色？(2)在100颗珠子中，红色珠子有多少颗？",
+        "variables": {}
+      },
+      "taxonomy": {
+        "concepts": ["周期问题", "有余数除法", "统计计数"],
+        "skills": ["模式识别", "数学建模", "计算推理"],
+        "difficulty": "M"
+      },
+      "scoring": {
+        "perStep": 2,
+        "total": 4
+      },
+      "steps": [
+        {
+          "id": "s1",
+          "type": "extract",
+          "prompt": "在这个问题中，什么是周期？周期长度是多少？",
+          "options": [
+            {
+              "id": "s1o1",
+              "text": "周期是'三红二蓝一白'，周期长度是6颗珠子",
+              "correct": true,
+              "feedback": "正确！周期就是重复的模式，这里每6颗珠子为一个完整的周期。"
+            },
+            {
+              "id": "s1o2",
+              "text": "周期是'三红二蓝'，周期长度是5颗珠子",
+              "correct": false,
+              "feedback": "不正确。仔细观察题目描述，周期还包括白色珠子。"
+            }
+          ]
+        },
+        {
+          "id": "s2",
+          "type": "calculate",
+          "prompt": "第50颗珠子位于第几个周期的第几个位置？",
+          "options": [
+            {
+              "id": "s2o1",
+              "text": "第8个周期的第2个位置（50 ÷ 6 = 8余2）",
+              "correct": true,
+              "feedback": "正确！用有余数除法可以确定位置：50 ÷ 6 = 8余2，所以在第8个周期的第2个位置。"
+            },
+            {
+              "id": "s2o2",
+              "text": "第9个周期的第5个位置（50 ÷ 6 = 9余5）",
+              "correct": false,
+              "feedback": "计算错误。请重新计算：50 ÷ 6 = 8余2。"
+            }
+          ]
+        }
+      ],
+      "transitions": [
+        {"fromStep": "s1", "toStep": "s2", "onCorrect": "s2", "onWrong": "s1"}
+      ]
+    }
+  ]
+}

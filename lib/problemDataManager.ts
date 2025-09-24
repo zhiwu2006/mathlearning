@@ -180,4 +180,89 @@ export class ProblemDataManager {
 
     return false;
   }
+
+  /**
+   * 从多个网络文件加载并合并题库
+   */
+  static async loadAndMergeProblemSets(fileUrls: string[]): Promise<ProblemSet | null> {
+    if (fileUrls.length === 0) return null;
+
+    try {
+      console.log(`开始加载 ${fileUrls.length} 个题库文件...`);
+
+      const loadedSets: ProblemSet[] = [];
+
+      // 并行加载所有题库文件
+      const promises = fileUrls.map(async (url) => {
+        try {
+          const response = await fetch(url);
+          if (!response.ok) {
+            console.warn(`加载题库文件失败: ${url}, 状态: ${response.status}`);
+            return null;
+          }
+
+          const data = await response.json();
+          console.log(`成功加载题库文件: ${url}, 题目数量: ${data.items?.length || 0}`);
+          return data;
+        } catch (error) {
+          console.error(`加载题库文件出错: ${url}`, error);
+          return null;
+        }
+      });
+
+      const results = await Promise.all(promises);
+
+      // 过滤掉失败的加载结果
+      const validSets = results.filter((set): set is ProblemSet =>
+        set !== null && set.items && Array.isArray(set.items)
+      );
+
+      if (validSets.length === 0) {
+        console.error('没有成功加载任何题库文件');
+        return null;
+      }
+
+      console.log(`成功加载 ${validSets.length} 个题库文件`);
+
+      // 如果只有一个题库，直接返回
+      if (validSets.length === 1) {
+        return validSets[0];
+      }
+
+      // 合并多个题库
+      let mergedSet = validSets[0];
+
+      for (let i = 1; i < validSets.length; i++) {
+        mergedSet = this.mergeProblemSets(mergedSet, validSets[i]);
+      }
+
+      console.log(`题库合并完成，总题目数量: ${mergedSet.items.length}`);
+      return mergedSet;
+
+    } catch (error) {
+      console.error('加载并合并题库失败:', error);
+      return null;
+    }
+  }
+
+  /**
+   * 自动发现并加载data目录下的所有JSON题库文件
+   */
+  static async loadAllProblemSets(): Promise<ProblemSet | null> {
+    // 常见的题库文件名模式
+    const commonProblemFiles = [
+      'complete-math-problems.json',
+      'periodic-problems.json',
+      'sum-difference-problems-week4.json',
+      'hualuogeng-cup-problems.json',
+      'sample-problems.json',
+      'integrated_math_problems.json',
+      'periodic-problems-week3.json',
+      'periodic-problems-simple.json'
+    ];
+
+    const fileUrls = commonProblemFiles.map(filename => `/data/${filename}`);
+
+    return this.loadAndMergeProblemSets(fileUrls);
+  }
 }

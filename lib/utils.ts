@@ -27,7 +27,7 @@ export function renderTemplate(template: string, context: Record<string, number>
       }
 
       // 变量间的简单运算
-      const mathExpr = trimmedExpr.replace(/[a-zA-Z_][a-zA-Z0-9_]*/g, (match) => {
+      const mathExpr = trimmedExpr.replace(/[a-zA-Z_][a-zA-Z0-9_]*/g, (match: string) => {
         return context.hasOwnProperty(match) ? context[match].toString() : '0';
       });
 

@@ -12,7 +12,7 @@ export default function Home() {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    // 加载题库的优先级：本地存储 → 网络文件 → 测试数据
+    // 加载题库的优先级：本地存储 → 自动加载所有题库 → 测试数据
     const loadProblemSet = async () => {
       try {
         console.log('开始加载题库...');
@@ -26,26 +26,28 @@ export default function Home() {
           return;
         }
 
-        // 2. 如果本地没有，尝试从网络加载
-        console.log('本地存储无数据，尝试从网络加载...');
-        const response = await fetch('/data/complete-math-problems.json');
-        console.log('响应状态:', response.status);
+        // 2. 如果本地没有，尝试自动加载所有题库
+        console.log('本地存储无数据，尝试自动加载所有题库...');
+        const mergedData = await ProblemDataManager.loadAllProblemSets();
 
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
+        if (mergedData) {
+          console.log('多题库加载和合并成功:', {
+            总题数: mergedData.items.length,
+            标签: mergedData.metadata.tags,
+            版本: mergedData.version
+          });
+
+          // 验证数据格式
+          if (!mergedData || !mergedData.items || !Array.isArray(mergedData.items)) {
+            throw new Error('合并后的题库数据格式不正确');
+          }
+
+          // 保存到本地存储
+          ProblemDataManager.saveToStorage(mergedData);
+          setProblemSet(mergedData);
+        } else {
+          throw new Error('无法加载任何题库文件');
         }
-
-        const data = await response.json();
-        console.log('网络题库数据加载成功:', data);
-
-        // 验证数据格式
-        if (!data || !data.items || !Array.isArray(data.items)) {
-          throw new Error('题库数据格式不正确');
-        }
-
-        // 保存到本地存储
-        ProblemDataManager.saveToStorage(data);
-        setProblemSet(data);
       } catch (error) {
         console.error('加载题库失败:', error);
         setError(error instanceof Error ? error.message : '未知错误');

@@ -1,0 +1,1529 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "id": "pset-periodic-problems-001",
+  "version": "1.0.0",
+  "locale": "zh-CN",
+  "metadata": {
+    "gradeBand": "G4-G5",
+    "subject": "Math",
+    "tags": ["周期问题", "有余数除法", "规律性", "数学建模"],
+    "createdAt": "2025-09-19T06:30:00Z",
+    "author": "Math Learning System",
+    "description": "周期问题专项训练，包含求位置、简单应用、复杂应用等多种类型"
+  },
+  "items": [
+    {
+      "id": "periodic-position-001",
+      "stem": {
+        "text": "有一串珠子，按照\\\"三红二蓝一白\\\"的顺序重复排列。(1)第50颗珠子是什么颜色？(2)在100颗珠子中，红色珠子有多少颗？",
+        "variables": {}
+      },
+      "taxonomy": {
+        "concepts": ["周期问题", "有余数除法", "统计计数"],
+        "skills": ["模式识别", "数学建模", "计算推理"],
+        "difficulty": "M"
+      },
+      "steps": [
+        {
+          "id": "s1",
+          "type": "extract",
+          "prompt": "在这个问题中，什么是周期？周期长度是多少？\\",
+          \\"options": [
+            {
+              "id": "s1o1",
+              "text": "周期是\\\"三红二蓝一白\\\"，周期长度是6颗珠子",
+              "correct": true,
+              "feedback": "正确！珠子按照固定的顺序重复排列，6颗珠子完成一个完整的周期\\"
+            },
+            {
+              \\"id": "s1o2",
+              "text": "周期是\\\"三红二蓝\\\"，周期长度是5颗珠子",
+              "correct": false,
+              "feedback": "错误。白色珠子也是周期的一部分，完整的周期包含所有颜色的排列\\"
+            },
+            {
+              \\"id": "s1o3",
+              "text": "周期是\\\"红蓝白\\\"，周期长度是3颗珠子",
+              "correct": false,
+              "feedback": "错误。需要考虑每种颜色的具体数量，不是简单的颜色种类\\"
+            }
+          ]
+        },
+        {
+          \\"id": "s2",
+          "type": "calculate",
+          "prompt": "要找出第50颗珠子的颜色，应该怎么计算？\\",
+          \\"options": [
+            {
+              "id": "s2o1",
+              "text": "50 ÷ 6 = 8 余 2，余数是2，所以是周期中的第2个\\",
+              \\"correct": true,
+              "feedback": "正确！用总数除以周期长度，余数告诉我们这是周期中的第几个位置\\"
+            },
+            {
+              \\"id": "s2o2",
+              "text": "50 ÷ 5 = 10 余 0，余数是0，所以是周期中的最后一个\\",
+              \\"correct": false,
+              "feedback": "错误。周期长度应该是6，不是5\\"
+            },
+            {
+              \\"id": "s2o3",
+              "text": "50 ÷ 3 = 16 余 2，余数是2，所以是第2种颜色\\",
+              \\"correct": false,
+              "feedback": "错误。不能简单按颜色种类计算，要考虑每种颜色的数量\\"
+            }
+          ]
+        },
+        {
+          \\"id": "s3",
+          "type": "apply",
+          "prompt": "根据上面的分析，第50颗珠子是什么颜色？\\",
+          \\"options": [
+            {
+              "id": "s3o1",
+              "text": "红色\\",
+              \\"correct": true,
+              "feedback": "正确！周期是\\\"三红二蓝一白\\\"，第2个位置是红色珠子"
+            },
+            {
+              "id": "s3o2",
+              "text": "蓝色\\",
+              \\"correct": false,
+              "feedback": "错误。第2个位置是红色，不是蓝色\\"
+            },
+            {
+              \\"id": "s3o3",
+              "text": "白色\\",
+              \\"correct": false,
+              "feedback": "错误。第2个位置是红色，不是白色\\"
+            }
+          ]
+        },
+        {
+          \\"id": "s4",
+          "type": "calculate",
+          "prompt": "要计算100颗珠子中红色珠子的总数，应该怎么计算？\\",
+          \\"options": [
+            {
+              "id": "s4o1",
+              "text": "先计算完整周期数：100 ÷ 6 = 16 余 4，然后计算16个周期中的红色珠子数，再加上余数部分中的红色珠子数\\",
+              \\"correct": true,
+              "feedback": "正确！需要分别计算完整周期和余数部分的红色珠子数量\\"
+            },
+            {
+              \\"id": "s4o2",
+              "text": "100 ÷ 6 = 16 余 4，红色珠子总数是16 × 3 = 48颗\\",
+              \\"correct": false,
+              "feedback": "错误。还需要加上余数部分中的红色珠子\\"
+            },
+            {
+              \\"id": "s4o3",
+              "text": "100 ÷ 3 = 33 余 1，红色珠子总数是33颗\\",
+              \\"correct": false,
+              "feedback": "错误。计算方法不正确，应该按照周期长度为6来计算\\"
+            }
+          ]
+        },
+        {
+          \\"id": "s5",
+          "type": "apply",
+          "prompt": "在100颗珠子中，红色珠子共有多少颗？\\",
+          \\"options": [
+            {
+              "id": "s5o1",
+              "text": "51颗\\",
+              \\"correct": true,
+              "feedback": "正确！16个完整周期有16 × 3 = 48颗红色珠子，余数4颗中有3颗红色，总共48 + 3 = 51颗\\"
+            },
+            {
+              \\"id": "s5o2",
+              "text": "48颗\\",
+              \\"correct": false,
+              "feedback": "错误。没有加上余数部分中的红色珠子\\"
+            },
+            {
+              \\"id": "s5o3",
+              "text": "50颗\\",
+              \\"correct": false,
+              "feedback": "错误。计算结果不正确\\"
+            }
+          ]
+        }
+      ],
+      \\"transitions": [
+        {"fromStep": "s1", "toStep": "s2", "onCorrect": "s2", "onWrong": "s1"},
+        {"fromStep": "s2", "toStep": "s3", "onCorrect": "s3", "onWrong": "s2"},
+        {"fromStep": "s3", "toStep": "s4", "onCorrect": "s4", "onWrong": "s3"},
+        {"fromStep": "s4", "toStep": "s5", "onCorrect": "s5", "onWrong": "s4"}
+      ],
+      "scoring": {
+        "total": 10,
+        "perStep": {"s1": 1, "s2": 2, "s3": 2, "s4": 2, "s5": 3}
+      },
+      "answer": "第50颗珠子是红色，100颗珠子中有51颗红色珠子",
+      "analysis": "解决周期问题的关键是：1)确定周期长度；2)用总数除以周期长度求商和余数；3)根据余数确定位置；4)分别计算完整周期和余数部分的数量",
+      "knowledgePoints": ["周期问题", "有余数除法", "统计计数"],
+      "difficulty": "medium",
+      "type": "periodic_position"
+    },
+    {
+      "id": "periodic-position-002",
+      "stem": {
+        "text": "有一列数：1, 3, 5, 7, 9, 1, 3, 5, 7, 9, ..., 第88个数是多少？\\",
+        \\"variables": {}
+      },
+      "taxonomy": {
+        "concepts": ["数字周期", "数列规律", "有余数除法"],
+        "skills": ["模式识别", "数学推理", "计算技能"],
+        "difficulty": "M"
+      },
+      "steps": [
+        {
+          "id": "s1",
+          "type": "extract",
+          "prompt": "观察这个数列，它的规律是什么？周期长度是多少？\\",
+          \\"options": [
+            {
+              "id": "s1o1",
+              "text": "规律是1, 3, 5, 7, 9重复出现，周期长度是5\\",
+              \\"correct": true,
+              "feedback": "正确！这是一个奇数数列，每5个数完成一个周期\\"
+            },
+            {
+              \\"id": "s1o2",
+              "text": "规律是每次增加2，周期长度是9\\",
+              \\"correct": false,
+              "feedback": "错误。虽然每次增加2，但是这是一个重复的周期，不是等差数列\\"
+            },
+            {
+              \\"id": "s1o3",
+              "text": "规律是1, 3, 5, 7, 9, 11, 周期长度是6\\",
+              \\"correct": false,
+              "feedback": "错误。观察第6个数又回到了1，说明周期长度是5\\"
+            }
+          ]
+        },
+        {
+          \\"id": "s2",
+          "type": "calculate",
+          "prompt": "要找出第88个数，应该怎么计算？\\",
+          \\"options": [
+            {
+              "id": "s2o1",
+              "text": "88 ÷ 5 = 17 余 3，余数是3，所以是周期中的第3个数\\",
+              \\"correct": true,
+              "feedback": "正确！用位置数除以周期长度，余数告诉我们这是周期中的第几个位置\\"
+            },
+            {
+              \\"id": "s2o2",
+              "text": "88 ÷ 9 = 9 余 7，余数是7，所以是第7个数\\",
+              \\"correct": false,
+              "feedback": "错误。周期长度是5，不是9\\"
+            },
+            {
+              \\"id": "s2o3",
+              "text": "88 ÷ 5 = 17 余 3，余数是3，所以这个数是3\\",
+              \\"correct": false,
+              "feedback": "错误。余数3表示是周期中的第3个位置，需要查看第3个位置的数是多少\\"
+            }
+          ]
+        },
+        {
+          \\"id": "s3",
+          "type": "apply",
+          "prompt": "根据周期\\\"1, 3, 5, 7, 9\\\"，第3个位置的数是多少？",
+          "options": [
+            {
+              "id": "s3o1",
+              "text": "5\\",
+              \\"correct": true,
+              "feedback": "正确！第1个是1，第2个是3，第3个是5\\"
+            },
+            {
+              \\"id": "s3o2",
+              "text": "3\\",
+              \\"correct": false,
+              "feedback": "错误。3是第2个位置的数\\"
+            },
+            {
+              \\"id": "s3o3",
+              "text": "7\\",
+              \\"correct": false,
+              "feedback": "错误。7是第4个位置的数\\"
+            }
+          ]
+        }
+      ],
+      \\"transitions": [
+        {"fromStep": "s1", "toStep": "s2", "onCorrect": "s2", "onWrong": "s1"},
+        {"fromStep": "s2", "toStep": "s3", "onCorrect": "s3", "onWrong": "s2"}
+      ],
+      "scoring": {
+        "total": 6,
+        "perStep": {"s1": 2, "s2": 2, "s3": 2}
+      },
+      "answer": "第88个数是5",
+      "analysis": "数列按照1, 3, 5, 7, 9的规律重复，周期长度为5。88 ÷ 5 = 17余3，余数3对应周期中的第3个数，即5",
+      "knowledgePoints": ["数列规律", "周期问题", "有余数除法"],
+      "difficulty": "easy",
+      "type": "periodic_position"
+    },
+    {
+      "id": "periodic-position-003",
+      "stem": {
+        "text": "小明摆放了一些盆花，顺序是：一串红、月季、杜鹃、一串红、月季、杜鹃......第53盆是什么花？第60盆是什么花？\\",
+        \\"variables": {}
+      },
+      "taxonomy": {
+        "concepts": ["花卉排列", "周期识别", "位置计算"],
+        "skills": ["观察分析", "模式识别", "计算推理"],
+        "difficulty": "M"
+      },
+      "steps": [
+        {
+          "id": "s1",
+          "type": "extract",
+          "prompt": "这些盆花的排列规律是什么？周期长度是多少？\\",
+          \\"options": [
+            {
+              "id": "s1o1",
+              "text": "一串红、月季、杜鹃重复排列，周期长度是3\\",
+              \\"correct": true,
+              "feedback": "正确！每3盆花完成一个完整的周期\\"
+            },
+            {
+              \\"id": "s1o2",
+              "text": "一串红、月季重复排列，周期长度是2\\",
+              \\"correct": false,
+              "feedback": "错误。杜鹃也是周期的一部分，完整的周期包含3种花\\"
+            },
+            {
+              \\"id": "s1o3",
+              "text": "一串红、月季、杜鹃、一串红，周期长度是4\\",
+              \\"correct": false,
+              "feedback": "错误。观察规律，应该是3种花重复排列\\"
+            }
+          ]
+        },
+        {
+          \\"id": "s2",
+          "type": "calculate",
+          "prompt": "要找出第53盆花，应该怎么计算？\\",
+          \\"options": [
+            {
+              "id": "s2o1",
+              "text": "53 ÷ 3 = 17 余 2，余数是2，所以是周期中的第2种花\\",
+              \\"correct": true,
+              "feedback": "正确！用位置数除以周期长度，余数告诉我们这是周期中的第几个位置\\"
+            },
+            {
+              \\"id": "s2o2",
+              "text": "53 ÷ 3 = 17 余 2，余数是2，所以是第2盆花\\",
+              \\"correct": false,
+              "feedback": "错误。余数2表示是周期中的第2种花，不是第2盆花\\"
+            },
+            {
+              \\"id": "s2o3",
+              "text": "53 ÷ 2 = 26 余 1，余数是1，所以是第1种花\\",
+              \\"correct": false,
+              "feedback": "错误。周期长度是3，不是2\\"
+            }
+          ]
+        },
+        {
+          \\"id": "s3",
+          "type": "apply",
+          "prompt": "根据周期\\\"一串红、月季、杜鹃\\\"，第2种花是什么？",
+          "options": [
+            {
+              "id": "s3o1",
+              "text": "月季\\",
+              \\"correct": true,
+              "feedback": "正确！第1种是一串红，第2种是月季，第3种是杜鹃\\"
+            },
+            {
+              \\"id": "s3o2",
+              "text": "一串红\\",
+              \\"correct": false,
+              "feedback": "错误。一串红是第1种花\\"
+            },
+            {
+              \\"id": "s3o3",
+              "text": "杜鹃\\",
+              \\"correct": false,
+              "feedback": "错误。杜鹃是第3种花\\"
+            }
+          ]
+        },
+        {
+          \\"id": "s4",
+          "type": "calculate",
+          "prompt": "要找出第60盆花，应该怎么计算？\\",
+          \\"options": [
+            {
+              "id": "s4o1",
+              "text": "60 ÷ 3 = 20 余 0，余数是0，所以是周期中的最后一种花\\",
+              \\"correct": true,
+              "feedback": "正确！当余数为0时，表示是周期中的最后一个位置\\"
+            },
+            {
+              \\"id": "s4o2",
+              "text": "60 ÷ 3 = 20 余 0，余数是0，所以没有这种花\\",
+              \\"correct": false,
+              "feedback": "错误。余数为0时表示是周期中的最后一个位置\\"
+            },
+            {
+              \\"id": "s4o3",
+              "text": "60 ÷ 3 = 20，没有余数，所以是第20个周期的第1种花\\",
+              \\"correct": false,
+              "feedback": "错误。没有余数时是最后一个位置，不是第一个位置\\"
+            }
+          ]
+        },
+        {
+          \\"id": "s5",
+          "type": "apply",
+          "prompt": "第60盆花是什么？\\",
+          \\"options": [
+            {
+              "id": "s5o1",
+              "text": "杜鹃\\",
+              \\"correct": true,
+              "feedback": "正确！周期\\\"一串红、月季、杜鹃\\\"的最后一种是杜鹃"
+            },
+            {
+              "id": "s5o2",
+              "text": "一串红\\",
+              \\"correct": false,
+              "feedback": "错误。一串红是第1种花，不是最后一种\\"
+            },
+            {
+              \\"id": "s5o3",
+              "text": "月季\\",
+              \\"correct": false,
+              "feedback": "错误。月季是第2种花，不是最后一种\\"
+            }
+          ]
+        }
+      ],
+      \\"transitions": [
+        {"fromStep": "s1", "toStep": "s2", "onCorrect": "s2", "onWrong": "s1"},
+        {"fromStep": "s2", "toStep": "s3", "onCorrect": "s3", "onWrong": "s2"},
+        {"fromStep": "s3", "toStep": "s4", "onCorrect": "s4", "onWrong": "s3"},
+        {"fromStep": "s4", "toStep": "s5", "onCorrect": "s5", "onWrong": "s4"}
+      ],
+      "scoring": {
+        "total": 8,
+        "perStep": {"s1": 1, "s2": 2, "s3": 1, "s4": 2, "s5": 2}
+      },
+      "answer": "第53盆是月季，第60盆是杜鹃",
+      "analysis": "周期长度为3，53 ÷ 3 = 17余2，第2种是月季；60 ÷ 3 = 20余0，余数为0时是最后一种杜鹃",
+      "knowledgePoints": ["周期问题", "有余数除法", "位置计算"],
+      "difficulty": "medium",
+      "type": "periodic_position"
+    },
+    {
+      "id": "periodic-application-001",
+      "stem": {
+        "text": "将一些红色、蓝色、白色的彩灯，按照\\\"二红三蓝四白\\\"的顺序连接起来，第100盏灯是什么颜色？在这100盏灯中，红色、蓝色、白色的彩灯各有多少盏？",
+        "variables": {}
+      },
+      "taxonomy": {
+        "concepts": ["彩灯排列", "颜色统计", "周期计算"],
+        "skills": ["模式识别", "统计计算", "数学推理"],
+        "difficulty": "M"
+      },
+      "steps": [
+        {
+          "id": "s1",
+          "type": "extract",
+          "prompt": "这些彩灯的排列规律是什么？一个周期有多少盏灯？\\",
+          \\"options": [
+            {
+              "id": "s1o1",
+              "text": "二红三蓝四白，一个周期有2 + 3 + 4 = 9盏灯\\",
+              \\"correct": true,
+              "feedback": "正确！每种颜色的数量相加就是周期长度\\"
+            },
+            {
+              \\"id": "s1o2",
+              "text": "二红三蓝四白，一个周期有3盏灯\\",
+              \\"correct": false,
+              "feedback": "错误。需要将所有颜色的灯的数量相加\\"
+            },
+            {
+              \\"id": "s1o3",
+              "text": "二红三蓝四白，一个周期有4盏灯\\",
+              \\"correct": false,
+              "feedback": "错误。需要计算所有颜色灯的总数\\"
+            }
+          ]
+        },
+        {
+          \\"id": "s2",
+          "type": "calculate",
+          "prompt": "要找出第100盏灯的颜色，应该怎么计算？\\",
+          \\"options": [
+            {
+              "id": "s2o1",
+              "text": "100 ÷ 9 = 11 余 1，余数是1，所以是周期中的第1盏灯\\",
+              \\"correct": true,
+              "feedback": "正确！用总数除以周期长度，余数告诉我们这是周期中的第几个位置\\"
+            },
+            {
+              \\"id": "s2o2",
+              "text": "100 ÷ 4 = 25 余 0，余数是0，所以是最后一种颜色\\",
+              \\"correct": false,
+              "feedback": "错误。周期长度是9，不是4\\"
+            },
+            {
+              \\"id": "s2o3",
+              "text": "100 ÷ 3 = 33 余 1，余数是1，所以是第1种颜色\\",
+              \\"correct": false,
+              "feedback": "错误。不能按颜色种类计算，要按灯的总数计算\\"
+            }
+          ]
+        },
+        {
+          \\"id": "s3",
+          "type": "apply",
+          "prompt": "第100盏灯是什么颜色？\\",
+          \\"options": [
+            {
+              "id": "s3o1",
+              "text": "红色\\",
+              \\"correct": true,
+              "feedback": "正确！周期\\\"二红三蓝四白\\\"的第1盏是红色灯"
+            },
+            {
+              "id": "s3o2",
+              "text": "蓝色\\",
+              \\"correct": false,
+              "feedback": "错误。蓝色灯是从第3盏开始的\\"
+            },
+            {
+              \\"id": "s3o3",
+              "text": "白色\\",
+              \\"correct": false,
+              "feedback": "错误。白色灯是从第6盏开始的\\"
+            }
+          ]
+        },
+        {
+          \\"id": "s4",
+          "type": "calculate",
+          "prompt": "要计算100盏灯中各种颜色的数量，完整周期有多少个？余数是多少？\\",
+          \\"options": [
+            {
+              "id": "s4o1",
+              "text": "100 ÷ 9 = 11 余 1，有11个完整周期，余1盏灯\\",
+              \\"correct": true,
+              "feedback": "正确！11个完整周期，再加上余下的1盏灯\\"
+            },
+            {
+              \\"id": "s4o2",
+              "text": "100 ÷ 9 = 11 余 1，有11个完整周期，余0盏灯\\",
+              \\"correct": false,
+              "feedback": "错误。余数是1，不是0\\"
+            },
+            {
+              \\"id": "s4o3",
+              "text": "100 ÷ 9 = 10 余 10，有10个完整周期，余10盏灯\\",
+              \\"correct": false,
+              "feedback": "错误。余数应该小于除数9\\"
+            }
+          ]
+        },
+        {
+          \\"id": "s5",
+          "type": "calculate",
+          "prompt": "根据计算结果，红色灯共有多少盏？\\",
+          \\"options": [
+            {
+              "id": "s5o1",
+              "text": "11 × 2 + 1 = 23盏\\",
+              \\"correct": true,
+              "feedback": "正确！11个周期有11 × 2 = 22盏红色灯，余下的1盏也是红色，总共23盏\\"
+            },
+            {
+              \\"id": "s5o2",
+              "text": "11 × 2 = 22盏\\",
+              \\"correct": false,
+              "feedback": "错误。没有加上余数部分中的红色灯\\"
+            },
+            {
+              \\"id": "s5o3",
+              "text": "11 × 3 = 33盏\\",
+              \\"correct": false,
+              "feedback": "错误。每个周期有2盏红色灯，不是3盏\\"
+            }
+          ]
+        },
+        {
+          \\"id": "s6",
+          "type": "calculate",
+          "prompt": "蓝色灯和白色灯各有多少盏？\\",
+          \\"options": [
+            {
+              "id": "s6o1",
+              "text": "蓝色灯33盏，白色灯44盏\\",
+              \\"correct": true,
+              "feedback": "正确！蓝色灯：11 × 3 = 33盏，白色灯：11 × 4 = 44盏\\"
+            },
+            {
+              \\"id": "s6o2",
+              "text": "蓝色灯34盏，白色灯45盏\\",
+              \\"correct": false,
+              "feedback": "错误。余数部分只有1盏红色灯，没有蓝色和白色灯\\"
+            },
+            {
+              \\"id": "s6o3",
+              "text": "蓝色灯32盏，白色灯43盏\\",
+              \\"correct": false,
+              "feedback": "错误。计算结果不正确\\"
+            }
+          ]
+        }
+      ],
+      \\"transitions": [
+        {"fromStep": "s1", "toStep": "s2", "onCorrect": "s2", "onWrong": "s1"},
+        {"fromStep": "s2", "toStep": "s3", "onCorrect": "s3", "onWrong": "s2"},
+        {"fromStep": "s3", "toStep": "s4", "onCorrect": "s4", "onWrong": "s3"},
+        {"fromStep": "s4", "toStep": "s5", "onCorrect": "s5", "onWrong": "s4"},
+        {"fromStep": "s5", "toStep": "s6", "onCorrect": "s6", "onWrong": "s5"}
+      ],
+      "scoring": {
+        "total": 12,
+        "perStep": {"s1": 1, "s2": 2, "s3": 2, "s4": 2, "s5": 3, "s6": 2}
+      },
+      "answer": "第100盏灯是红色。红色灯23盏，蓝色灯33盏，白色灯44盏",
+      "analysis": "周期长度为9，100 ÷ 9 = 11余1。红色：11 × 2 + 1 = 23盏，蓝色：11 × 3 = 33盏，白色：11 × 4 = 44盏",
+      "knowledgePoints": ["周期问题", "统计计数", "有余数除法"],
+      "difficulty": "medium",
+      "type": "periodic_application"
+    },
+    {
+      "id": "periodic-application-002",
+      "stem": {
+        "text": "有一列数：1, 2, 3, 4, 1, 2, 3, 4, ..., 第39个数是多少？这39个数的和是多少？\\",
+        \\"variables": {}
+      },
+      "taxonomy": {
+        "concepts": ["数列周期", "求和计算", "数学推理"],
+        "skills": ["模式识别", "计算技能", "逻辑推理"],
+        "difficulty": "M"
+      },
+      "steps": [
+        {
+          "id": "s1",
+          "type": "extract",
+          "prompt": "这个数列的规律是什么？一个周期的和是多少？\\",
+          \\"options": [
+            {
+              "id": "s1o1",
+              "text": "1, 2, 3, 4重复，周期长度是4，一个周期的和是1 + 2 + 3 + 4 = 10\\",
+              \\"correct": true,
+              "feedback": "正确！周期长度为4，每个周期的和是10\\"
+            },
+            {
+              \\"id": "s1o2",
+              "text": "每次增加1，周期长度是4，一个周期的和是4\\",
+              \\"correct": false,
+              "feedback": "错误。需要计算1 + 2 + 3 + 4的和，不是4\\"
+            },
+            {
+              \\"id": "s1o3",
+              "text": "1, 2, 3, 4重复，周期长度是4，一个周期的和是1 + 2 + 3 + 4 = 9\\",
+              \\"correct": false,
+              "feedback": "错误。1 + 2 + 3 + 4 = 10，不是9\\"
+            }
+          ]
+        },
+        {
+          \\"id": "s2",
+          "type": "calculate",
+          "prompt": "要找出第39个数，应该怎么计算？\\",
+          \\"options": [
+            {
+              "id": "s2o1",
+              "text": "39 ÷ 4 = 9 余 3，余数是3，所以是周期中的第3个数\\",
+              \\"correct": true,
+              "feedback": "正确！用位置数除以周期长度，余数告诉我们这是周期中的第几个位置\\"
+            },
+            {
+              \\"id": "s2o2",
+              "text": "39 ÷ 4 = 9 余 3，余数是3，所以这个数是3\\",
+              \\"correct": false,
+              "feedback": "错误。余数3表示是周期中的第3个位置，需要查看第3个位置的数\\"
+            },
+            {
+              \\"id": "s2o3",
+              "text": "39 ÷ 10 = 3 余 9，余数是9，所以是第9个数\\",
+              \\"correct": false,
+              "feedback": "错误。周期长度是4，不是10\\"
+            }
+          ]
+        },
+        {
+          \\"id": "s3",
+          "type": "apply",
+          "prompt": "第39个数是多少？\\",
+          \\"options": [
+            {
+              "id": "s3o1",
+              "text": "3\\",
+              \\"correct": true,
+              "feedback": "正确！周期\\\"1, 2, 3, 4\\\"的第3个数是3"
+            },
+            {
+              "id": "s3o2",
+              "text": "4\\",
+              \\"correct": false,
+              "feedback": "错误。4是第4个数\\"
+            },
+            {
+              \\"id": "s3o3",
+              "text": "2\\",
+              \\"correct": false,
+              "feedback": "错误。2是第2个数\\"
+            }
+          ]
+        },
+        {
+          \\"id": "s4",
+          "type": "calculate",
+          "prompt": "要计算39个数的和，完整周期有多少个？余数是多少？\\",
+          \\"options": [
+            {
+              "id": "s4o1",
+              "text": "39 ÷ 4 = 9 余 3，有9个完整周期，余3个数\\",
+              \\"correct": true,
+              "feedback": "正确！9个完整周期，再加上余下的3个数\\"
+            },
+            {
+              \\"id": "s4o2",
+              "text": "39 ÷ 4 = 9 余 3，有9个完整周期，余0个数\\",
+              \\"correct": false,
+              "feedback": "错误。余数是3，不是0\\"
+            },
+            {
+              \\"id": "s4o3",
+              "text": "39 ÷ 10 = 3 余 9，有3个完整周期，余9个数\\",
+              \\"correct": false,
+              "feedback": "错误。周期长度是4，不是10\\"
+            }
+          ]
+        },
+        {
+          \\"id": "s5",
+          "type": "calculate",
+          "prompt": "这39个数的和是多少？\\",
+          \\"options": [
+            {
+              "id": "s5o1",
+              "text": "9 × 10 + 1 + 2 + 3 = 96\\",
+              \\"correct": true,
+              "feedback": "正确！9个周期的和是90，余下的3个数1 + 2 + 3 = 6，总共96\\"
+            },
+            {
+              \\"id": "s5o2",
+              "text": "9 × 10 = 90\\",
+              \\"correct": false,
+              "feedback": "错误。没有加上余数部分的和\\"
+            },
+            {
+              \\"id": "s5o3",
+              "text": "9 × 10 + 4 + 5 + 6 = 105\\",
+              \\"correct": false,
+              "feedback": "错误。余数部分应该是前3个数，不是4, 5, 6\\"
+            }
+          ]
+        }
+      ],
+      \\"transitions": [
+        {"fromStep": "s1", "toStep": "s2", "onCorrect": "s2", "onWrong": "s1"},
+        {"fromStep": "s2", "toStep": "s3", "onCorrect": "s3", "onWrong": "s2"},
+        {"fromStep": "s3", "toStep": "s4", "onCorrect": "s4", "onWrong": "s3"},
+        {"fromStep": "s4", "toStep": "s5", "onCorrect": "s5", "onWrong": "s4"}
+      ],
+      "scoring": {
+        "total": 10,
+        "perStep": {"s1": 2, "s2": 2, "s3": 1, "s4": 2, "s5": 3}
+      },
+      "answer": "第39个数是3，这39个数的和是96",
+      "analysis": "周期长度为4，39 ÷ 4 = 9余3。9个周期和90，余数部分1 + 2 + 3 = 6，总和96",
+      "knowledgePoints": ["周期问题", "数列求和", "有余数除法"],
+      "difficulty": "medium",
+      "type": "periodic_application"
+    },
+    {
+      "id": "periodic-week-001",
+      "stem": {
+        "text": "今天是星期三，再过100天是星期几？\\",
+        \\"variables": {}
+      },
+      "taxonomy": {
+        "concepts": ["星期周期", "时间计算", "日期推理"],
+        "skills": ["时间概念", "计算推理", "生活应用"],
+        "difficulty": "M"
+      },
+      "steps": [
+        {
+          "id": "s1",
+          "type": "extract",
+          "prompt": "一个星期有几天？星期的周期长度是多少？\\",
+          \\"options": [
+            {
+              "id": "s1o1",
+              "text": "一个星期有7天，周期长度是7\\",
+              \\"correct": true,
+              "feedback": "正确！星期是按照7天一个周期循环的\\"
+            },
+            {
+              \\"id": "s1o2",
+              "text": "一个星期有30天，周期长度是30\\",
+              \\"correct": false,
+              "feedback": "错误。一个月大约30天，但一个星期是7天\\"
+            },
+            {
+              \\"id": "s1o3",
+              "text": "一个星期有14天，周期长度是14\\",
+              \\"correct": false,
+              "feedback": "错误。14天是两个星期，一个星期是7天\\"
+            }
+          ]
+        },
+        {
+          \\"id": "s2",
+          "type": "calculate",
+          "prompt": "要计算100天后是星期几，应该怎么计算？\\",
+          \\"options": [
+            {
+              "id": "s2o1",
+              "text": "100 ÷ 7 = 14 余 2，余数是2，从星期三开始往后数2天\\",
+              \\"correct": true,
+              "feedback": "正确！用天数除以7，余数告诉我们从星期三开始往后数几天\\"
+            },
+            {
+              \\"id": "s2o2",
+              "text": "100 ÷ 7 = 14 余 2，余数是2，所以是星期二\\",
+              \\"correct": false,
+              "feedback": "错误。需要从当前星期三开始往后数，不是直接对应星期二\\"
+            },
+            {
+              \\"id": "s2o3",
+              "text": "100 ÷ 14 = 7 余 2，余数是2，所以是星期五\\",
+              \\"correct": false,
+              "feedback": "错误。周期长度是7，不是14\\"
+            }
+          ]
+        },
+        {
+          \\"id": "s3",
+          "type": "apply",
+          "prompt": "从星期三开始往后数2天是星期几？\\",
+          \\"options": [
+            {
+              "id": "s3o1",
+              "text": "星期五\\",
+              \\"correct": true,
+              "feedback": "正确！星期三往后1天是星期四，往后2天是星期五\\"
+            },
+            {
+              \\"id": "s3o2",
+              "text": "星期四\\",
+              \\"correct": false,
+              "feedback": "错误。这是往后数1天，不是2天\\"
+            },
+            {
+              \\"id": "s3o3",
+              "text": "星期六\\",
+              \\"correct": false,
+              "feedback": "错误。这是往后数3天，不是2天\\"
+            }
+          ]
+        }
+      ],
+      \\"transitions": [
+        {"fromStep": "s1", "toStep": "s2", "onCorrect": "s2", "onWrong": "s1"},
+        {"fromStep": "s2", "toStep": "s3", "onCorrect": "s3", "onWrong": "s2"}
+      ],
+      "scoring": {
+        "total": 6,
+        "perStep": {"s1": 1, "s2": 3, "s3": 2}
+      },
+      "answer": "再过100天是星期五",
+      "analysis": "星期周期为7天，100 ÷ 7 = 14余2。从星期三往后数2天：星期三→星期四→星期五",
+      "knowledgePoints": ["周期问题", "时间计算", "有余数除法"],
+      "difficulty": "medium",
+      "type": "periodic_week"
+    },
+    {
+      "id": "periodic-calendar-001",
+      "stem": {
+        "text": "某年的6月1日是星期二，那么这一年的7月1日是星期几？\\",
+        \\"variables": {},
+        "hints": ["先计算6月有多少天", "然后计算从6月1日到7月1日的天数", "最后用周期计算星期几"]
+      },
+      "taxonomy": {
+        "concepts": ["日期计算", "月份天数", "星期周期"],
+        "skills": ["日期计算", "逻辑推理", "生活应用"],
+        "difficulty": "M"
+      },
+      "steps": [
+        {
+          "id": "s1",
+          "type": "extract",
+          "prompt": "6月有多少天？从6月1日到7月1日有多少天？\\",
+          \\"options": [
+            {
+              "id": "s1o1",
+              "text": "6月有30天，从6月1日到7月1日有30天\\",
+              \\"correct": true,
+              "feedback": "正确！6月有30天，从6月1日到7月1日正好是30天\\"
+            },
+            {
+              \\"id": "s1o2",
+              "text": "6月有31天，从6月1日到7月1日有31天\\",
+              \\"correct": false,
+              "feedback": "错误。6月只有30天，不是31天\\"
+            },
+            {
+              \\"id": "s1o3",
+              "text": "6月有30天，从6月1日到7月1日有29天\\",
+              \\"correct": false,
+              "feedback": "错误。从6月1日到7月1日是完整的30天\\"
+            }
+          ]
+        },
+        {
+          \\"id": "s2",
+          "type": "calculate",
+          "prompt": "要计算30天后是星期几，应该怎么计算？\\",
+          \\"options": [
+            {
+              "id": "s2o1",
+              "text": "30 ÷ 7 = 4 余 2，余数是2，从星期二开始往后数2天\\",
+              \\"correct": true,
+              "feedback": "正确！用天数除以7，余数告诉我们从星期二开始往后数几天\\"
+            },
+            {
+              \\"id": "s2o2",
+              "text": "30 ÷ 7 = 4 余 2，余数是2，所以是星期二\\",
+              \\"correct": false,
+              "feedback": "错误。需要从当前星期二开始往后数，不是直接对应星期二\\"
+            },
+            {
+              \\"id": "s2o3",
+              "text": "30 ÷ 30 = 1 余 0，余数是0，所以是星期二\\",
+              \\"correct": false,
+              "feedback": "错误。星期的周期是7天，不是30天\\"
+            }
+          ]
+        },
+        {
+          \\"id": "s3",
+          "type": "apply",
+          "prompt": "从星期二开始往后数2天是星期几？\\",
+          \\"options": [
+            {
+              "id": "s3o1",
+              "text": "星期四\\",
+              \\"correct": true,
+              "feedback": "正确！星期二往后1天是星期三，往后2天是星期四\\"
+            },
+            {
+              \\"id": "s3o2",
+              "text": "星期三\\",
+              \\"correct": false,
+              "feedback": "错误。这是往后数1天，不是2天\\"
+            },
+            {
+              \\"id": "s3o3",
+              "text": "星期五\\",
+              \\"correct": false,
+              "feedback": "错误。这是往后数3天，不是2天\\"
+            }
+          ]
+        }
+      ],
+      \\"transitions": [
+        {"fromStep": "s1", "toStep": "s2", "onCorrect": "s2", "onWrong": "s1"},
+        {"fromStep": "s2", "toStep": "s3", "onCorrect": "s3", "onWrong": "s2"}
+      ],
+      "scoring": {
+        "total": 7,
+        "perStep": {"s1": 2, "s2": 3, "s3": 2}
+      },
+      "answer": "这一年的7月1日是星期四",
+      "analysis": "6月有30天，30 ÷ 7 = 4余2。从星期二往后数2天：星期二→星期三→星期四",
+      "knowledgePoints": ["周期问题", "日期计算", "月份天数"],
+      "difficulty": "medium",
+      "type": "periodic_calendar"
+    },
+    {
+      "id": "periodic-complex-001",
+      "stem": {
+        "text": "有一叠卡片，按2张红色、3张黄色、4张蓝色的顺序排列，第300张卡片是什么颜色？黄色卡片共有多少张？\\",
+        \\"variables": {}
+      },
+      "taxonomy": {
+        "concepts": ["复合周期", "颜色统计", "位置计算"],
+        "skills": ["模式识别", "统计计算", "复杂推理"],
+        "difficulty": "H"
+      },
+      "steps": [
+        {
+          "id": "s1",
+          "type": "extract",
+          "prompt": "卡片的排列规律是什么？一个周期有多少张卡片？\\",
+          \\"options": [
+            {
+              "id": "s1o1",
+              "text": "2红3黄4蓝，一个周期有2 + 3 + 4 = 9张卡片\\",
+              \\"correct": true,
+              "feedback": "正确！将各种颜色的卡片数量相加得到周期长度\\"
+            },
+            {
+              \\"id": "s1o2",
+              "text": "2红3黄4蓝，一个周期有3张卡片\\",
+              \\"correct": false,
+              "feedback": "错误。需要计算所有颜色卡片的总数\\"
+            },
+            {
+              \\"id": "s1o3",
+              "text": "2红3黄4蓝，一个周期有4张卡片\\",
+              \\"correct": false,
+              "feedback": "错误。需要计算所有颜色卡片的总数\\"
+            }
+          ]
+        },
+        {
+          \\"id": "s2",
+          "type": "calculate",
+          "prompt": "要找出第300张卡片，应该怎么计算？\\",
+          \\"options": [
+            {
+              "id": "s2o1",
+              "text": "300 ÷ 9 = 33 余 3，余数是3，所以是周期中的第3张卡片\\",
+              \\"correct": true,
+              "feedback": "正确！用总数除以周期长度，余数告诉我们这是周期中的第几个位置\\"
+            },
+            {
+              \\"id": "s2o2",
+              "text": "300 ÷ 4 = 75 余 0，余数是0，所以是最后一种颜色\\",
+              \\"correct": false,
+              "feedback": "错误。周期长度是9，不是4\\"
+            },
+            {
+              \\"id": "s2o3",
+              "text": "300 ÷ 3 = 100 余 0，余数是0，所以是第3种颜色\\",
+              \\"correct": false,
+              "feedback": "错误。不能按颜色种类计算，要按卡片总数计算\\"
+            }
+          ]
+        },
+        {
+          \\"id": "s3",
+          "type": "apply",
+          "prompt": "根据周期\\\"2红3黄4蓝\\\"，第3张卡片是什么颜色？",
+          "options": [
+            {
+              "id": "s3o1",
+              "text": "黄色\\",
+              \\"correct": true,
+              "feedback": "正确！前2张是红色，第3张开始是黄色\\"
+            },
+            {
+              \\"id": "s3o2",
+              "text": "红色\\",
+              \\"correct": false,
+              "feedback": "错误。红色只有前2张\\"
+            },
+            {
+              \\"id": "s3o3",
+              "text": "蓝色\\",
+              \\"correct": false,
+              "feedback": "错误。蓝色从第6张开始\\"
+            }
+          ]
+        },
+        {
+          \\"id": "s4",
+          "type": "calculate",
+          "prompt": "要计算黄色卡片的总数，完整周期有多少个？余数是多少？\\",
+          \\"options": [
+            {
+              "id": "s4o1",
+              "text": "300 ÷ 9 = 33 余 3，有33个完整周期，余3张卡片\\",
+              \\"correct": true,
+              "feedback": "正确！33个完整周期，再加上余下的3张卡片\\"
+            },
+            {
+              \\"id": "s4o2",
+              "text": "300 ÷ 9 = 33 余 3，有33个完整周期，余0张卡片\\",
+              \\"correct": false,
+              "feedback": "错误。余数是3，不是0\\"
+            },
+            {
+              \\"id": "s4o3",
+              "text": "300 ÷ 9 = 30 余 30，有30个完整周期，余30张卡片\\",
+              \\"correct": false,
+              "feedback": "错误。余数应该小于除数9\\"
+            }
+          ]
+        },
+        {
+          \\"id": "s5",
+          "type": "calculate",
+          "prompt": "黄色卡片共有多少张？\\",
+          \\"options": [
+            {
+              "id": "s5o1",
+              "text": "33 × 3 + 1 = 100张\\",
+              \\"correct": true,
+              "feedback": "正确！33个周期有33 × 3 = 99张黄色卡片，余下的3张中有1张黄色，总共100张\\"
+            },
+            {
+              \\"id": "s5o2",
+              "text": "33 × 3 = 99张\\",
+              \\"correct": false,
+              "feedback": "错误。没有加上余数部分中的黄色卡片\\"
+            },
+            {
+              \\"id": "s5o3",
+              "text": "33 × 4 = 132张\\",
+              \\"correct": false,
+              "feedback": "错误。每个周期有3张黄色卡片，不是4张\\"
+            }
+          ]
+        }
+      ],
+      \\"transitions": [
+        {"fromStep": "s1", "toStep": "s2", "onCorrect": "s2", "onWrong": "s1"},
+        {"fromStep": "s2", "toStep": "s3", "onCorrect": "s3", "onWrong": "s2"},
+        {"fromStep": "s3", "toStep": "s4", "onCorrect": "s4", "onWrong": "s3"},
+        {"fromStep": "s4", "toStep": "s5", "onCorrect": "s5", "onWrong": "s4"}
+      ],
+      "scoring": {
+        "total": 12,
+        "perStep": {"s1": 1, "s2": 2, "s3": 2, "s4": 3, "s5": 4}
+      },
+      "answer": "第300张卡片是黄色，黄色卡片共有100张",
+      "analysis": "周期长度为9，300 ÷ 9 = 33余3。第3张是黄色；黄色卡片：33 × 3 + 1 = 100张",
+      "knowledgePoints": ["周期问题", "统计计数", "复杂推理"],
+      "difficulty": "hard",
+      "type": "periodic_complex"
+    },
+    {
+      "id": "periodic-practical-001",
+      "stem": {
+        "text": "小红练习写毛笔字，她从\\\"好好学习，天天向上\\\"这8个字中依次选字进行练习。她写的第99个字是什么字？",
+        "variables": {}
+      },
+      "taxonomy": {
+        "concepts": ["文字周期", "汉字练习", "循环规律"],
+        "skills": ["文字识别", "周期计算", "生活应用"],
+        "difficulty": "M"
+      },
+      "steps": [
+        {
+          "id": "s1",
+          "type": "extract",
+          "prompt": "小红练习的8个字是什么？周期长度是多少？\\",
+          \\"options": [
+            {
+              "id": "s1o1",
+              "text": "好、好、学、习、天、天、向、上，周期长度是8\\",
+              \\"correct": false,
+              "feedback": "错误。应该是\\\"好好学习，天天向上\\\"，需要正确理解题目"
+            },
+            {
+              "id": "s1o2",
+              "text": "好好学习，天天向上，周期长度是8\\",
+              \\"correct": true,
+              "feedback": "正确！8个字完成一个完整的周期\\"
+            },
+            {
+              \\"id": "s1o3",
+              "text": "好、学、习、天、向、上，周期长度是6\\",
+              \\"correct": false,
+              "feedback": "错误。需要包括所有8个字，包括重复的字\\"
+            }
+          ]
+        },
+        {
+          \\"id": "s2",
+          "type": "calculate",
+          "prompt": "要找出第99个字，应该怎么计算？\\",
+          \\"options": [
+            {
+              "id": "s2o1",
+              "text": "99 ÷ 8 = 12 余 3，余数是3，所以是周期中的第3个字\\",
+              \\"correct": true,
+              "feedback": "正确！用序号除以周期长度，余数告诉我们这是周期中的第几个位置\\"
+            },
+            {
+              \\"id": "s2o2",
+              "text": "99 ÷ 8 = 12 余 3，余数是3，所以是\\\"学\\\"字",
+              "correct": false,
+              "feedback": "错误。需要先确定周期中每个字的位置，不能直接猜测\\"
+            },
+            {
+              \\"id": "s2o3",
+              "text": "99 ÷ 6 = 16 余 3，余数是3，所以是第3个字\\",
+              \\"correct": false,
+              "feedback": "错误。周期长度是8，不是6\\"
+            }
+          ]
+        },
+        {
+          \\"id": "s3",
+          "type": "apply",
+          "prompt": "根据周期\\\"好好学习，天天向上\\\"，第3个字是什么？",
+          "options": [
+            {
+              "id": "s3o1",
+              "text": "学\\",
+              \\"correct": true,
+              "feedback": "正确！第1个是\\\"好\\\"，第2个是\"好\"，第3个是\"学\""
+            },
+            {
+              "id": "s3o2",
+              "text": "习\\",
+              \\"correct": false,
+              "feedback": "错误。\\\"习\\\"是第4个字"
+            },
+            {
+              "id": "s3o3",
+              "text": "好\\",
+              \\"correct": false,
+              "feedback": "错误。\\"好\\"是第1个和第2个字"
+            }
+          ]
+        }
+      ],
+      "transitions": [
+        {"fromStep": "s1", "toStep": "s2", "onCorrect": "s2", "onWrong": "s1"},
+        {"fromStep": "s2", "toStep": "s3", "onCorrect": "s3", "onWrong": "s2"}
+      ],
+      "scoring": {
+        "total": 6,
+        "perStep": {"s1": 2, "s2": 2, "s3": 2}
+      },
+      "answer": "第99个字是"学"",
+      "analysis": "周期为\"好好学习，天天向上\"8个字，99 ÷ 8 = 12余3。第3个字是"学"",
+      "knowledgePoints": ["周期问题", "文字规律", "有余数除法"],
+      "difficulty": "medium",
+      "type": "periodic_practical"
+    },
+    {
+      "id": "periodic-practical-002",
+      "stem": {
+        "text": "按\\\"红、黄、蓝、绿\\\"的顺序给一排灯笼涂色，第58个灯笼涂什么颜色？前58个灯笼中，红色灯笼有多少个？",
+        "variables": {}
+      },
+      "taxonomy": {
+        "concepts": ["颜色周期", "装饰排列", "数量统计"],
+        "skills": ["模式识别", "统计计算", "生活应用"],
+        "difficulty": "M"
+      },
+      "steps": [
+        {
+          "id": "s1",
+          "type": "extract",
+          "prompt": "灯笼的涂色规律是什么？周期长度是多少？\\",
+          \\"options": [
+            {
+              "id": "s1o1",
+              "text": "红、黄、蓝、绿重复，周期长度是4\\",
+              \\"correct": true,
+              "feedback": "正确！4种颜色完成一个完整的周期\\"
+            },
+            {
+              \\"id": "s1o2",
+              "text": "红、黄、蓝、绿重复，周期长度是3\\",
+              \\"correct": false,
+              "feedback": "错误。需要包括所有4种颜色\\"
+            },
+            {
+              \\"id": "s1o3",
+              "text": "红、黄、蓝重复，周期长度是3\\",
+              \\"correct": false,
+              "feedback": "错误。绿色也是周期的一部分\\"
+            }
+          ]
+        },
+        {
+          \\"id": "s2",
+          "type": "calculate",
+          "prompt": "要找出第58个灯笼的颜色，应该怎么计算？\\",
+          \\"options": [
+            {
+              "id": "s2o1",
+              "text": "58 ÷ 4 = 14 余 2，余数是2，所以是周期中的第2种颜色\\",
+              \\"correct": true,
+              "feedback": "正确！用总数除以周期长度，余数告诉我们这是周期中的第几个位置\\"
+            },
+            {
+              \\"id": "s2o2",
+              "text": "58 ÷ 4 = 14 余 2，余数是2，所以是红色\\",
+              \\"correct": false,
+              "feedback": "错误。需要确定周期中第2个位置是什么颜色\\"
+            },
+            {
+              \\"id": "s2o3",
+              "text": "58 ÷ 3 = 19 余 1，余数是1，所以是红色\\",
+              \\"correct": false,
+              "feedback": "错误。周期长度是4，不是3\\"
+            }
+          ]
+        },
+        {
+          \\"id": "s3",
+          "type": "apply",
+          "prompt": "根据周期\\\"红、黄、蓝、绿\\\"，第2种颜色是什么？",
+          "options": [
+            {
+              "id": "s3o1",
+              "text": "黄色\\",
+              \\"correct": true,
+              "feedback": "正确！第1个是红色，第2个是黄色\\"
+            },
+            {
+              \\"id": "s3o2",
+              "text": "红色\\",
+              \\"correct": false,
+              "feedback": "错误。红色是第1个位置\\"
+            },
+            {
+              \\"id": "s3o3",
+              "text": "蓝色\\",
+              \\"correct": false,
+              "feedback": "错误。蓝色是第3个位置\\"
+            }
+          ]
+        },
+        {
+          \\"id": "s4",
+          "type": "calculate",
+          "prompt": "要计算红色灯笼的数量，完整周期有多少个？余数是多少？\\",
+          \\"options": [
+            {
+              "id": "s4o1",
+              "text": "58 ÷ 4 = 14 余 2，有14个完整周期，余2个灯笼\\",
+              \\"correct": true,
+              "feedback": "正确！14个完整周期，再加上余下的2个灯笼\\"
+            },
+            {
+              \\"id": "s4o2",
+              "text": "58 ÷ 4 = 14 余 2，有14个完整周期，余0个灯笼\\",
+              \\"correct": false,
+              "feedback": "错误。余数是2，不是0\\"
+            },
+            {
+              \\"id": "s4o3",
+              "text": "58 ÷ 4 = 15 余 2，有15个完整周期，余2个灯笼\\",
+              \\"correct": false,
+              "feedback": "错误。计算结果不正确\\"
+            }
+          ]
+        },
+        {
+          \\"id": "s5",
+          "type": "calculate",
+          "prompt": "红色灯笼共有多少个？\\",
+          \\"options": [
+            {
+              "id": "s5o1",
+              "text": "14 × 1 + 1 = 15个\\",
+              \\"correct": true,
+              "feedback": "正确！14个周期有14个红色灯笼，余下的2个中有1个红色，总共15个\\"
+            },
+            {
+              \\"id": "s5o2",
+              "text": "14 × 1 = 14个\\",
+              \\"correct": false,
+              "feedback": "错误。没有加上余数部分中的红色灯笼\\"
+            },
+            {
+              \\"id": "s5o3",
+              "text": "15 × 1 = 15个\\",
+              \\"correct": false,
+              "feedback": "错误。完整周期只有14个，不是15个\\"
+            }
+          ]
+        }
+      ],
+      \\"transitions": [
+        {"fromStep": "s1", "toStep": "s2", "onCorrect": "s2", "onWrong": "s1"},
+        {"fromStep": "s2", "toStep": "s3", "onCorrect": "s3", "onWrong": "s2"},
+        {"fromStep": "s3", "toStep": "s4", "onCorrect": "s4", "onWrong": "s3"},
+        {"fromStep": "s4", "toStep": "s5", "onCorrect": "s5", "onWrong": "s4"}
+      ],
+      "scoring": {
+        "total": 10,
+        "perStep": {"s1": 1, "s2": 2, "s3": 1, "s4": 3, "s5": 3}
+      },
+      "answer": "第58个灯笼是黄色，红色灯笼共有15个",
+      "analysis": "周期长度为4，58 ÷ 4 = 14余2。第2个是黄色；红色灯笼：14 × 1 + 1 = 15个",
+      "knowledgePoints": ["周期问题", "颜色统计", "有余数除法"],
+      "difficulty": "medium",
+      "type": "periodic_practical"
+    },
+    {
+      "id": "periodic-practical-003",
+      "stem": {
+        "text": "有一列数：2, 4, 6, 8, 2, 4, 6, 8, ..., 第70个数是多少？这70个数的和是多少？\\",
+        \\"variables": {}
+      },
+      "taxonomy": {
+        "concepts": ["偶数周期", "数列求和", "规律性"],
+        "skills": ["模式识别", "计算技能", "数学推理"],
+        "difficulty": "M"
+      },
+      "steps": [
+        {
+          "id": "s1",
+          "type": "extract",
+          "prompt": "这个数列的规律是什么？一个周期的和是多少？\\",
+          \\"options": [
+            {
+              "id": "s1o1",
+              "text": "2, 4, 6, 8重复，周期长度是4，一个周期的和是2 + 4 + 6 + 8 = 20\\",
+              \\"correct": true,
+              "feedback": "正确！周期长度为4，每个周期的和是20\\"
+            },
+            {
+              \\"id": "s1o2",
+              "text": "每次增加2，周期长度是4，一个周期的和是8\\",
+              \\"correct": false,
+              "feedback": "错误。需要计算2 + 4 + 6 + 8的和，不是8\\"
+            },
+            {
+              \\"id": "s1o3",
+              "text": "2, 4, 6, 8重复，周期长度是4，一个周期的和是2 + 4 + 6 + 8 = 18\\",
+              \\"correct": false,
+              "feedback": "错误。2 + 4 + 6 + 8 = 20，不是18\\"
+            }
+          ]
+        },
+        {
+          \\"id": "s2",
+          "type": "calculate",
+          "prompt": "要找出第70个数，应该怎么计算？\\",
+          \\"options": [
+            {
+              "id": "s2o1",
+              "text": "70 ÷ 4 = 17 余 2，余数是2，所以是周期中的第2个数\\",
+              \\"correct": true,
+              "feedback": "正确！用位置数除以周期长度，余数告诉我们这是周期中的第几个位置\\"
+            },
+            {
+              \\"id": "s2o2",
+              "text": "70 ÷ 4 = 17 余 2，余数是2，所以这个数是4\\",
+              \\"correct": false,
+              "feedback": "错误。余数2表示是周期中的第2个位置，需要查看第2个位置的数\\"
+            },
+            {
+              \\"id": "s2o3",
+              "text": "70 ÷ 20 = 3 余 10，余数是10，所以是第10个数\\",
+              \\"correct": false,
+              "feedback": "错误。周期长度是4，不是20\\"
+            }
+          ]
+        },
+        {
+          \\"id": "s3",
+          "type": "apply",
+          "prompt": "第70个数是多少？\\",
+          \\"options": [
+            {
+              "id": "s3o1",
+              "text": "4\\",
+              \\"correct": true,
+              "feedback": "正确！周期\\\"2, 4, 6, 8\\\"的第2个数是4"
+            },
+            {
+              "id": "s3o2",
+              "text": "6\\",
+              \\"correct": false,
+              "feedback": "错误。6是第3个数\\"
+            },
+            {
+              \\"id": "s3o3",
+              "text": "8\\",
+              \\"correct": false,
+              "feedback": "错误。8是第4个数\\"
+            }
+          ]
+        },
+        {
+          \\"id": "s4",
+          "type": "calculate",
+          "prompt": "要计算70个数的和，完整周期有多少个？余数是多少？\\",
+          \\"options": [
+            {
+              "id": "s4o1",
+              "text": "70 ÷ 4 = 17 余 2，有17个完整周期，余2个数\\",
+              \\"correct": true,
+              "feedback": "正确！17个完整周期，再加上余下的2个数\\"
+            },
+            {
+              \\"id": "s4o2",
+              "text": "70 ÷ 4 = 17 余 2，有17个完整周期，余0个数\\",
+              \\"correct": false,
+              "feedback": "错误。余数是2，不是0\\"
+            },
+            {
+              \\"id": "s4o3",
+              "text": "70 ÷ 20 = 3 余 10，有3个完整周期，余10个数\\",
+              \\"correct": false,
+              "feedback": "错误。周期长度是4，不是20\\"
+            }
+          ]
+        },
+        {
+          \\"id": "s5",
+          "type": "calculate",
+          "prompt": "这70个数的和是多少？\\",
+          \\"options": [
+            {
+              "id": "s5o1",
+              "text": "17 × 20 + 2 + 4 = 346\\",
+              \\"correct": true,
+              "feedback": "正确！17个周期的和是340，余下的2个数2 + 4 = 6，总共346\\"
+            },
+            {
+              \\"id": "s5o2",
+              "text": "17 × 20 = 340\\",
+              \\"correct": false,
+              "feedback": "错误。没有加上余数部分的和\\"
+            },
+            {
+              \\"id": "s5o3",
+              "text": "17 × 20 + 6 + 8 = 354\\",
+              \\"correct": false,
+              "feedback": "错误。余数部分应该是前2个数，不是6和8\\"
+            }
+          ]
+        }
+      ],
+      \\"transitions": [
+        {"fromStep": "s1", "toStep": "s2", "onCorrect": "s2", "onWrong": "s1"},
+        {"fromStep": "s2", "toStep": "s3", "onCorrect": "s3", "onWrong": "s2"},
+        {"fromStep": "s3", "toStep": "s4", "onCorrect": "s4", "onWrong": "s3"},
+        {"fromStep": "s4", "toStep": "s5", "onCorrect": "s5", "onWrong": "s4"}
+      ],
+      "scoring": {
+        "total": 10,
+        "perStep": {"s1": 2, "s2": 2, "s3": 1, "s4": 2, "s5": 3}
+      },
+      "answer": "第70个数是4，这70个数的和是346",
+      "analysis": "周期长度为4，70 ÷ 4 = 17余2。17个周期和340，余数部分2 + 4 = 6，总和346",
+      "knowledgePoints": ["周期问题", "数列求和", "有余数除法"],
+      "difficulty": "medium",
+      "type": "periodic_practical"
+    }
+  ]
+}
