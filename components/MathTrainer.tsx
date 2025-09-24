@@ -461,9 +461,9 @@ export default function MathTrainer({ problemSet }: MathTrainerProps) {
     }));
   }, []);
 
-  // 重置题目
+  // 重置当前步骤（重试此步）
   const handleReset = useCallback(() => {
-    console.log('重做本题按钮被点击了');
+    console.log('重试此步按钮被点击了');
 
     // 记录重做次数
     learningProgressManager.incrementRetry(currentItem.id);
@@ -471,13 +471,13 @@ export default function MathTrainer({ problemSet }: MathTrainerProps) {
     const vars = instantiateVariables(currentItem.stem.variables);
     setState(prev => ({
       ...prev,
-      stepIdx: 0,
+      stepIdx: prev.stepIdx, // 保持当前步骤，不回到第一步
       vars,
-      retries: {},
-      score: 0,
-      startTime: new Date(),
-      stepStart: new Date(),
-      path: [],
+      retries: {}, // 清除当前步骤的重试记录
+      score: Math.max(0, prev.score - (currentItem.scoring.perStep[currentStep?.id]?.score || 0)), // 扣除当前步骤分数
+      startTime: prev.startTime, // 保持开始时间
+      stepStart: new Date(), // 重置当前步骤开始时间
+      path: prev.path.filter(entry => entry.stepId !== currentStep?.id), // 移除当前步骤的记录
     }));
     console.log('重置feedback状态');
     setFeedback({ isVisible: false, message: '' });
@@ -491,7 +491,7 @@ export default function MathTrainer({ problemSet }: MathTrainerProps) {
       setAutoAdvanceTimer(null);
     }
     setAutoAdvanceCountdown(0);
-  }, [currentItem, autoAdvanceTimer]);
+  }, [currentItem, currentStep, autoAdvanceTimer]);
 
   // 切换题目
   const handleProblemSelect = useCallback((index: number) => {

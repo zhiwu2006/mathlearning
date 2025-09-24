@@ -96,7 +96,7 @@ export default function ControlButtons({
         style={{ position: 'relative', pointerEvents: 'auto' }}
         type="button"
       >
-        重做本题
+        重试此步
       </button>
     </div>
   );
