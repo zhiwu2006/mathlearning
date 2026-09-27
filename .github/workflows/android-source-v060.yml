@@ -103,3 +103,33 @@ jobs:
           name: OlympiadTutor-v0.6-build-verification
           path: dist/BUILD_VERIFICATION_v0.6.txt
           retention-days: 30
+
+
+      - name: Package verified source
+        shell: bash
+        run: |
+          cd /tmp/olympiad-src
+          rm -rf app/build .gradle
+          cp /tmp/BUILD_VERIFICATION_v0.6.txt BUILD_VERIFICATION_v0.6.txt
+          cat > RELEASE_NOTES_v0.6.0.md <<'EOF'
+          # v0.6.0 — ComprehensionGraph v0.2
+
+          - Room schema 4 → 5.
+          - Adds normalized Problem Semantic Model and ComprehensionGraph runtime tables.
+          - 20 verified reading lessons migrated from v0.1 to v0.2 without inventing new semantic facts.
+          - KNOWN becomes real multi-select.
+          - Stores node-level attempts, precision/recall and misconception evidence.
+          - ComprehensionGraph remains independent from ReasoningGraph/Tutor readiness.
+          EOF
+          cd /tmp
+          mv olympiad-src OlympiadTutorAndroid_v0.6.0-ComprehensionV02-src
+          zip -qr OlympiadTutorAndroid_v0.6.0-ComprehensionV02-source.zip OlympiadTutorAndroid_v0.6.0-ComprehensionV02-src
+          mkdir -p "$GITHUB_WORKSPACE/source-dist"
+          cp OlympiadTutorAndroid_v0.6.0-ComprehensionV02-source.zip "$GITHUB_WORKSPACE/source-dist/"
+
+      - name: Upload verified source
+        uses: actions/upload-artifact@v4
+        with:
+          name: OlympiadTutorAndroid-v0.6.0-verified-source
+          path: source-dist/OlympiadTutorAndroid_v0.6.0-ComprehensionV02-source.zip
+          retention-days: 30
