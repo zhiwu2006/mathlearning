@@ -43,6 +43,18 @@ jobs:
           cat "$GITHUB_WORKSPACE"/ci06/v06_asset_00.b64               "$GITHUB_WORKSPACE"/ci06/v06_asset_01.b64               "$GITHUB_WORKSPACE"/ci06/v06_asset_02.b64             | tr -d '\n\r' | base64 -d | gzip -d             > app/src/main/assets/comprehension_v0.2.json
           rm -f app/src/main/assets/comprehension_v0.1.json
 
+          python - <<'PY'
+          from pathlib import Path
+          p=Path("app/src/main/java/com/zhiwu/olympiadtutor/ui/OlympiadApp.kt")
+          s=p.read_text()
+          s=s.replace("内置题库初始化失败", "内置学习内容初始化失败")
+          s=s.replace(
+              "第一次启动时无法导入内置题库。题库数据尚未写入本机。\\n\\n错误：$startupImportError",
+              "启动时无法初始化内置题库或审题内容。请重试；如果题库本身已存在，原学习记录不会因此删除。\\n\\n错误：$startupImportError"
+          )
+          p.write_text(s)
+          PY
+
           python tools/verify_comprehension_v02.py app/src/main/assets/comprehension_v0.2.json
           grep -n 'versionCode\|versionName' app/build.gradle
 
