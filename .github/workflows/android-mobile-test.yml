@@ -1,0 +1,59 @@
+name: Android Mobile Test APK
+
+on:
+  push:
+    branches:
+      - chatgpt/android-mobile-test-v0.1
+    paths:
+      - "mobiletest/**"
+      - ".github/workflows/android-mobile-test.yml"
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+
+      - name: Set up Gradle
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: "8.9"
+
+      - name: Set up Android SDK
+        uses: android-actions/setup-android@v3
+
+      - name: Install Android SDK packages
+        run: sdkmanager "platforms;android-35" "build-tools;35.0.0"
+
+      - name: Build debug APK
+        working-directory: mobiletest
+        run: gradle --no-daemon :app:assembleDebug
+
+      - name: Prepare test package
+        run: |
+          mkdir -p dist
+          cp mobiletest/app/build/outputs/apk/debug/app-debug.apk dist/OlympiadTutor-Mobile-v0.1-debug.apk
+          cat > dist/INSTALL.txt <<'EOF'
+          奥数思路训练 - 手机测试版 v0.1
+          ==================================
+          1. 将 OlympiadTutor-Mobile-v0.1-debug.apk 复制到 Android 手机。
+          2. 允许“安装未知应用”后安装。
+          3. 本版本完全离线运行，不需要登录和网络。
+          4. 内置 10 道测试题，用于验证：题库浏览、随机练习、分步思路引导、提示、错因反馈、学习记录。
+          5. 测试包为 debug 签名，仅用于内部测试，请勿用于正式发布。
+          EOF
+
+      - name: Upload APK artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: OlympiadTutor-Mobile-v0.1-test
+          path: dist/*
+          retention-days: 30

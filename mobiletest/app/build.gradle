@@ -1,0 +1,25 @@
+plugins {
+    id 'com.android.application'
+}
+
+android {
+    namespace 'com.zhiwu.olympiadtutor'
+    compileSdk 35
+
+    defaultConfig {
+        applicationId "com.zhiwu.olympiadtutor"
+        minSdk 26
+        targetSdk 35
+        versionCode 1
+        versionName "0.1.0-phone-test"
+    }
+
+    buildTypes {
+        debug {
+            debuggable true
+        }
+        release {
+            minifyEnabled false
+        }
+    }
+}

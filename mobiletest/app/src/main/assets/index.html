@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
+<meta name="theme-color" content="#f7f8fc">
+<title>奥数思路训练</title>
+<style>
+:root{--bg:#f7f8fc;--card:#fff;--text:#171922;--sub:#6d7280;--line:#e8eaf0;--accent:#4d62d9;--accent2:#edf0ff;--good:#198754;--bad:#c73939;--warn:#b56b13;--shadow:0 8px 28px rgba(22,29,55,.07);--r:20px}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}html,body{margin:0;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif}body{min-height:100vh}
+button,input{font:inherit}.app{max-width:540px;margin:auto;min-height:100vh;padding-bottom:88px}.top{position:sticky;top:0;z-index:10;background:rgba(247,248,252,.94);backdrop-filter:blur(18px);padding:18px 18px 12px;border-bottom:1px solid rgba(232,234,240,.8)}.top h1{font-size:21px;margin:0;font-weight:760;letter-spacing:-.4px}.top .tiny{margin-top:3px;font-size:12px;color:var(--sub)}
+.page{padding:18px}.hero{background:linear-gradient(135deg,#222b56,#4d62d9);color:#fff;border-radius:26px;padding:24px;box-shadow:var(--shadow)}.hero .eyebrow{font-size:12px;opacity:.72}.hero h2{font-size:25px;line-height:1.25;margin:8px 0}.hero p{opacity:.82;font-size:14px;margin:0 0 18px;line-height:1.55}.hero button{border:0;background:#fff;color:#25336f;border-radius:14px;padding:13px 18px;font-weight:750;width:100%}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:14px}.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:17px;box-shadow:0 3px 16px rgba(20,27,50,.035)}.action{min-height:112px}.ico{font-size:24px}.action h3{font-size:15px;margin:12px 0 4px}.action p{font-size:12px;color:var(--sub);margin:0;line-height:1.45}.section-title{display:flex;justify-content:space-between;align-items:end;margin:24px 2px 10px}.section-title h2{font-size:18px;margin:0}.section-title span{font-size:12px;color:var(--sub)}
+.nav{position:fixed;z-index:20;left:50%;transform:translateX(-50%);bottom:0;width:min(540px,100%);height:72px;background:rgba(255,255,255,.96);border-top:1px solid var(--line);display:flex;justify-content:space-around;padding:8px 8px max(8px,env(safe-area-inset-bottom))}.nav button{background:none;border:0;color:#8a8f9c;font-size:11px;min-width:64px}.nav button b{display:block;font-size:20px;margin-bottom:2px}.nav button.on{color:var(--accent)}
+.list{display:flex;flex-direction:column;gap:10px}.qrow{background:#fff;border:1px solid var(--line);border-radius:17px;padding:15px}.qmeta{font-size:11px;color:var(--accent);font-weight:700}.qtitle{font-size:15px;font-weight:650;line-height:1.55;margin:5px 0 8px}.tags{display:flex;flex-wrap:wrap;gap:6px}.tag{font-size:11px;padding:5px 8px;border-radius:99px;background:#f1f2f6;color:#606575}.tag.master{background:var(--accent2);color:var(--accent)}
+.filter{display:flex;gap:8px;overflow:auto;padding-bottom:4px;margin-bottom:12px}.chip{white-space:nowrap;border:1px solid var(--line);background:#fff;padding:8px 11px;border-radius:99px;font-size:12px}.chip.on{border-color:#bac3ff;background:var(--accent2);color:#3549bd}
+.tutor-head{display:flex;align-items:center;gap:10px;margin-bottom:13px}.back{border:0;background:#fff;border:1px solid var(--line);height:38px;width:38px;border-radius:12px}.prog{flex:1}.progline{height:6px;border-radius:99px;background:#e7e9f1;overflow:hidden}.progline i{display:block;height:100%;background:var(--accent);border-radius:99px}.progtext{font-size:11px;color:var(--sub);margin-top:5px}
+.problem{background:#fff;border:1px solid var(--line);border-radius:20px;padding:18px;margin-bottom:12px}.problem .source{font-size:11px;color:#8b90a0}.problem p{font-size:16px;line-height:1.75;margin:9px 0 0}.mentor{background:#fff;border:1px solid #dfe3fb;border-radius:22px;padding:18px;box-shadow:var(--shadow)}.mentor-label{font-size:11px;color:var(--accent);font-weight:800;letter-spacing:.5px}.mentor h3{font-size:18px;line-height:1.55;margin:8px 0 15px}.opts{display:flex;flex-direction:column;gap:9px}.opt{border:1.5px solid var(--line);border-radius:15px;padding:13px 14px;background:#fff;text-align:left;line-height:1.5}.opt.sel{border-color:var(--accent);background:var(--accent2)}.inputline{display:flex;gap:8px}.inputline input{width:100%;border:1.5px solid var(--line);border-radius:14px;padding:13px;background:#fff;outline:none}.inputline input:focus{border-color:var(--accent)}.primary{margin-top:13px;width:100%;border:0;border-radius:14px;background:var(--accent);color:#fff;font-weight:750;padding:14px}.secondary{margin-top:8px;width:100%;border:1px solid var(--line);border-radius:14px;background:#fff;color:var(--text);padding:12px}.feedback{margin-top:12px;border-radius:13px;padding:11px 12px;font-size:13px;line-height:1.55}.feedback.good{background:#eaf7f0;color:#16643f}.feedback.bad{background:#fff0f0;color:#973434}.hint{margin-top:10px;padding:11px 12px;background:#fff8e8;color:#775019;border-radius:13px;font-size:13px;line-height:1.55}
+.result{text-align:center}.score-ring{width:112px;height:112px;border-radius:50%;margin:20px auto;background:conic-gradient(var(--accent) var(--pct),#e9ebf2 0);display:grid;place-items:center}.score-ring:after{content:"";position:absolute}.score-inner{width:88px;height:88px;border-radius:50%;background:#fff;display:grid;place-items:center;font-size:24px;font-weight:800}.skillrow{display:flex;justify-content:space-between;align-items:center;padding:12px 0;border-bottom:1px solid var(--line);font-size:14px}.ok{color:var(--good)}.weak{color:var(--warn)}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}.stat{text-align:center;background:#fff;border:1px solid var(--line);border-radius:17px;padding:14px 8px}.stat b{display:block;font-size:22px}.stat span{font-size:11px;color:var(--sub)}.barrow{margin:14px 0}.barrow .lab{display:flex;justify-content:space-between;font-size:13px}.bar{height:8px;background:#e8eaf0;border-radius:99px;margin-top:7px;overflow:hidden}.bar i{display:block;height:100%;background:var(--accent);border-radius:99px}.empty{text-align:center;color:var(--sub);padding:60px 20px}.smallnote{font-size:11px;color:var(--sub);line-height:1.55;margin-top:12px}
+</style>
+</head>
+<body>
+<div class="app">
+  <header class="top"><h1 id="headerTitle">奥数思路训练</h1><div class="tiny">手机版测试版 · 先训练思路，再训练答案</div></header>
+  <main id="root"></main>
+  <nav class="nav" id="nav">
+    <button data-page="home" class="on"><b>⌂</b>首页</button>
+    <button data-page="library"><b>▦</b>题库</button>
+    <button data-page="practice"><b>◎</b>练习</button>
+    <button data-page="progress"><b>◒</b>记录</button>
+  </nav>
+</div>
+<script>
+const QUESTIONS=[
+{id:"q1",source:"BOOK-002 · 变速运动",family:"分段运动",strategy:"整体转化",difficulty:"★★★",title:"小明骑自行车从甲地到乙地，先上坡后下坡，共用6小时。两地相距80千米，上坡速度8千米/小时，下坡速度20千米/小时。沿原路返回需要多少小时？",answer:"8",skills:["识别结构","找到第一步","验证"],nodes:[
+{t:"choice",q:"沿原路返回时，去程的上坡段和下坡段会怎样？",o:["坡向互换","坡向完全不变","只有上坡变下坡","无法判断"],a:0,h:"想象同一段山路反方向骑一次。",why:"正确。原路反向行驶时，同一路段的坡向会互换。"},
+{t:"pair",q:"把去程和返程合并看，一共上坡多少千米、下坡多少千米？",a:["80","80"],ph:["上坡 km","下坡 km"],h:"每一段路在一次往返中各经历一次上坡和一次下坡。",why:"因此不必先求去程每一段的长度。"},
+{t:"number",q:"完整往返一共需要多少小时？",a:"14",h:"分别算80÷8和80÷20。",why:"80÷8+80÷20=10+4=14小时。"},
+{t:"number",q:"去程已用6小时，返程需要多少小时？",a:"8",h:"返程=往返总时间−去程。",why:"14−6=8小时。"},
+{t:"choice",q:"为什么不能直接用(8+20)÷2作为平均速度？",o:["两种速度对应的时间/路程权重不一定相等","因为平均速度永远不能计算","因为20太大","因为必须先乘法"],a:0,h:"想想什么时候算术平均才有意义。",why:"算术平均要求相应权重条件；本题不能直接等权。"}]},
+{id:"q2",source:"BOOK-001 · 经典结构",family:"固定总数+单位贡献",strategy:"基准假设",difficulty:"★★",title:"鸡兔共有20只，共有56条腿。鸡和兔各有多少只？",answer:"鸡12，兔8",skills:["结构识别","假设法","差量理解"],nodes:[
+{t:"choice",q:"这道题最核心的两个总量是什么？",o:["总只数和总腿数","鸡数和兔数","鸡腿和兔腿","20和4"],a:0,h:"先找题目明确给出的两个总量。",why:"总只数20、总腿数56共同约束两类动物。"},
+{t:"choice",q:"如果先假设20只全是鸡，会有多少条腿？",o:["20","40","56","80"],a:1,h:"每只鸡2条腿。",why:"20×2=40。"},
+{t:"number",q:"实际腿数比“全是鸡”多多少条？",a:"16",h:"56−40。",why:"多出来16条腿。"},
+{t:"number",q:"每把1只鸡替换成1只兔，会多几条腿？",a:"2",h:"兔4条腿，鸡2条腿。",why:"4−2=2。"},
+{t:"pair",q:"因此兔和鸡分别有多少只？",a:["8","12"],ph:["兔","鸡"],h:"16÷2求兔，再用20减。",why:"兔8只，鸡12只。"}]},
+{id:"q3",source:"BOOK-001 · 递推",family:"路径/状态计数",strategy:"递推",difficulty:"★★★",title:"一段楼梯有10级，每一步只能跨1级或2级。登上第10级一共有多少种不同走法？",answer:"89",skills:["状态定义","递推关系","初值"],nodes:[
+{t:"choice",q:"到达第n级的最后一步可能来自哪里？",o:["第n−1级或第n−2级","只能第n−1级","只能第n−2级","任意一级"],a:0,h:"最后一步只能跨1级或2级。",why:"最后一步决定了两类互斥情况。"},
+{t:"choice",q:"若aₙ表示到第n级的方法数，递推式应是哪一个？",o:["aₙ=aₙ₋₁+aₙ₋₂","aₙ=aₙ₋₁×2","aₙ=n²","aₙ=aₙ₋₂−aₙ₋₁"],a:0,h:"把最后跨1级和最后跨2级两类相加。",why:"两类不重不漏，所以相加。"},
+{t:"pair",q:"a₁和a₂分别是多少？",a:["1","2"],ph:["a₁","a₂"],h:"到第1级只有1种；到第2级可1+1或直接2。",why:"初值为1、2。"},
+{t:"number",q:"依次递推到a₁₀，结果是多少？",a:"89",h:"1,2,3,5,8,13,21,34,55,…",why:"a₁₀=89。"}]},
+{id:"q4",source:"BOOK-002 · 优惠问题",family:"分组优惠",strategy:"整组+余量",difficulty:"★",title:"油酥饼1.5元一个，买5个送1个。小明把15元全部用来买油酥饼，实际得到多少个？",answer:"12",skills:["识别优惠周期","单位量","验证"],nodes:[
+{t:"number",q:"15元按原价可以买几个（付费数量）？",a:"10",h:"15÷1.5。",why:"可以买10个。"},
+{t:"number",q:"买10个一共能得到几个赠品？",a:"2",h:"每买5个送1个。",why:"10里面有两个完整的5。"},
+{t:"number",q:"最终实际得到多少个？",a:"12",h:"付费10个+赠品2个。",why:"共12个。"}]},
+{id:"q5",source:"BOOK-002 · 循环小数",family:"周期结构",strategy:"周期分析",difficulty:"★★★",title:"3÷7的商是循环小数。小数点后第2008位上的数字是多少？",answer:"5",skills:["发现周期","余数定位","验证"],nodes:[
+{t:"choice",q:"3÷7的小数循环节是什么？",o:["428571","142857","285714","857142"],a:0,h:"3÷7=0.428571428571…",why:"循环节是428571，长度6。"},
+{t:"number",q:"2008除以6的余数是多少？",a:"4",h:"2008=6×334+4。",why:"余数4表示落在循环节第4位。"},
+{t:"choice",q:"循环节428571的第4位是？",o:["4","8","5","7"],a:2,h:"从左往右数第4个。",why:"第4位是5。"}]},
+{id:"q6",source:"BOOK-002 · 体积",family:"体积守恒",strategy:"体积守恒",difficulty:"★",title:"长方体水箱底面长16分米、宽4分米，水深6分米。若改用最小的面（4×8）作底面，水深是多少分米？",answer:"12",skills:["守恒量","重新表征","计算"],nodes:[
+{t:"choice",q:"改变水箱放置方向时，哪个量保持不变？",o:["水的体积","水深","底面积","水箱高度"],a:0,h:"水没有增加或减少。",why:"水的体积保持不变。"},
+{t:"number",q:"原来水的体积是多少立方分米？",a:"384",h:"16×4×6。",why:"体积384立方分米。"},
+{t:"number",q:"新底面积4×8=32平方分米，水深是多少？",a:"12",h:"384÷32。",why:"水深12分米。"}]},
+{id:"q7",source:"结构迁移测试",family:"固定总数+单位贡献",strategy:"基准假设",difficulty:"★★",title:"某场活动成人票5元、儿童票3元，共售出20张，收入76元。成人票和儿童票各售出多少张？",answer:"成人8，儿童12",skills:["迁移识别","差量模型","验证"],nodes:[
+{t:"choice",q:"这道题和哪种底层结构最接近？",o:["鸡兔同笼式的“总数+单位贡献”","单纯和差问题","周期问题","几何面积"],a:0,h:"关注“总张数”和“总收入”。",why:"表面情境不同，但约束结构相同。"},
+{t:"number",q:"假设20张全部是儿童票，收入是多少元？",a:"60",h:"20×3。",why:"基准收入60元。"},
+{t:"number",q:"实际比基准多收入多少元？",a:"16",h:"76−60。",why:"多16元。"},
+{t:"pair",q:"每换1张成人票多2元，因此成人票、儿童票各多少张？",a:["8","12"],ph:["成人","儿童"],h:"16÷2求成人票。",why:"成人8张，儿童12张。"}]},
+{id:"q8",source:"BOOK-001 · 对策",family:"轮流行动博弈",strategy:"必败态/目标状态",difficulty:"★★★★",title:"有54张牌，两人轮流拿，每次只能拿1～4张，拿到最后一张的人输。先拿者怎样才能保证获胜？",answer:"先拿3张；之后与对手合计拿5张",skills:["逆推","必败态","回应规则"],nodes:[
+{t:"choice",q:"因为拿最后一张的人输，希望轮到对手时最后只剩几张？",o:["1张","4张","5张","0张"],a:0,h:"如果轮到对手且只剩1张，他会被迫拿走最后一张。",why:"1张是对手的必败态。"},
+{t:"number",q:"若对手每次可拿1～4张，要稳定把下一必败态留给对手，两人的取牌数每轮合计应为多少？",a:"5",h:"1到4的互补数。",why:"对手拿x张，你拿5−x张。"},
+{t:"choice",q:"必败态序列应是哪一组？",o:["1,6,11,16,…","1,5,9,13,…","4,8,12,16,…","2,7,12,17,…"],a:0,h:"相邻必败态相差5。",why:"1,6,11,…一直逆推。"},
+{t:"number",q:"54张牌开局，先手第一步应拿几张，使对手面对51张？",a:"3",h:"54−51。",why:"先拿3张，之后执行“合计5张”的回应规则。"}]},
+{id:"q9",source:"BOOK-001 · 最优化",family:"工序调度",strategy:"并行/关键路径",difficulty:"★★",title:"烧水沏茶：洗水壶1分钟，烧水15分钟，洗茶壶1分钟，洗茶杯1分钟，拿茶叶2分钟。合理并行安排，最少多少分钟可以开始沏茶？",answer:"16",skills:["前置约束","并行任务","关键路径"],nodes:[
+{t:"choice",q:"哪个任务必须在“烧水”之前完成？",o:["洗水壶","洗茶杯","拿茶叶","洗茶壶"],a:0,h:"不洗水壶不能开始烧水。",why:"洗水壶是烧水的前置任务。"},
+{t:"choice",q:"烧水15分钟期间，其他准备工作能否并行完成？",o:["可以","不可以","只能洗茶杯","只能拿茶叶"],a:0,h:"它们不依赖烧水过程本身。",why:"洗茶壶、洗茶杯、拿茶叶都可并行塞入15分钟等待期。"},
+{t:"number",q:"因此最短总时间是多少分钟？",a:"16",h:"先洗水壶1分钟，再烧水15分钟。",why:"关键路径长度1+15=16分钟。"}]},
+{id:"q10",source:"思路训练 · 数列",family:"等差序列约束",strategy:"平均数/对称",difficulty:"★★",title:"7个数成等差数列，相邻两数差5，总和为210。第一个数和第六个数分别是多少？",answer:"15，40",skills:["平均数","等差结构","定位"],nodes:[
+{t:"number",q:"7个数的平均数是多少？",a:"30",h:"210÷7。",why:"平均数30。"},
+{t:"choice",q:"7项等差数列的平均数等于哪一项？",o:["第4项","第1项","第6项","第7项"],a:0,h:"奇数项等差数列关于中间项对称。",why:"第4项就是平均数30。"},
+{t:"pair",q:"公差为5，第1项和第6项分别是多少？",a:["15","40"],ph:["第1项","第6项"],h:"从第4项30向前3步、向后2步。",why:"第1项15，第6项40。"}]}
+];
+
+const state={page:"home",current:null,node:0,selected:null,hint:false,feedback:null,answers:[],filter:"全部"};
+const store=JSON.parse(localStorage.getItem("olympiad_progress")||'{"attempts":0,"completed":0,"correctNodes":0,"totalNodes":0,"history":[],"mastery":{}}');
+function save(){localStorage.setItem("olympiad_progress",JSON.stringify(store))}
+function esc(s){return String(s??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]))}
+function nav(page){state.page=page;state.current=null;state.feedback=null;document.querySelectorAll(".nav button").forEach(b=>b.classList.toggle("on",b.dataset.page===page));render()}
+document.querySelectorAll(".nav button").forEach(b=>b.onclick=()=>nav(b.dataset.page));
+
+function home(){
+ const last=store.history[0];return '<div class="page">'+
+ '<section class="hero"><div class="eyebrow">今天的目标</div><h2>先看懂结构，再开始计算</h2><p>每道题只推进一个思考节点。答错时停在当前步骤，不会自动跳题。</p><button onclick="startSmart()">'+(last?'继续思路训练':'开始第一道训练')+'</button></section>'+
+ '<div class="grid"><div class="card action" onclick="startRandom()"><div class="ico">🎲</div><h3>随机练习</h3><p>从当前测试题库随机选择</p></div><div class="card action" onclick="nav(\'library\')"><div class="ico">⌕</div><h3>题库浏览</h3><p>按结构与策略查看题目</p></div><div class="card action" onclick="special(\'固定总数+单位贡献\')"><div class="ico">⌘</div><h3>专项训练</h3><p>同结构、不同表面情境</p></div><div class="card action" onclick="nav(\'progress\')"><div class="ico">◒</div><h3>学习记录</h3><p>看清楚卡在哪个思考环节</p></div></div>'+
+ '<div class="section-title"><h2>测试内容</h2><span>10 道 · 离线</span></div><div class="card"><div style="font-size:14px;line-height:1.8">✓ 题库浏览与筛选<br>✓ 分步 ReasoningGraph<br>✓ 错误不自动推进<br>✓ 分层提示与即时反馈<br>✓ 本地学习记录与结构掌握度</div><div class="smallnote">这是功能测试包，重点验证手机版交互，不代表题库内容已经全部导入。</div></div></div>'
+}
+function library(){
+ const fams=["全部",...new Set(QUESTIONS.map(q=>q.family))];
+ const qs=state.filter==="全部"?QUESTIONS:QUESTIONS.filter(q=>q.family===state.filter);
+ return '<div class="page"><div class="filter">'+fams.map(f=>'<button class="chip '+(state.filter===f?'on':'')+'" onclick="setFilter(\''+esc(f)+'\')">'+esc(f)+'</button>').join('')+'</div><div class="list">'+qs.map((q,i)=>'<div class="qrow" onclick="start(\''+q.id+'\')"><div class="qmeta">'+esc(q.source)+' · '+esc(q.difficulty)+'</div><div class="qtitle">'+esc(q.title)+'</div><div class="tags"><span class="tag master">'+esc(q.family)+'</span><span class="tag">'+esc(q.strategy)+'</span><span class="tag">'+q.nodes.length+'步思路</span></div></div>').join('')+'</div></div>'
+}
+function practice(){
+ return '<div class="page"><section class="hero"><div class="eyebrow">SMART PRACTICE</div><h2>测试版智能练习</h2><p>优先挑选尚未练习或掌握度较低的结构。正式版将接入 Family / Strategy / Reasoning Skill 三层 Mastery。</p><button onclick="startSmart()">开始一题</button></section><div class="section-title"><h2>当前规则</h2><span>v0.1</span></div><div class="card" style="font-size:14px;line-height:1.8">① 未练习题优先<br>② 较低掌握度结构优先<br>③ 连续重复同一题降权<br>④ 全程离线，不依赖AI生成题目</div></div>'
+}
+function progress(){
+ const accuracy=store.totalNodes?Math.round(store.correctNodes/store.totalNodes*100):0;
+ const mastery=Object.entries(store.mastery).sort((a,b)=>b[1]-a[1]);
+ return '<div class="page"><div class="stats"><div class="stat"><b>'+store.attempts+'</b><span>开始题目</span></div><div class="stat"><b>'+store.completed+'</b><span>完成题目</span></div><div class="stat"><b>'+accuracy+'%</b><span>节点首次正确</span></div></div><div class="section-title"><h2>结构掌握度</h2><span>测试估计</span></div><div class="card">'+(mastery.length?mastery.map(([k,v])=>'<div class="barrow"><div class="lab"><span>'+esc(k)+'</span><b>'+Math.round(v)+'%</b></div><div class="bar"><i style="width:'+Math.max(4,v)+'%"></i></div></div>').join(''):'<div class="empty">完成几道题后，这里会出现结构掌握度。</div>')+'<div class="smallnote">当前只是 MVP 规则分数，不是经过统计校准的能力测量。</div></div></div>'
+}
+function start(id){state.current=QUESTIONS.find(q=>q.id===id);state.node=0;state.selected=null;state.hint=false;state.feedback=null;state.answers=[];state.page="tutor";store.attempts++;save();render()}
+function startRandom(){start(QUESTIONS[Math.floor(Math.random()*QUESTIONS.length)].id)}
+function startSmart(){
+ const seen=new Set(store.history.map(x=>x.id));
+ let pool=QUESTIONS.filter(q=>!seen.has(q.id)); if(!pool.length)pool=QUESTIONS;
+ pool.sort((a,b)=>(store.mastery[a.family]||0)-(store.mastery[b.family]||0));
+ start(pool[0].id);
+}
+function special(f){state.filter=f;nav("library")}
+function setFilter(f){state.filter=f;render()}
+function tutor(){
+ const q=state.current,n=q.nodes[state.node],pct=Math.round(state.node/q.nodes.length*100);
+ let input="";
+ if(n.t==="choice") input='<div class="opts">'+n.o.map((o,i)=>'<button class="opt '+(state.selected===i?'sel':'')+'" onclick="pick('+i+')">'+String.fromCharCode(65+i)+'. '+esc(o)+'</button>').join('')+'</div>';
+ if(n.t==="number") input='<div class="inputline"><input id="ans1" inputmode="decimal" placeholder="输入答案"></div>';
+ if(n.t==="pair") input='<div class="inputline"><input id="ans1" inputmode="decimal" placeholder="'+esc(n.ph[0])+'"><input id="ans2" inputmode="decimal" placeholder="'+esc(n.ph[1])+'"></div>';
+ return '<div class="page"><div class="tutor-head"><button class="back" onclick="quitTutor()">‹</button><div class="prog"><div class="progline"><i style="width:'+pct+'%"></i></div><div class="progtext">思考步骤 '+(state.node+1)+' / '+q.nodes.length+'</div></div></div>'+
+ '<section class="problem"><div class="source">'+esc(q.source)+' · '+esc(q.family)+'</div><p>'+esc(q.title)+'</p></section>'+
+ '<section class="mentor"><div class="mentor-label">AI 导师 · 当前只解决一步</div><h3>'+esc(n.q)+'</h3>'+input+
+ (state.feedback?'<div class="feedback '+state.feedback.type+'">'+esc(state.feedback.text)+'</div>':'')+
+ (state.hint?'<div class="hint">提示：'+esc(n.h)+'</div>':'')+
+ '<button class="primary" onclick="submitNode()">'+(state.feedback&&state.feedback.type==="good"?'下一步':'确认这一步')+'</button>'+
+ (!state.feedback||state.feedback.type!=="good"?'<button class="secondary" onclick="showHint()">给我一个提示</button>':'')+'</section></div>'
+}
+function pick(i){if(state.feedback?.type==="good")return;state.selected=i;render()}
+function norm(v){return String(v??"").trim().replace(/\s+/g,"").replace(/，/g,",")}
+function submitNode(){
+ const q=state.current,n=q.nodes[state.node];
+ if(state.feedback?.type==="good"){advance();return}
+ let correct=false,response="";
+ if(n.t==="choice"){if(state.selected===null){state.feedback={type:"bad",text:"先选择一个答案。"};render();return}response=state.selected;correct=state.selected===n.a}
+ if(n.t==="number"){const el=document.getElementById("ans1");response=el?.value||"";if(!response.trim()){state.feedback={type:"bad",text:"先输入你的答案。"};render();return}correct=norm(response)===norm(n.a)}
+ if(n.t==="pair"){const a=document.getElementById("ans1")?.value||"",b=document.getElementById("ans2")?.value||"";if(!a.trim()||!b.trim()){state.feedback={type:"bad",text:"两个空都需要填写。"};render();return}response=[a,b];correct=norm(a)===norm(n.a[0])&&norm(b)===norm(n.a[1])}
+ store.totalNodes++;if(correct)store.correctNodes++;
+ state.answers.push({node:state.node,correct,hint:state.hint,response});
+ state.feedback={type:correct?"good":"bad",text:correct?n.why:"这一步还不对。"+(state.hint?" 再根据提示重新检查。":" 可以先看提示，再重新作答。")};
+ if(!correct){state.selected=null} save();render()
+}
+function showHint(){state.hint=true;render()}
+function advance(){if(state.node<state.current.nodes.length-1){state.node++;state.selected=null;state.hint=false;state.feedback=null;render()}else{finish()}}
+function finish(){
+ const q=state.current;const firstCorrect=state.answers.filter(a=>a.correct).length;const score=Math.round(firstCorrect/q.nodes.length*100);
+ store.completed++;store.history.unshift({id:q.id,title:q.title,family:q.family,score,date:Date.now()});store.history=store.history.slice(0,30);
+ const old=store.mastery[q.family]||35;store.mastery[q.family]=Math.max(0,Math.min(100,old*.7+score*.3));save();
+ state.result={q,score};state.page="result";render()
+}
+function result(){
+ const {q,score}=state.result;return '<div class="page result"><div class="score-ring" style="--pct:'+score+'%"><div class="score-inner">'+score+'</div></div><h2>本题思路完成</h2><p style="color:var(--sub);font-size:13px">重点不是只看最终答案，而是看每个推理节点是否能独立完成。</p><div class="card" style="text-align:left;margin-top:18px">'+q.skills.map((s,i)=>'<div class="skillrow"><span>'+esc(s)+'</span><b class="'+(score>=70||i===0?'ok':'weak')+'">'+(score>=70||i===0?'✓ 已练习':'△ 需巩固')+'</b></div>').join('')+'</div><button class="primary" onclick="startSmart()">再来一道</button><button class="secondary" onclick="nav(\'home\')">回首页</button></div>'
+}
+function quitTutor(){state.current=null;nav("home")}
+function render(){
+ document.getElementById("nav").style.display=(state.page==="tutor"||state.page==="result")?"none":"flex";
+ document.getElementById("headerTitle").textContent=state.page==="library"?"题库":state.page==="progress"?"学习记录":state.page==="practice"?"智能练习":state.page==="tutor"?"思路训练":state.page==="result"?"本题结果":"奥数思路训练";
+ let html=state.page==="home"?home():state.page==="library"?library():state.page==="practice"?practice():state.page==="progress"?progress():state.page==="tutor"?tutor():result();
+ document.getElementById("root").innerHTML=html;
+}
+render();
+</script>
+</body>
+</html>
