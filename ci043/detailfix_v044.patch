@@ -1,0 +1,231 @@
+--- a/app/src/main/java/com/zhiwu/olympiadtutor/ui/OlympiadApp.kt
++++ b/app/src/main/java/com/zhiwu/olympiadtutor/ui/OlympiadApp.kt
+@@ -21,6 +21,7 @@
+ import androidx.compose.ui.text.font.FontWeight
+ import androidx.compose.ui.text.input.KeyboardType
+ import androidx.compose.ui.unit.dp
++import androidx.compose.ui.unit.sp
+ import com.zhiwu.olympiadtutor.data.*
+ import kotlinx.coroutines.launch
+ import org.json.JSONArray
+@@ -91,7 +92,7 @@
+                                 fontWeight = FontWeight.Bold
+                             )
+                             Text(
+-                                "原生手机版 v0.4.2 · Quality Gate",
++                                "原生手机版 v0.4.4 · Detail UI Fix",
+                                 style = MaterialTheme.typography.labelSmall,
+                                 color = MaterialTheme.colorScheme.onSurfaceVariant
+                             )
+@@ -614,17 +615,34 @@
+             ElevatedCard(shape = RoundedCornerShape(18.dp)) {
+                 Column(Modifier.padding(16.dp)) {
+                     Text("题目质量状态", fontWeight = FontWeight.Bold)
+-                    Spacer(Modifier.height(6.dp))
+-                    Text("${question.family} · ${question.strategy.ifBlank { "策略待完善" }} · ${question.difficulty}")
+-                    Spacer(Modifier.height(6.dp))
+-                    Text("Tier：${question.tier} · Review：${question.reviewStatus}")
+-                    Text("Graph：${question.graphQuality} · Answer：${question.answerStatus}")
+-                    Text("Visual：${question.visualStatus}")
+-                    Spacer(Modifier.height(8.dp))
++                    Spacer(Modifier.height(10.dp))
++                    QualityStatusRow("内容层级", tierLabel(question.tier), question.tier == "tutor")
++                    QualityStatusRow("结构审核", reviewLabel(question.reviewStatus), question.reviewStatus.startsWith("tutor_verified"))
++                    QualityStatusRow("思路图", graphLabel(question.graphQuality), question.graphQuality != "none")
++                    QualityStatusRow("答案核验", answerLabel(question.answerStatus), question.answerStatus != "source_only")
++                    QualityStatusRow("题图状态", visualLabel(question.visualStatus), question.visualStatus.startsWith("verified_"))
++                    Spacer(Modifier.height(10.dp))
++                    HorizontalDivider()
++                    Spacer(Modifier.height(10.dp))
++                    Text(
++                        "题目结构：${question.family.ifBlank { "待结构化" }}",
++                        style = MaterialTheme.typography.bodyMedium,
++                        fontWeight = FontWeight.Medium
++                    )
++                    Text(
++                        "解题策略：${question.strategy.ifBlank { "尚未结构化/审核" }}",
++                        style = MaterialTheme.typography.bodyMedium
++                    )
++                    Text(
++                        "任务目标：${taskGoalLabel(question.taskGoal)} · 难度：${question.difficulty.ifBlank { "未校准" }}",
++                        style = MaterialTheme.typography.bodyMedium
++                    )
++                    Spacer(Modifier.height(10.dp))
+                     Text(
+                         when (question.tier) {
+-                            "gold" -> "这道题已有人工 Gold Ontology 标注，但 Learning Path / ReasoningGraph 尚未通过儿童端发布审核。"
+-                            else -> "这道题已进入来源题库，但尚未达到 Tutor Ready。可以浏览原题与来源解析，不会把出版社答案或自动抽取结果冒充成已验证答案。"
++                            "tutor" -> "已通过当前 Tutor 发布门槛，可进入完整分步思路训练。"
++                            "gold" -> "已有人工 Gold Ontology 标注，但 Learning Path / ReasoningGraph 尚未通过儿童端发布审核。"
++                            else -> "目前是来源题。部分字段显示“待结构化”是正常状态，并非数据库缺失；可以浏览原题与来源解析，但不会把来源答案当作已独立核验答案。"
+                         },
+                         style = MaterialTheme.typography.bodySmall,
+                         color = MaterialTheme.colorScheme.onSurfaceVariant
+@@ -642,9 +660,8 @@
+                     Column(Modifier.padding(16.dp)) {
+                         Text("来源解析", fontWeight = FontWeight.Bold)
+                         Spacer(Modifier.height(6.dp))
+-                        Text(
+-                            question.sourceSolution.ifBlank { question.answer.ifBlank { "来源解析尚未整理" } },
+-                            style = MaterialTheme.typography.bodyMedium
++                        SourceSolutionBlock(
++                            question.sourceSolution.ifBlank { question.answer.ifBlank { "来源解析尚未整理" } }
+                         )
+                         if (question.answerStatus == "source_only") {
+                             Spacer(Modifier.height(8.dp))
+@@ -659,6 +676,142 @@
+             }
+         }
+     }
++}
++
++
++@Composable
++private fun QualityStatusRow(label: String, value: String, positive: Boolean = false) {
++    Row(
++        modifier = Modifier
++            .fillMaxWidth()
++            .padding(vertical = 3.dp),
++        horizontalArrangement = Arrangement.SpaceBetween,
++        verticalAlignment = Alignment.CenterVertically
++    ) {
++        Text(
++            label,
++            style = MaterialTheme.typography.bodySmall,
++            color = MaterialTheme.colorScheme.onSurfaceVariant
++        )
++        Surface(
++            shape = RoundedCornerShape(999.dp),
++            color = if (positive) MaterialTheme.colorScheme.primaryContainer
++            else MaterialTheme.colorScheme.surfaceVariant
++        ) {
++            Text(
++                value,
++                modifier = Modifier.padding(horizontal = 10.dp, vertical = 5.dp),
++                style = MaterialTheme.typography.labelMedium,
++                color = if (positive) MaterialTheme.colorScheme.onPrimaryContainer
++                else MaterialTheme.colorScheme.onSurfaceVariant
++            )
++        }
++    }
++}
++
++private fun tierLabel(value: String): String = when (value) {
++    "tutor" -> "Tutor Ready"
++    "gold" -> "Gold 已标注"
++    "structured" -> "来源题 / 待完善"
++    else -> value.ifBlank { "未记录" }
++}
++
++private fun reviewLabel(value: String): String = when {
++    value.startsWith("tutor_verified") -> "Tutor 已审核"
++    value.startsWith("gold_labeled") -> "Gold 标注完成"
++    value == "source_answer_linked" -> "已关联来源答案"
++    value == "source_only" -> "仅来源数据"
++    else -> value.ifBlank { "未记录" }
++}
++
++private fun graphLabel(value: String): String = when (value) {
++    "handcrafted_verified" -> "人工验证完成"
++    "human_verified" -> "人工验证完成"
++    "none", "" -> "尚未构建/审核"
++    else -> value
++}
++
++private fun answerLabel(value: String): String = when (value) {
++    "independently_checked" -> "已独立核验"
++    "math_checked_handcrafted" -> "已人工数学核验"
++    "source_only" -> "仅来源答案"
++    "" -> "未记录"
++    else -> value
++}
++
++private fun visualLabel(value: String): String = when (value) {
++    "verified_problem_visual" -> "题干图已确认"
++    "verified_optional_problem_visual" -> "辅助题图已确认"
++    "verified_no_problem_visual" -> "确认无需题图"
++    "verified_solution_visual" -> "解答图，不展示"
++    "required_candidate" -> "疑似必需图，待审核"
++    "linked_unreviewed" -> "已关联，待语义审核"
++    "none", "" -> "无题图记录"
++    else -> value
++}
++
++private fun taskGoalLabel(value: String): String = when (value) {
++    "compute" -> "计算"
++    "count" -> "计数"
++    "compare" -> "比较"
++    "find_all" -> "找出全部"
++    "classify" -> "分类"
++    "construct" -> "构造"
++    "prove_existence" -> "证明存在"
++    "prove_impossibility" -> "证明不存在"
++    "refute_claim" -> "反驳命题"
++    "optimize_min" -> "求最小值"
++    "optimize_max" -> "求最大值"
++    "find_strategy" -> "寻找策略"
++    "discover_pattern" -> "发现规律"
++    else -> value.ifBlank { "未标注" }
++}
++
++@Composable
++private fun SourceSolutionBlock(raw: String) {
++    val paragraphs = remember(raw) {
++        formatSourceSolution(raw)
++            .split(Regex("\n{2,}"))
++            .map { it.trim() }
++            .filter { it.isNotBlank() }
++    }
++    Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
++        paragraphs.forEach { paragraph ->
++            val heading = paragraph in setOf("分析", "分析与解", "解", "评注", "提示", "说明", "【原书插图】")
++            Text(
++                text = paragraph,
++                style = if (heading) MaterialTheme.typography.titleSmall
++                else MaterialTheme.typography.bodyMedium.copy(lineHeight = 24.sp),
++                fontWeight = if (heading) FontWeight.Bold else FontWeight.Normal,
++                color = if (paragraph == "【原书插图】") MaterialTheme.colorScheme.onSurfaceVariant
++                else MaterialTheme.colorScheme.onSurface
++            )
++        }
++    }
++}
++
++private fun formatSourceSolution(raw: String): String {
++    var text = raw
++        .replace("\r\n", "\n")
++        .replace('\r', '\n')
++        .replace('\u00A0', ' ')
++        .trim()
++
++    text = text.replace(Regex("\\s*\\[IMAGE\\]\\s*"), "\n\n【原书插图】\n\n")
++    text = text.replace(Regex("\\s*---+\\s*"), "\n\n")
++
++    // OCR/MD 生成运行时包时部分段落换行被压平，这里只恢复高置信结构边界。
++    val headingRegex = Regex("(^|[。；;.!?]\\s*)(分析与解|分析|解|评\\s*注|提示|说明)\\s+")
++    text = headingRegex.replace(text) { m ->
++        val prefix = m.groupValues[1]
++        val heading = m.groupValues[2].replace(Regex("\\s+"), "")
++        prefix + "\n\n" + heading + "\n"
++    }
++    text = text.replace(Regex("\\s+(（[0-9一二三四五六七八九十]+）)\\s*"), "\n$1 ")
++    text = text.replace(Regex("[ \\t]+\\n"), "\n")
++    text = text.replace(Regex("\\n[ \\t]+"), "\n")
++    text = text.replace(Regex("\\n{3,}"), "\n\n")
++    return text.trim()
+ }
+ 
+ @Composable
+--- a/app/build.gradle
++++ b/app/build.gradle
+@@ -12,8 +12,8 @@
+         applicationId "com.zhiwu.olympiadtutor"
+         minSdk 26
+         targetSdk 35
+-        versionCode 6
+-        versionName "0.4.3-tutor50"
++        versionCode 7
++        versionName "0.4.4-detailfix"
+     }
+ 
+     buildFeatures { compose true }
