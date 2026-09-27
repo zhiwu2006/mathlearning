@@ -1,0 +1,196 @@
+ckEntity(
+     @ColumnInfo(name = "gold_labeled_count") val goldLabeledCount: Int = 0,
+     @ColumnInfo(name = "structured_count") val structuredCount: Int = 0,
+     @ColumnInfo(name = "asset_count") val assetCount: Int = 0,
++    @ColumnInfo(name = "comprehension_ready_count") val comprehensionReadyCount: Int = 0,
+     @ColumnInfo(name = "imported_at") val importedAt: Long,
+ )
+ 
+ @Entity(
+     tableName = "questions",
+-    indices = [Index("bundle_id"), Index("family"), Index("tier"), Index("review_status")],
++    indices = [Index("bundle_id"), Index("family"), Index("tier"), Index("review_status"), Index("comprehension_quality")],
+     foreignKeys = [ForeignKey(
+         entity = ContentPackEntity::class,
+         parentColumns = ["bundle_id"],
+@@ -46,6 +47,7 @@ data class QuestionEntity(
+     @ColumnInfo(name = "answer_status") val answerStatus: String = "source_only",
+     @ColumnInfo(name = "visual_status") val visualStatus: String = "none",
+     @ColumnInfo(name = "image_assets_json") val imageAssetsJson: String = "[]",
++    @ColumnInfo(name = "comprehension_quality") val comprehensionQuality: String = "none",
+ )
+ 
+ @Entity(
+@@ -69,6 +71,30 @@ data class ReasoningNodeEntity(
+     val feedback: String,
+ )
+ 
++@Entity(
++    tableName = "comprehension_nodes",
++    primaryKeys = ["question_id", "ordinal"],
++    indices = [Index("question_id"), Index("skill")],
++    foreignKeys = [ForeignKey(
++        entity = QuestionEntity::class,
++        parentColumns = ["id"],
++        childColumns = ["question_id"],
++        onDelete = ForeignKey.CASCADE
++    )]
++)
++data class ComprehensionNodeEntity(
++    @ColumnInfo(name = "question_id") val questionId: String,
++    val ordinal: Int,
++    val key: String,
++    val skill: String,
++    val label: String,
++    val type: String,
++    val prompt: String,
++    @ColumnInfo(name = "payload_json") val payloadJson: String,
++    val hint: String,
++    val feedback: String,
++)
++
+ @Entity(tableName = "attempts", indices = [Index("question_id"), Index("finished_at")])
+ data class AttemptEntity(
+     @PrimaryKey(autoGenerate = true) val id: Long = 0,
+@@ -85,3 +111,39 @@ data class MasteryEntity(
+     @ColumnInfo(name = "evidence_count") val evidenceCount: Int,
+     @ColumnInfo(name = "updated_at") val updatedAt: Long,
+ )
++
++@Entity(tableName = "comprehension_attempts", indices = [Index("question_id"), Index("finished_at")])
++data class ComprehensionAttemptEntity(
++    @PrimaryKey(autoGenerate = true) val id: Long = 0,
++    @ColumnInfo(name = "question_id") val questionId: String,
++    val score: Int,
++    @ColumnInfo(name = "finished_at") val finishedAt: Long,
++)
++
++@Entity(tableName = "comprehension_node_attempts", indices = [Index("question_id"), Index("skill"), Index("finished_at")])
++data class ComprehensionNodeAttemptEntity(
++    @PrimaryKey(autoGenerate = true) val id: Long = 0,
++    @ColumnInfo(name = "question_id") val questionId: String,
++    val ordinal: Int,
++    val skill: String,
++    @ColumnInfo(name = "first_try_correct") val firstTryCorrect: Boolean,
++    @ColumnInfo(name = "hint_used") val hintUsed: Boolean,
++    val attempts: Int,
++    @ColumnInfo(name = "finished_at") val finishedAt: Long,
++)
++
++@Entity(tableName = "comprehension_mastery")
++data class ComprehensionMasteryEntity(
++    @PrimaryKey val skill: String,
++    val score: Double,
++    @ColumnInfo(name = "evidence_count") val evidenceCount: Int,
++    @ColumnInfo(name = "updated_at") val updatedAt: Long,
++)
++
++data class ComprehensionNodeEvidence(
++    val ordinal: Int,
++    val skill: String,
++    val firstTryCorrect: Boolean,
++    val hintUsed: Boolean,
++    val attempts: Int,
++)
+diff --git a/app/src/main/java/com/zhiwu/olympiadtutor/data/OlympiadRepository.kt b/app/src/main/java/com/zhiwu/olympiadtutor/data/OlympiadRepository.kt
+index ee36490..c8bd087 100644
+--- a/app/src/main/java/com/zhiwu/olympiadtutor/data/OlympiadRepository.kt
++++ b/app/src/main/java/com/zhiwu/olympiadtutor/data/OlympiadRepository.kt
+@@ -5,11 +5,15 @@ import kotlinx.coroutines.flow.Flow
+ class OlympiadRepository(private val db: AppDatabase) {
+     val questions: Flow<List<QuestionEntity>> = db.questionDao().observeAll()
+     val tutorQuestions: Flow<List<QuestionEntity>> = db.questionDao().observeTutorReady()
++    val comprehensionQuestions: Flow<List<QuestionEntity>> = db.questionDao().observeComprehensionReady()
+     val packs: Flow<List<ContentPackEntity>> = db.packDao().observeAll()
+     val attempts: Flow<List<AttemptEntity>> = db.learningDao().observeAttempts()
+     val mastery: Flow<List<MasteryEntity>> = db.learningDao().observeMastery()
++    val comprehensionAttempts: Flow<List<ComprehensionAttemptEntity>> = db.comprehensionLearningDao().observeAttempts()
++    val comprehensionMastery: Flow<List<ComprehensionMasteryEntity>> = db.comprehensionLearningDao().observeMastery()
+ 
+     suspend fun nodes(questionId: String) = db.reasoningNodeDao().getForQuestion(questionId)
++    suspend fun comprehensionNodes(questionId: String) = db.comprehensionNodeDao().getForQuestion(questionId)
+ 
+     suspend fun recordAttempt(question: QuestionEntity, score: Int) {
+         val now = System.currentTimeMillis()
+@@ -25,4 +29,44 @@ class OlympiadRepository(private val db: AppDatabase) {
+             )
+         )
+     }
++
++    suspend fun recordComprehensionAttempt(
++        question: QuestionEntity,
++        score: Int,
++        evidence: List<ComprehensionNodeEvidence>,
++    ) {
++        val now = System.currentTimeMillis()
++        db.comprehensionLearningDao().insertAttempt(
++            ComprehensionAttemptEntity(questionId = question.id, score = score, finishedAt = now)
++        )
++        evidence.forEach { item ->
++            db.comprehensionLearningDao().insertNodeAttempt(
++                ComprehensionNodeAttemptEntity(
++                    questionId = question.id,
++                    ordinal = item.ordinal,
++                    skill = item.skill,
++                    firstTryCorrect = item.firstTryCorrect,
++                    hintUsed = item.hintUsed,
++                    attempts = item.attempts,
++                    finishedAt = now,
++                )
++            )
++            val evidenceScore = when {
++                item.firstTryCorrect && !item.hintUsed -> 100.0
++                item.firstTryCorrect && item.hintUsed -> 85.0
++                !item.firstTryCorrect && !item.hintUsed -> 70.0
++                else -> 55.0
++            }
++            val old = db.comprehensionLearningDao().getMastery(item.skill)
++            val nextScore = if (old == null) evidenceScore else old.score * 0.75 + evidenceScore * 0.25
++            db.comprehensionLearningDao().upsertMastery(
++                ComprehensionMasteryEntity(
++                    skill = item.skill,
++                    score = nextScore.coerceIn(0.0, 100.0),
++                    evidenceCount = (old?.evidenceCount ?: 0) + 1,
++                    updatedAt = now,
++                )
++            )
++        }
++    }
+ }
+diff --git a/app/src/main/java/com/zhiwu/olympiadtutor/ui/OlympiadApp.kt b/app/src/main/java/com/zhiwu/olympiadtutor/ui/OlympiadApp.kt
+index f31bcc0..d07b0cf 100644
+--- a/app/src/main/java/com/zhiwu/olympiadtutor/ui/OlympiadApp.kt
++++ b/app/src/main/java/com/zhiwu/olympiadtutor/ui/OlympiadApp.kt
+@@ -21,6 +21,7 @@ import androidx.compose.ui.platform.LocalContext
+ import androidx.compose.ui.text.font.FontWeight
+ import androidx.compose.ui.text.input.KeyboardType
+ import androidx.compose.ui.unit.dp
++import androidx.compose.ui.unit.sp
+ import com.zhiwu.olympiadtutor.data.*
+ import kotlinx.coroutines.launch
+ import org.json.JSONArray
+@@ -28,7 +29,7 @@ import org.json.JSONObject
+ import java.io.File
+ import kotlin.math.roundToInt
+ 
+-private enum class Screen { HOME, LIBRARY, PRACTICE, PROGRESS, PACKS, DETAIL, TUTOR, RESULT }
++private enum class Screen { HOME, LIBRARY, PRACTICE, PROGRESS, PACKS, DETAIL, READING, READING_RESULT, TUTOR, RESULT }
+ 
+ @Composable
+ fun OlympiadApp(
+@@ -37,19 +38,23 @@ fun OlympiadApp(
+ ) {
+     val questions by repository.questions.collectAsState(initial = emptyList())
+     val tutorQuestions by repository.tutorQuestions.collectAsState(initial = emptyList())
++    val comprehensionQuestions by repository.comprehensionQuestions.collectAsState(initial = emptyList())
+     val packs by repository.packs.collectAsState(initial = emptyList())
+     val attempts by repository.attempts.collectAsState(initial = emptyList())
+     val mastery by repository.mastery.collectAsState(initial = emptyList())
++    val comprehensionAttempts by repository.comprehensionAttempts.collectAsState(initial = emptyList())
++    val comprehensionMastery by repository.comprehensionMastery.collectAsState(initial = emptyList())
+ 
+     var screen by remember { mutableStateOf(Screen.HOME) }
+     var selectedQuestion by remember { mutableStateOf<QuestionEntity?>(null) }
+     var resultScore by remember { mutableStateOf(0) }
++    var readingResultScore by remember { mutableStateOf(0) }
+     var mes
