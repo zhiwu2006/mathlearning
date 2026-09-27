@@ -1,0 +1,151 @@
+练。",
+                         style = MaterialTheme.typography.bodySmall
+                     )
+                     Spacer(Modifier.height(14.dp))
+@@ -568,7 +697,7 @@ private fun PackManagerScreen(
+                         Text("Ontology ${pack.ontologyVersion}")
+                         Spacer(Modifier.height(6.dp))
+                         Text(
+-                            "共 ${pack.questionCount} 道 · Tutor ${pack.tutorReadyCount} · Gold ${pack.goldLabeledCount} · Structured ${pack.structuredCount} · 图片 ${pack.assetCount}",
++                            "共 ${pack.questionCount} 道 · 读题 ${pack.comprehensionReadyCount} · Tutor ${pack.tutorReadyCount} · Gold ${pack.goldLabeledCount} · Structured ${pack.structuredCount} · 图片 ${pack.assetCount}",
+                             color = MaterialTheme.colorScheme.primary
+                         )
+                     }
+@@ -590,16 +719,17 @@ private fun PackManagerScreen(
+ private fun QuestionDetailScreen(
+     question: QuestionEntity,
+     onBack: () -> Unit,
++    onReading: () -> Unit,
++    onTutor: () -> Unit,
+ ) {
+     var showAnswer by remember(question.id) { mutableStateOf(false) }
++    val readingReady = question.comprehensionQuality in setOf("handcrafted_verified", "human_verified")
+     LazyColumn(
+         modifier = Modifier.fillMaxSize(),
+         contentPadding = PaddingValues(18.dp),
+         verticalArrangement = Arrangement.spacedBy(12.dp)
+     ) {
+-        item {
+-            TextButton(onClick = onBack) { Text("← 返回题库") }
+-        }
++        item { TextButton(onClick = onBack) { Text("← 返回题库") } }
+         item {
+             ElevatedCard(shape = RoundedCornerShape(20.dp)) {
+                 Column(Modifier.padding(18.dp)) {
+@@ -610,21 +740,44 @@ private fun QuestionDetailScreen(
+                 }
+             }
+         }
++        item {
++            if (readingReady) {
++                Button(onClick = onReading, modifier = Modifier.fillMaxWidth()) { Text("先做读题训练 · 题意→条件→目标→结构") }
++                Spacer(Modifier.height(8.dp))
++            }
++            if (question.tier == "tutor") {
++                OutlinedButton(onClick = onTutor, modifier = Modifier.fillMaxWidth()) { Text("进入思路训练") }
++            } else if (!readingReady) {
++                Text(
++                    "这道题目前可以浏览，但读题路径和 ReasoningGraph 尚未通过儿童端审核。",
++                    style = MaterialTheme.typography.bodySmall,
++                    color = MaterialTheme.colorScheme.onSurfaceVariant
++                )
++            }
++        }
+         item {
+             ElevatedCard(shape = RoundedCornerShape(18.dp)) {
+                 Column(Modifier.padding(16.dp)) {
+                     Text("题目质量状态", fontWeight = FontWeight.Bold)
+-                    Spacer(Modifier.height(6.dp))
+-                    Text("${question.family} · ${question.strategy.ifBlank { "策略待完善" }} · ${question.difficulty}")
+-                    Spacer(Modifier.height(6.dp))
+-                    Text("Tier：${question.tier} · Review：${question.reviewStatus}")
+-                    Text("Graph：${question.graphQuality} · Answer：${question.answerStatus}")
+-                    Text("Visual：${question.visualStatus}")
+-                    Spacer(Modifier.height(8.dp))
++                    Spacer(Modifier.height(10.dp))
++                    QualityStatusRow("读题训练", comprehensionLabel(question.comprehensionQuality), readingReady)
++                    QualityStatusRow("内容层级", tierLabel(question.tier), question.tier == "tutor")
++                    QualityStatusRow("结构审核", reviewLabel(question.reviewStatus), question.reviewStatus.startsWith("tutor_verified"))
++                    QualityStatusRow("思路图", graphLabel(question.graphQuality), question.graphQuality != "none")
++                    QualityStatusRow("答案核验", answerLabel(question.answerStatus), question.answerStatus != "source_only")
++                    QualityStatusRow("题图状态", visualLabel(question.visualStatus), question.visualStatus.startsWith("verified_"))
++                    Spacer(Modifier.height(10.dp))
++                    HorizontalDivider()
++                    Spacer(Modifier.height(10.dp))
++                    Text("题目结构：${question.family.ifBlank { "待结构化" }}", style = MaterialTheme.typography.bodyMedium, fontWeight = FontWeight.Medium)
++                    Text("解题策略：${question.strategy.ifBlank { "尚未结构化/审核" }}", style = MaterialTheme.typography.bodyMedium)
++                    Text("任务目标：${taskGoalLabel(question.taskGoal)} · 难度：${question.difficulty.ifBlank { "未校准" }}", style = MaterialTheme.typography.bodyMedium)
++                    Spacer(Modifier.height(10.dp))
+                     Text(
+                         when (question.tier) {
+-                            "gold" -> "这道题已有人工 Gold Ontology 标注，但 Learning Path / ReasoningGraph 尚未通过儿童端发布审核。"
+-                            else -> "这道题已进入来源题库，但尚未达到 Tutor Ready。可以浏览原题与来源解析，不会把出版社答案或自动抽取结果冒充成已验证答案。"
++                            "tutor" -> "已通过当前 Tutor 发布门槛，可进入完整分步思路训练。"
++                            "gold" -> "已有人工 Gold Ontology 标注，但 Learning Path / ReasoningGraph 尚未通过儿童端发布审核。"
++                            else -> "目前是来源题。部分字段显示“待结构化”是正常状态，并非数据库缺失；可以浏览原题与来源解析。"
+                         },
+                         style = MaterialTheme.typography.bodySmall,
+                         color = MaterialTheme.colorScheme.onSurfaceVariant
+@@ -641,11 +794,8 @@ private fun QuestionDetailScreen(
+                 ElevatedCard(shape = RoundedCornerShape(16.dp)) {
+                     Column(Modifier.padding(16.dp)) {
+                         Text("来源解析", fontWeight = FontWeight.Bold)
+-                        Spacer(Modifier.height(6.dp))
+-                        Text(
+-                            question.sourceSolution.ifBlank { question.answer.ifBlank { "来源解析尚未整理" } },
+-                            style = MaterialTheme.typography.bodyMedium
+-                        )
++                        Spacer(Modifier.height(8.dp))
++                        SourceSolutionBlock(question.sourceSolution.ifBlank { question.answer.ifBlank { "来源解析尚未整理" } })
+                         if (question.answerStatus == "source_only") {
+                             Spacer(Modifier.height(8.dp))
+                             Text(
+@@ -661,6 +811,100 @@ private fun QuestionDetailScreen(
+     }
+ }
+ 
++@Composable
++private fun QualityStatusRow(label: String, value: String, positive: Boolean = false) {
++    Row(Modifier.fillMaxWidth().padding(vertical = 3.dp), horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = Alignment.CenterVertically) {
++        Text(label, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
++        Surface(
++            shape = RoundedCornerShape(999.dp),
++            color = if (positive) MaterialTheme.colorScheme.primaryContainer else MaterialTheme.colorScheme.surfaceVariant
++        ) {
++            Text(
++                value,
++                modifier = Modifier.padding(horizontal = 10.dp, vertical = 5.dp),
++                style = MaterialTheme.typography.labelMedium,
++                color = if (positive) MaterialTheme.colorScheme.onPrimaryContainer else MaterialTheme.colorScheme.onSurfaceVariant
++            )
++        }
++    }
++}
++
++private fun comprehensionLabel(value: String): String = when (value) {
++    "handcrafted_verified", "human_verified" -> "读题路径已审核"
++    "candidate" -> "候选路径待审核"
++    "none", "" -> "尚未制作"
++    else -> value
++}
++private fun tierLabel(value: String): String = when (value) {
++    "tutor" -> "Tutor Ready"
++    "gold" -> "Gold 已标注"
++    "structured" -> "来源题 / 待完善"
++    else -> value.ifBlank { "未记录" }
++}
++private fun reviewLabel(value: String): String = when {
++    value.startsWith("tutor_verified") -> "Tutor 已审核"
++    value.startsWith("gold_labeled") -> "Gold 标注完成"
++    value == "source_answer_linked" -> "已关联来源答案"
++    value == "source_only" -> "仅来源数据"
++    else -> value.ifBlank { "未记录" }
++}
++private fun graphLabel(value: String): String = when (value) {
++    "handcrafted_verified", "human_verified" -> "人工验证完成"
++    "none", "" -> "尚未构建/审核"
++    else -> value
++}
++private fun answerLabel(value: String): String = when (value) {
++    "independently_checked" -> "已独立核验"
++    "ma
