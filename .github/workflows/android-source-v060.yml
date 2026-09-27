@@ -36,7 +36,7 @@ jobs:
       - name: Apply v0.6 source patch and content
         shell: bash
         run: |
-          cat ci06/v06_patch_00.b64 ci06/v06_patch_01.b64 ci06/v06_patch_02.b64             | tr -d '\n\r' | base64 -d | gzip -d > /tmp/v06.patch
+          cat ci06/v06_code_00.b64 ci06/v06_patch_01.b64 ci06/v06_patch_02.b64             | tr -d '\n\r' | base64 -d | gzip -d > /tmp/v06.patch
           cd /tmp/olympiad-src
           patch -p1 < /tmp/v06.patch
 
