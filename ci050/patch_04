@@ -1,0 +1,171 @@
+          }
+             }
+@@ -249,28 +317,35 @@ private fun HomeScreen(
+         item {
+             Row(horizontalArrangement = Arrangement.spacedBy(10.dp)) {
+                 StatCard("题库", total.toString(), Modifier.weight(1f))
+-                StatCard("完整思路", tutorReady.toString(), Modifier.weight(1f))
+-                StatCard("已练习", attempts.toString(), Modifier.weight(1f))
++                StatCard("读题", readingReady.toString(), Modifier.weight(1f))
++                StatCard("思路", tutorReady.toString(), Modifier.weight(1f))
+             }
++            Spacer(Modifier.height(10.dp))
++            Text(
++                "已完成：读题 $readingAttempts 次 · 思路 $attempts 次",
++                style = MaterialTheme.typography.bodySmall,
++                color = MaterialTheme.colorScheme.onSurfaceVariant
++            )
+         }
+ 
+         item {
+             Row(horizontalArrangement = Arrangement.spacedBy(10.dp)) {
+-                ActionCard("题库浏览", "查看所有已导入题目", onLibrary, Modifier.weight(1f))
+-                ActionCard("导入题库", "导入 .olympiadpack", onPacks, Modifier.weight(1f))
++                ActionCard("题库浏览", "选题后可进入读题或解题", onLibrary, Modifier.weight(1f))
++                ActionCard("题库管理", "导入 .olympiadpack", onPacks, Modifier.weight(1f))
+             }
+         }
+ 
+         item {
+             ElevatedCard(shape = RoundedCornerShape(20.dp)) {
+                 Column(Modifier.padding(18.dp)) {
+-                    Text("当前数据分层", fontWeight = FontWeight.Bold)
++                    Text("学习链路", fontWeight = FontWeight.Bold)
+                     Spacer(Modifier.height(10.dp))
+-                    Text("Tutor Ready：可进入完整分步思路训练")
+-                    Text("Structured：已入库并完成结构标注，但 ReasoningGraph 尚待审核")
++                    Text("① Read：题意 → 已知 → 未知 → 目标 → 结构")
++                    Text("② Think：策略 → 第一思路 → 推理")
++                    Text("③ Solve：计算 → 验证 → 迁移")
+                     Spacer(Modifier.height(8.dp))
+                     Text(
+-                        "后续新增十几本书只需要更新题库包，不必重新安装 App。",
++                        "v0.5 首批 20 道读题路径为人工编写并审核，不使用通用模板直接冒充教学内容。",
+                         color = MaterialTheme.colorScheme.onSurfaceVariant,
+                         style = MaterialTheme.typography.bodySmall
+                     )
+@@ -386,6 +461,14 @@ private fun LibraryScreen(
+                         style = MaterialTheme.typography.bodySmall,
+                         color = MaterialTheme.colorScheme.onSurfaceVariant
+                     )
++                    if (q.comprehensionQuality in setOf("handcrafted_verified", "human_verified")) {
++                        Spacer(Modifier.height(6.dp))
++                        Text(
++                            "READ · 可进行读题训练",
++                            style = MaterialTheme.typography.labelSmall,
++                            color = MaterialTheme.colorScheme.tertiary
++                        )
++                    }
+                 }
+             }
+         }
+@@ -438,27 +521,49 @@ private fun PracticeScreen(
+ private fun ProgressScreen(
+     attempts: List<AttemptEntity>,
+     mastery: List<MasteryEntity>,
++    comprehensionAttempts: List<ComprehensionAttemptEntity>,
++    comprehensionMastery: List<ComprehensionMasteryEntity>,
+ ) {
+     val average = if (attempts.isEmpty()) 0 else attempts.map { it.score }.average().roundToInt()
++    val readingAverage = if (comprehensionAttempts.isEmpty()) 0 else comprehensionAttempts.map { it.score }.average().roundToInt()
+     LazyColumn(
+         modifier = Modifier.fillMaxSize(),
+         contentPadding = PaddingValues(18.dp),
+         verticalArrangement = Arrangement.spacedBy(12.dp)
+     ) {
++        item {
++            Text("读题能力", fontWeight = FontWeight.Bold, style = MaterialTheme.typography.titleMedium)
++        }
++        item {
++            Row(horizontalArrangement = Arrangement.spacedBy(10.dp)) {
++                StatCard("读题次数", comprehensionAttempts.size.toString(), Modifier.weight(1f))
++                StatCard("读题平均", readingAverage.toString(), Modifier.weight(1f))
++            }
++        }
++        if (comprehensionMastery.isEmpty()) {
++            item {
++                ElevatedCard(shape = RoundedCornerShape(18.dp)) {
++                    Text("完成读题训练后，这里会分别记录题意、已知、未知、目标和结构识别能力。", modifier = Modifier.padding(18.dp))
++                }
++            }
++        } else {
++            items(comprehensionMastery) { ComprehensionMasteryRow(it) }
++        }
++
++        item {
++            Spacer(Modifier.height(4.dp))
++            Text("解题结构掌握度", fontWeight = FontWeight.Bold, style = MaterialTheme.typography.titleMedium)
++        }
+         item {
+             Row(horizontalArrangement = Arrangement.spacedBy(10.dp)) {
+                 StatCard("完成题目", attempts.size.toString(), Modifier.weight(1f))
+                 StatCard("平均节点分", average.toString(), Modifier.weight(1f))
+             }
+         }
+-        item { Text("Problem Family 掌握度", fontWeight = FontWeight.Bold) }
+         if (mastery.isEmpty()) {
+             item {
+                 ElevatedCard(shape = RoundedCornerShape(18.dp)) {
+-                    Text(
+-                        "完成几道 Tutor Ready 题目后，这里会记录结构掌握度。",
+-                        modifier = Modifier.padding(18.dp)
+-                    )
++                    Text("完成几道 Tutor Ready 题目后，这里会记录 Problem Family 掌握度。", modifier = Modifier.padding(18.dp))
+                 }
+             }
+         } else {
+@@ -466,7 +571,7 @@ private fun ProgressScreen(
+         }
+         item {
+             Text(
+-                "当前掌握度使用 MVP 加权更新规则，仅用于测试个性化练习闭环，后续会用真实答题数据校准。",
++                "当前掌握度使用 MVP 加权更新规则，用于验证 Read → Think → Solve 的个性化闭环；后续再用真实答题数据校准。",
+                 style = MaterialTheme.typography.bodySmall,
+                 color = MaterialTheme.colorScheme.onSurfaceVariant
+             )
+@@ -474,6 +579,30 @@ private fun ProgressScreen(
+     }
+ }
+ 
++@Composable
++private fun ComprehensionMasteryRow(item: ComprehensionMasteryEntity) {
++    val label = when (item.skill) {
++        "CS-01" -> "题意概括"
++        "CS-03" -> "已知条件提取"
++        "CS-05" -> "未知量识别"
++        "CS-06" -> "最终目标识别"
++        "CS-10" -> "题目结构归类"
++        else -> item.skill
++    }
++    ElevatedCard(shape = RoundedCornerShape(16.dp)) {
++        Column(Modifier.padding(15.dp)) {
++            Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
++                Text(label, fontWeight = FontWeight.Medium)
++                Text("${item.score.roundToInt()}%")
++            }
++            Spacer(Modifier.height(8.dp))
++            LinearProgressIndicator(progress = { (item.score / 100.0).toFloat() }, modifier = Modifier.fillMaxWidth())
++            Spacer(Modifier.height(5.dp))
++            Text("证据 ${item.evidenceCount} 次", style = MaterialTheme.typography.labelSmall)
++        }
++    }
++}
++
+ @Composable
+ private fun MasteryRow(item: MasteryEntity) {
+     ElevatedCard(shape = RoundedCornerShape(16.dp)) {
+@@ -515,7 +644,7 @@ private fun PackManagerScreen(
+                 val result = runCatching { importer.importUri(uri) }
+                 importing = false
+                 result.onSuccess {
+-                    onMessage("已导入 ${it.title}：${it.questionCount} 道；Tutor ${it.tutorReadyCount}，Gold ${it.goldLabeledCount}，图片 ${it.assetCount}")
++                    onMessage("已导入 ${it.title}：${it.questionCount} 道；读题 ${it.comprehensionReadyCount}，Tutor ${it.tutorReadyCount}，Gold ${it.goldLabeledCount}，图片 ${it.assetCount}")
+                 }.onFailure {
+                     onMessage("导入失败：${it.message ?: "未知错误"}")
+                 }
+@@ -539,7 +668,7 @@ private fun PackManagerScreen(
+                     Text("导入题库包", fontWeight = FontWeight.Bold)
+                     Spacer(Modifier.height(6.dp))
+                     Text(
+-                        ".olympiadpack 是 ZIP 容器。Schema 0.4 增加内容质量分层：只有通过答案与 ReasoningGraph Gate 的题才能进入 Tutor 模式。",
++                        ".olympiadpack 是 ZIP 容器。Schema 0.5 同时包含 ComprehensionGraph 与 ReasoningGraph；只有通过各自质量门槛的内容才进入儿童训
