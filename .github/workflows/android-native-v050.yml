@@ -1,0 +1,85 @@
+name: Olympiad Tutor Native v0.5.0 Reading APK
+
+on:
+  push:
+    branches:
+      - chatgpt/olympiad-reading-v0.5.0-build
+    paths:
+      - "ci050/**"
+      - ".github/workflows/android-native-v050.yml"
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Reconstruct v0.4.3 compile source
+        shell: bash
+        run: |
+          set -euxo pipefail
+          rm -rf /tmp/olympiad-src
+          mkdir -p /tmp/olympiad-src
+          cat ci043/chunk_00.txt ci043/chunk_01.txt ci043/chunk_02.txt ci043/chunk_03.txt | tr -d '\n\r' | base64 -d > /tmp/native-ci-source.zip
+          unzip -t /tmp/native-ci-source.zip
+          unzip -q /tmp/native-ci-source.zip -d /tmp/olympiad-src
+          test -f /tmp/olympiad-src/settings.gradle
+          test -f /tmp/olympiad-src/app/build.gradle
+
+      - name: Apply v0.5 Read-Think-Solve patch
+        shell: bash
+        run: |
+          set -euxo pipefail
+          cat ci050/patch_00 ci050/patch_01 ci050/patch_02 ci050/patch_03 ci050/patch_04 ci050/patch_05 ci050/patch_06 ci050/patch_07 > /tmp/v050.patch
+          cd /tmp/olympiad-src
+          patch -p1 < /tmp/v050.patch
+          grep -n "versionName" app/build.gradle
+          grep -n "ComprehensionGraph" app/src/main/java/com/zhiwu/olympiadtutor/data/ContentPackImporter.kt
+          grep -n "ReadingScreen" app/src/main/java/com/zhiwu/olympiadtutor/ui/OlympiadApp.kt
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+
+      - name: Set up Gradle
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: "8.9"
+
+      - name: Configure Android SDK
+        shell: bash
+        run: |
+          set -euxo pipefail
+          SDK_ROOT="${ANDROID_HOME:-/usr/local/lib/android/sdk}"
+          echo "ANDROID_HOME=$SDK_ROOT" >> "$GITHUB_ENV"
+          echo "ANDROID_SDK_ROOT=$SDK_ROOT" >> "$GITHUB_ENV"
+          SDKMANAGER="$(find "$SDK_ROOT/cmdline-tools" -type f -name sdkmanager | sort -V | tail -n 1)"
+          test -n "$SDKMANAGER"
+          yes | "$SDKMANAGER" --licenses >/dev/null || true
+          "$SDKMANAGER" "platforms;android-35" "build-tools;35.0.0"
+
+      - name: Build debug APK
+        working-directory: /tmp/olympiad-src
+        run: gradle --no-daemon :app:assembleDebug
+
+      - name: Verify APK
+        shell: bash
+        run: |
+          set -euxo pipefail
+          APK="/tmp/olympiad-src/app/build/outputs/apk/debug/app-debug.apk"
+          test -s "$APK"
+          unzip -t "$APK" >/dev/null
+          mkdir -p dist
+          cp "$APK" dist/OlympiadTutor-Native-v0.5.0-reading20-code.apk
+          sha256sum dist/OlympiadTutor-Native-v0.5.0-reading20-code.apk | tee dist/APK_SHA256.txt
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: OlympiadTutor-Native-v0.5.0-reading20-code
+          path: dist/*
+          retention-days: 30
