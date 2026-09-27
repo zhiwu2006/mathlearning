@@ -1,0 +1,23 @@
+--- a/app/src/main/java/com/zhiwu/olympiadtutor/ui/OlympiadApp.kt
++++ b/app/src/main/java/com/zhiwu/olympiadtutor/ui/OlympiadApp.kt
+@@ -984,14 +984,14 @@
+ }
+ 
+ private fun formatSourceSolution(raw: String): String {
+-    var text = raw.replace("\\r\\n", "\\n").replace('\\r', '\\n').trim()
+-    text = text.replace(Regex("\\s*\\[IMAGE\\]\\s*"), "\\n\\n【原书插图】\\n\\n")
+-    text = text.replace(Regex("\\s*---+\\s*"), "\\n\\n")
++    var text = raw.replace("\r\n", "\n").replace('\r', '\n').trim()
++    text = text.replace(Regex("\\s*\\[IMAGE\\]\\s*"), "\n\n【原书插图】\n\n")
++    text = text.replace(Regex("\\s*---+\\s*"), "\n\n")
+     text = Regex("(^|[。；;.!?]\\s*)(分析与解|分析|解|评\\s*注|提示|说明)\\s+").replace(text) { m ->
+-        m.groupValues[1] + "\\n\\n" + m.groupValues[2].replace(Regex("\\s+"), "") + "\\n"
++        m.groupValues[1] + "\n\n" + m.groupValues[2].replace(Regex("\\s+"), "") + "\n"
+     }
+-    text = text.replace(Regex("\\s+(（[0-9一二三四五六七八九十]+）)\\s*"), "\\n$1 ")
+-    return text.replace(Regex("\\n{3,}"), "\\n\\n").trim()
++    text = text.replace(Regex("\\s+(（[0-9一二三四五六七八九十]+）)\\s*"), "\n$1 ")
++    return text.replace(Regex("\\n{3,}"), "\n\n").trim()
+ }
+ 
+ @Composable
