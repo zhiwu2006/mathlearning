@@ -1,0 +1,343 @@
+name: Olympiad Tutor v0.5.1 Source Verify
+
+on:
+  push:
+    branches:
+      - chatgpt/olympiad-reading-v0.5.1
+    paths:
+      - ".github/workflows/android-source-v051.yml"
+  workflow_dispatch:
+
+jobs:
+  verify-source:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Reconstruct v0.5.0 source
+        shell: bash
+        run: |
+          mkdir -p /tmp/olympiad-src
+          cat ci043/chunk_00.txt ci043/chunk_01.txt ci043/chunk_02.txt ci043/chunk_03.txt | tr -d '\n\r' | base64 -d > /tmp/native-ci-source.zip
+          unzip -q /tmp/native-ci-source.zip -d /tmp/olympiad-src
+          cat ci05/patch_0.b64 ci05/patch_1.b64 ci05/patch_2.b64 ci05/patch_3.b64 | tr -d '\n\r' | base64 -d | gzip -d > /tmp/v05.patch
+          cd /tmp/olympiad-src
+          patch -p1 < /tmp/v05.patch
+          patch -p1 < "$GITHUB_WORKSPACE/ci05/hotfix_format.patch"
+          mkdir -p app/src/main/assets
+          cat "$GITHUB_WORKSPACE"/ci05/comprehension_0.b64 "$GITHUB_WORKSPACE"/ci05/comprehension_1.b64 "$GITHUB_WORKSPACE"/ci05/comprehension_2.b64 | tr -d '\n\r' | base64 -d | gzip -d > app/src/main/assets/comprehension_v0.1.json
+
+      - name: Apply v0.5.1 review fixes
+        shell: bash
+        run: |
+          cd /tmp/olympiad-src
+          python - <<'PY'
+          from pathlib import Path
+          import json
+
+          root=Path('/tmp/olympiad-src')
+
+          p=root/'app/src/main/assets/comprehension_v0.1.json'
+          d=json.loads(p.read_text(encoding='utf-8'))
+          g=0
+          for lesson in d['lessons']:
+              for node in lesson['nodes']:
+                  opts=node['options']
+                  ans=node['answer']
+                  target=g % len(opts)
+                  correct=opts[ans]
+                  distractors=[x for i,x in enumerate(opts) if i != ans]
+                  new=distractors[:]
+                  new.insert(target, correct)
+                  node['options']=new
+                  node['answer']=target
+                  g += 1
+          d['schemaVersion']='comprehension-0.1.1'
+          d['answerPositionPolicy']='balanced_deterministic'
+          p.write_text(json.dumps(d,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+
+          p=root/'app/src/main/java/com/zhiwu/olympiadtutor/MainActivity.kt'
+          s=p.read_text()
+          s=s.replace('import androidx.activity.compose.setContent\nimport androidx.lifecycle.lifecycleScope',
+                      'import androidx.activity.compose.setContent\nimport androidx.compose.runtime.mutableStateOf\nimport androidx.lifecycle.lifecycleScope')
+          s=s.replace('''        val importer = ContentPackImporter(this, db)
+
+                  lifecycleScope.launch {
+                      val count = withContext(Dispatchers.IO) { db.questionDao().countOnce() }
+                      if (count == 0) runCatching { importer.importBuiltIn() }
+                  }
+
+                  setContent { OlympiadApp(repository = repository, importer = importer) }''',
+          '''        val importer = ContentPackImporter(this, db)
+                  val startupImportError = mutableStateOf<String?>(null)
+
+                  fun retryBuiltInImport() {
+                      lifecycleScope.launch {
+                          startupImportError.value = null
+                          runCatching { importer.importBuiltIn() }
+                              .onFailure { error ->
+                                  startupImportError.value = error.message ?: error::class.java.simpleName
+                              }
+                      }
+                  }
+
+                  lifecycleScope.launch {
+                      val count = withContext(Dispatchers.IO) { db.questionDao().countOnce() }
+                      if (count == 0) {
+                          runCatching { importer.importBuiltIn() }
+                              .onFailure { error ->
+                                  startupImportError.value = error.message ?: error::class.java.simpleName
+                              }
+                      }
+                  }
+
+                  setContent {
+                      OlympiadApp(
+                          repository = repository,
+                          importer = importer,
+                          startupImportError = startupImportError.value,
+                          onRetryBuiltInImport = { retryBuiltInImport() },
+                          onDismissStartupImportError = { startupImportError.value = null },
+                      )
+                  }''')
+          p.write_text(s)
+
+          p=root/'app/src/main/java/com/zhiwu/olympiadtutor/reading/ComprehensionCatalog.kt'
+          s=p.read_text()
+          s=s.replace('''                    val options = n.getJSONArray("options")
+                              ComprehensionNode(
+                                  id = n.getString("id"),
+                                  skill = n.getString("skill"),
+                                  prompt = n.getString("prompt"),
+                                  options = List(options.length()) { k -> options.getString(k) },
+                                  answer = n.getInt("answer"),
+                                  explanation = n.getString("explanation"),
+                              )''',
+          '''                    val options = n.getJSONArray("options")
+                              val answer = n.getInt("answer")
+                              require(answer in 0 until options.length()) {
+                                  "读题节点答案索引越界：${lesson.getString("questionId")}/${n.getString("id")}"
+                              }
+                              ComprehensionNode(
+                                  id = n.getString("id"),
+                                  skill = n.getString("skill"),
+                                  prompt = n.getString("prompt"),
+                                  options = List(options.length()) { k -> options.getString(k) },
+                                  answer = answer,
+                                  explanation = n.getString("explanation"),
+                              )''')
+          p.write_text(s)
+
+          p=root/'app/src/main/java/com/zhiwu/olympiadtutor/ui/OlympiadApp.kt'
+          s=p.read_text()
+          s=s.replace('import androidx.compose.foundation.lazy.LazyColumn\nimport androidx.compose.foundation.lazy.items',
+                      'import androidx.compose.foundation.lazy.LazyColumn\nimport androidx.compose.foundation.lazy.LazyRow\nimport androidx.compose.foundation.lazy.items')
+          s=s.replace('''fun OlympiadApp(
+              repository: OlympiadRepository,
+              importer: ContentPackImporter,
+          ) {''',
+          '''fun OlympiadApp(
+              repository: OlympiadRepository,
+              importer: ContentPackImporter,
+              startupImportError: String? = null,
+              onRetryBuiltInImport: () -> Unit = {},
+              onDismissStartupImportError: () -> Unit = {},
+          ) {''')
+          s=s.replace('val pair = pickReading(readingLessons, questions, comprehensionMastery)',
+          '''val pair = pickReading(
+                                      lessons = readingLessons,
+                                      questions = questions,
+                                      mastery = comprehensionMastery,
+                                      attempts = comprehensionAttempts,
+                                  )''')
+          old='''private fun pickReading(
+              lessons: List<ComprehensionLesson>,
+              questions: List<QuestionEntity>,
+              mastery: List<ComprehensionMasteryEntity>,
+          ): Pair<ComprehensionLesson, QuestionEntity>? {
+              val qMap = questions.associateBy { it.id }
+              val weakest = mastery.minByOrNull { it.score }?.skill
+              val candidates = lessons.mapNotNull { l -> qMap[l.questionId]?.let { l to it } }
+              if (candidates.isEmpty()) return null
+              return if (weakest == null) candidates.first()
+              else candidates.firstOrNull { (lesson, _) -> lesson.nodes.any { it.skill == weakest } } ?: candidates.first()
+          }'''
+          new='''private fun pickReading(
+              lessons: List<ComprehensionLesson>,
+              questions: List<QuestionEntity>,
+              mastery: List<ComprehensionMasteryEntity>,
+              attempts: List<ComprehensionAttemptEntity>,
+          ): Pair<ComprehensionLesson, QuestionEntity>? {
+              val qMap = questions.associateBy { it.id }
+              val allCandidates = lessons.mapNotNull { lesson ->
+                  qMap[lesson.questionId]?.let { lesson to it }
+              }
+              if (allCandidates.isEmpty()) return null
+
+              val weakest = mastery.minByOrNull { it.score }?.skill
+              val skillCandidates = if (weakest == null) allCandidates else {
+                  allCandidates.filter { (lesson, _) -> lesson.nodes.any { it.skill == weakest } }
+                      .ifEmpty { allCandidates }
+              }
+
+              val attemptCount = attempts.groupingBy { it.questionId }.eachCount()
+              val lastAttemptAt = attempts.groupBy { it.questionId }
+                  .mapValues { (_, values) -> values.maxOf { it.finishedAt } }
+              val recentIds = attempts.take(3).map { it.questionId }.toSet()
+              val rotationPool = skillCandidates.filterNot { (_, question) -> question.id in recentIds }
+                  .ifEmpty { skillCandidates }
+
+              return rotationPool.minWithOrNull(
+                  compareBy<Pair<ComprehensionLesson, QuestionEntity>>(
+                      { (_, question) -> attemptCount[question.id] ?: 0 },
+                      { (_, question) -> lastAttemptAt[question.id] ?: Long.MIN_VALUE },
+                      { (lesson, _) -> lessons.indexOf(lesson) },
+                  )
+              )
+          }'''
+          assert old in s
+          s=s.replace(old,new)
+          old='''            Row(horizontalArrangement = Arrangement.spacedBy(7.dp)) {
+                          listOf("全部", "Tutor Ready", "Gold Labeled", "Structured").forEach { item ->
+                              FilterChip(
+                                  selected = filter == item,
+                                  onClick = { filter = item },
+                                  label = { Text(item) }
+                              )
+                          }
+                      }'''
+          new='''            LazyRow(
+                          modifier = Modifier.fillMaxWidth(),
+                          horizontalArrangement = Arrangement.spacedBy(7.dp),
+                          contentPadding = PaddingValues(end = 10.dp),
+                      ) {
+                          items(listOf("全部", "Tutor Ready", "Gold Labeled", "Structured")) { item ->
+                              FilterChip(
+                                  selected = filter == item,
+                                  onClick = { filter = item },
+                                  label = { Text(item, maxLines = 1) }
+                              )
+                          }
+                      }'''
+          assert old in s
+          s=s.replace(old,new)
+          s=s.replace('原生手机版 v0.5.0 · Read → Think → Solve','原生手机版 v0.5.1 · Reading Fixes')
+          marker='''            }
+                  }
+              }
+          }
+
+          private fun pickSmart('''
+          replacement='''            }
+                  }
+
+                  if (startupImportError != null) {
+                      AlertDialog(
+                          onDismissRequest = {},
+                          title = { Text("内置题库初始化失败") },
+                          text = {
+                              Text(
+                                  "第一次启动时无法导入内置题库。题库数据尚未写入本机。\\n\\n错误：$startupImportError"
+                              )
+                          },
+                          confirmButton = {
+                              TextButton(onClick = onRetryBuiltInImport) { Text("重试") }
+                          },
+                          dismissButton = {
+                              TextButton(
+                                  onClick = {
+                                      onDismissStartupImportError()
+                                      screen = Screen.PACKS
+                                  }
+                              ) { Text("打开题库管理") }
+                          }
+                      )
+                  }
+              }
+          }
+
+          private fun pickSmart('''
+          assert marker in s
+          s=s.replace(marker,replacement,1)
+          p.write_text(s)
+
+          p=root/'app/build.gradle'
+          s=p.read_text().replace('versionCode 8','versionCode 9').replace(
+              'versionName "0.5.0-reading-mvp"',
+              'versionName "0.5.1-reading-fixes"'
+          )
+          p.write_text(s)
+          PY
+
+      - name: QA reading data
+        shell: bash
+        working-directory: /tmp/olympiad-src
+        run: |
+          python - <<'PY'
+          import json
+          from collections import Counter
+          d=json.load(open('app/src/main/assets/comprehension_v0.1.json'))
+          assert len(d['lessons']) == 20
+          answers=Counter()
+          for lesson in d['lessons']:
+              assert len(lesson['nodes']) == 4
+              for node in lesson['nodes']:
+                  assert 0 <= node['answer'] < len(node['options'])
+                  answers[node['answer']] += 1
+          assert answers == Counter({0:27,1:27,2:26}), answers
+          print('PASS reading QA', answers)
+          PY
+          grep -n 'versionCode\|versionName' app/build.gradle
+          grep -n 'LazyRow\|startupImportError\|attempts: List<ComprehensionAttemptEntity>' app/src/main/java/com/zhiwu/olympiadtutor/ui/OlympiadApp.kt
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+
+      - name: Set up Gradle
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: "8.9"
+
+      - name: Configure Android SDK
+        shell: bash
+        run: |
+          SDK_ROOT="${ANDROID_HOME:-/usr/local/lib/android/sdk}"
+          echo "ANDROID_HOME=$SDK_ROOT" >> "$GITHUB_ENV"
+          echo "ANDROID_SDK_ROOT=$SDK_ROOT" >> "$GITHUB_ENV"
+          SDKMANAGER="$(find "$SDK_ROOT/cmdline-tools" -type f -name sdkmanager | sort -V | tail -n 1)"
+          yes | "$SDKMANAGER" --licenses >/dev/null || true
+          "$SDKMANAGER" "platforms;android-35" "build-tools;35.0.0"
+
+      - name: Compile verification
+        working-directory: /tmp/olympiad-src
+        run: gradle --no-daemon :app:assembleDebug
+
+      - name: Package verified source only
+        shell: bash
+        run: |
+          cd /tmp/olympiad-src
+          rm -rf app/build .gradle
+          cat > REVIEW_FIXES_v0.5.1.md <<'EOF'
+          # v0.5.1 Review Fixes
+          - 80 comprehension-node answer positions balanced A/B/C = 27/27/26.
+          - Reading selection rotates by weakest skill, attempt count and recency.
+          - Library tier filters use a horizontal LazyRow on narrow phones.
+          - First-run built-in pack import failures are surfaced with Retry / Pack Manager actions.
+          - Room schema remains v4; no database migration is required.
+          EOF
+          cd /tmp
+          mv olympiad-src OlympiadTutorAndroid_v0.5.1-ReadingMVP-src
+          zip -qr OlympiadTutorAndroid_v0.5.1-ReadingMVP-source.zip OlympiadTutorAndroid_v0.5.1-ReadingMVP-src
+          mkdir -p "$GITHUB_WORKSPACE/dist"
+          cp OlympiadTutorAndroid_v0.5.1-ReadingMVP-source.zip "$GITHUB_WORKSPACE/dist/"
+
+      - name: Upload verified source
+        uses: actions/upload-artifact@v4
+        with:
+          name: OlympiadTutorAndroid-v0.5.1-verified-source
+          path: dist/OlympiadTutorAndroid_v0.5.1-ReadingMVP-source.zip
+          retention-days: 30
