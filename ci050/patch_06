@@ -1,0 +1,194 @@
+th_checked_handcrafted" -> "已人工数学核验"
++    "source_only" -> "仅来源答案"
++    "" -> "未记录"
++    else -> value
++}
++private fun visualLabel(value: String): String = when (value) {
++    "verified_problem_visual" -> "题干图已确认"
++    "verified_optional_problem_visual" -> "辅助题图已确认"
++    "verified_no_problem_visual" -> "确认无需题图"
++    "verified_solution_visual" -> "解答图，不展示"
++    "required_candidate" -> "疑似必需图，待审核"
++    "linked_unreviewed" -> "已关联，待语义审核"
++    "none", "" -> "无题图记录"
++    else -> value
++}
++private fun taskGoalLabel(value: String): String = when (value) {
++    "compute" -> "计算"; "count" -> "计数"; "compare" -> "比较"; "find_all" -> "找出全部"
++    "classify" -> "分类"; "construct" -> "构造"; "prove_existence" -> "证明存在"; "prove_impossibility" -> "证明不存在"
++    "refute_claim" -> "反驳命题"; "optimize_min" -> "求最小值"; "optimize_max" -> "求最大值"
++    "find_strategy" -> "寻找策略"; "discover_pattern" -> "发现规律"
++    else -> value.ifBlank { "未标注" }
++}
++
++@Composable
++private fun SourceSolutionBlock(raw: String) {
++    val paragraphs = remember(raw) { formatSourceSolution(raw).split(Regex("\n{2,}")).map { it.trim() }.filter { it.isNotBlank() } }
++    Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
++        paragraphs.forEach { paragraph ->
++            val heading = paragraph in setOf("分析", "分析与解", "解", "评注", "提示", "说明", "【原书插图】")
++            Text(
++                text = paragraph,
++                style = if (heading) MaterialTheme.typography.titleSmall else MaterialTheme.typography.bodyMedium.copy(lineHeight = 24.sp),
++                fontWeight = if (heading) FontWeight.Bold else FontWeight.Normal,
++                color = if (paragraph == "【原书插图】") MaterialTheme.colorScheme.onSurfaceVariant else MaterialTheme.colorScheme.onSurface
++            )
++        }
++    }
++}
++
++private fun formatSourceSolution(raw: String): String {
++    var text = raw.replace("\r\n", "\n").replace('\r', '\n').replace('\u00A0', ' ').trim()
++    text = text.replace(Regex("\\s*\\[IMAGE\\]\\s*"), "\n\n【原书插图】\n\n")
++    text = text.replace(Regex("\\s*---+\\s*"), "\n\n")
++    val headingRegex = Regex("(^|[。；;.!?]\\s*)(分析与解|分析|解|评\\s*注|提示|说明)\\s+")
++    text = headingRegex.replace(text) { m -> m.groupValues[1] + "\n\n" + m.groupValues[2].replace(Regex("\\s+"), "") + "\n" }
++    text = text.replace(Regex("\\s+(（[0-9一二三四五六七八九十]+）)\\s*"), "\n$1 ")
++    text = text.replace(Regex("[ \\t]+\\n"), "\n").replace(Regex("\\n[ \\t]+"), "\n").replace(Regex("\\n{3,}"), "\n\n")
++    return text.trim()
++}
++
+ @Composable
+ private fun QuestionImages(question: QuestionEntity) {
+     val context = LocalContext.current
+@@ -718,6 +962,267 @@ private fun QuestionImages(question: QuestionEntity) {
+     }
+ }
+ 
++private fun readingSkillLabel(skill: String): String = when (skill) {
++    "CS-01" -> "题意概括"
++    "CS-03" -> "已知条件"
++    "CS-05" -> "未知量"
++    "CS-06" -> "最终目标"
++    "CS-10" -> "题目结构"
++    else -> skill
++}
++
++private fun evaluateComprehensionNode(
++    type: String,
++    payload: JSONObject,
++    selected: Int?,
++    selectedMulti: Set<Int>,
++): Boolean = when (type) {
++    "choice" -> selected != null && selected == payload.optInt("correctIndex", -1)
++    "multi_choice" -> {
++        val arr = payload.optJSONArray("correctIndices") ?: JSONArray()
++        val correct = buildSet { for (i in 0 until arr.length()) add(arr.getInt(i)) }
++        selectedMulti == correct
++    }
++    else -> false
++}
++
++private fun readingEvidenceScore(firstTryCorrect: Boolean, hintUsed: Boolean): Int = when {
++    firstTryCorrect && !hintUsed -> 100
++    firstTryCorrect && hintUsed -> 85
++    !firstTryCorrect && !hintUsed -> 70
++    else -> 55
++}
++
++@Composable
++private fun ReadingScreen(
++    question: QuestionEntity,
++    repository: OlympiadRepository,
++    onExit: () -> Unit,
++    onFinished: (Int) -> Unit,
++) {
++    val scope = rememberCoroutineScope()
++    var nodes by remember(question.id) { mutableStateOf<List<ComprehensionNodeEntity>>(emptyList()) }
++    var loading by remember(question.id) { mutableStateOf(true) }
++
++    LaunchedEffect(question.id) {
++        nodes = repository.comprehensionNodes(question.id)
++        loading = false
++    }
++
++    if (loading) {
++        Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) { CircularProgressIndicator() }
++        return
++    }
++    if (nodes.isEmpty()) {
++        Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) { Text("这道题的读题训练路径尚未就绪") }
++        return
++    }
++
++    var index by remember(question.id) { mutableIntStateOf(0) }
++    var selected by remember { mutableStateOf<Int?>(null) }
++    val selectedMulti = remember { mutableStateListOf<Int>() }
++    var feedback by remember { mutableStateOf<String?>(null) }
++    var correct by remember { mutableStateOf(false) }
++    var hintVisible by remember { mutableStateOf(false) }
++    val wrongNodes = remember(question.id) { mutableStateListOf<Int>() }
++    val hintNodes = remember(question.id) { mutableStateListOf<Int>() }
++    val submitCounts = remember(question.id) { mutableStateMapOf<Int, Int>() }
++
++    LaunchedEffect(index) {
++        selected = null
++        selectedMulti.clear()
++        feedback = null
++        correct = false
++        hintVisible = false
++    }
++
++    val node = nodes[index]
++    val payload = remember(node.payloadJson) { JSONObject(node.payloadJson) }
++    val progress = (index + 1).toFloat() / nodes.size.toFloat()
++
++    Scaffold(
++        topBar = {
++            Surface(shadowElevation = 1.dp) {
++                Row(
++                    Modifier.fillMaxWidth().statusBarsPadding().padding(12.dp),
++                    verticalAlignment = Alignment.CenterVertically
++                ) {
++                    TextButton(onClick = onExit) { Text("退出") }
++                    Column(Modifier.weight(1f)) {
++                        LinearProgressIndicator(progress = { progress }, modifier = Modifier.fillMaxWidth())
++                        Text("读题步骤 ${index + 1} / ${nodes.size} · ${node.label}", style = MaterialTheme.typography.labelSmall)
++                    }
++                }
++            }
++        }
++    ) { padding ->
++        LazyColumn(
++            modifier = Modifier.fillMaxSize().padding(padding),
++            contentPadding = PaddingValues(16.dp),
++            verticalArrangement = Arrangement.spacedBy(12.dp)
++        ) {
++            item {
++                ElevatedCard(shape = RoundedCornerShape(20.dp)) {
++                    Column(Modifier.padding(17.dp)) {
++                        Text("原题 · 先不计算", style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.primary)
++                        Spacer(Modifier.height(7.dp))
++                        Text(question.title, style = MaterialTheme.typography.bodyLarge)
++                        QuestionImages(question)
++                    }
++                }
++            }
++            item {
++                ElevatedCard(shape = RoundedCornerShape(22.dp)) {
++                    Column(Modifier.padding(18.dp)) {
++                        Text(
++                            "READ · ${readingSkillLabel(node.skill)}",
++                            style = MaterialTheme.typography.labelMedium,
++                            color = MaterialTheme.colorScheme.primary,
++                            fontWeight = FontWeight.Bold
++                        )
++                        Spacer(Modifier.height(8.dp))
++                        Text(node.prompt, style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Bold)
++                        if (node.type == "multi_choice") {
++                            Spacer(Modifier.height(5.dp))
++                            Text("可多选", style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
++                        }
++                        Spacer(Modifier.height(14.dp))
++
++                        val options = payload.optJSONArray("options") ?: JSONArray()
++                        for (i in 0 until options.length()) {
++                            val isSelected = if (node.type == "multi_choice") i in selectedMulti else selected == i
++                            OutlinedButton(
++                                onClick = {
++                                    if (!correct) {
++                                        if (node.type == "multi_choice") {
++                                            if (i in selectedMulti) selectedMulti.remove(i) else selectedMulti.add(i)
++                                        } else selected = i
++                                    }
++                           
