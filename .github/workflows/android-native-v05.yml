@@ -1,0 +1,101 @@
+name: Olympiad Tutor Native v0.5 Reading MVP
+
+on:
+  push:
+    branches:
+      - chatgpt/olympiad-reading-v0.5
+    paths:
+      - "ci05/**"
+      - ".github/workflows/android-native-v05.yml"
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Reconstruct v0.4.3 source
+        shell: bash
+        run: |
+          mkdir -p /tmp/olympiad-src
+          cat ci043/chunk_00.txt ci043/chunk_01.txt ci043/chunk_02.txt ci043/chunk_03.txt | tr -d '\n\r' | base64 -d > /tmp/native-ci-source.zip
+          unzip -t /tmp/native-ci-source.zip
+          unzip -q /tmp/native-ci-source.zip -d /tmp/olympiad-src
+          test -f /tmp/olympiad-src/settings.gradle
+
+      - name: Apply v0.5 Reading MVP patch
+        shell: bash
+        run: |
+          cat ci05/patch_0.b64 ci05/patch_1.b64 ci05/patch_2.b64 ci05/patch_3.b64 | tr -d '\n\r' | base64 -d | gzip -d > /tmp/v05.patch
+          cd /tmp/olympiad-src
+          patch -p1 < /tmp/v05.patch
+          mkdir -p app/src/main/assets
+          cat "$GITHUB_WORKSPACE"/ci05/comprehension_0.b64 "$GITHUB_WORKSPACE"/ci05/comprehension_1.b64 "$GITHUB_WORKSPACE"/ci05/comprehension_2.b64 | tr -d '\n\r' | base64 -d | gzip -d > app/src/main/assets/comprehension_v0.1.json
+          python - <<'PY'
+          import json
+          d=json.load(open('app/src/main/assets/comprehension_v0.1.json'))
+          assert d['lessonCount']==20
+          assert len(d['lessons'])==20
+          assert all(len(x['nodes'])==4 for x in d['lessons'])
+          print('PASS comprehension catalog:', len(d['lessons']), 'lessons')
+          PY
+          grep -n "versionName" app/build.gradle
+          grep -n "READING" app/src/main/java/com/zhiwu/olympiadtutor/ui/OlympiadApp.kt | head
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+
+      - name: Set up Gradle
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: "8.9"
+
+      - name: Configure Android SDK
+        shell: bash
+        run: |
+          SDK_ROOT="${ANDROID_HOME:-/usr/local/lib/android/sdk}"
+          echo "ANDROID_HOME=$SDK_ROOT" >> "$GITHUB_ENV"
+          echo "ANDROID_SDK_ROOT=$SDK_ROOT" >> "$GITHUB_ENV"
+          SDKMANAGER="$(find "$SDK_ROOT/cmdline-tools" -type f -name sdkmanager | sort -V | tail -n 1)"
+          test -n "$SDKMANAGER"
+          yes | "$SDKMANAGER" --licenses >/dev/null || true
+          "$SDKMANAGER" "platforms;android-35" "build-tools;35.0.0"
+
+      - name: Build debug APK
+        working-directory: /tmp/olympiad-src
+        run: gradle --no-daemon :app:assembleDebug
+
+      - name: Verify APK
+        shell: bash
+        run: |
+          APK="/tmp/olympiad-src/app/build/outputs/apk/debug/app-debug.apk"
+          test -s "$APK"
+          unzip -t "$APK" >/dev/null
+          mkdir -p dist
+          cp "$APK" dist/OlympiadTutor-Native-v0.5.0-ReadingMVP-debug.apk
+          sha256sum dist/OlympiadTutor-Native-v0.5.0-ReadingMVP-debug.apk | tee dist/APK_SHA256.txt
+          cat > dist/INSTALL.txt <<'EOF'
+          奥数思路训练 Native v0.5.0 - 读题训练 MVP
+          =========================================
+          新增：
+          - 20 道人工读题路径
+          - 4 个 ComprehensionGraph 节点：题意概括 / 已知条件 / 最终目标 / 题目结构
+          - Room v4：comprehension_attempts + comprehension_mastery
+          - 读题结果直接衔接原 ReasoningGraph
+          - 学习记录新增四维读题能力
+          - 保留 v0.4.4 详情页质量状态与来源解析排版修复
+          
+          本 CI APK 未内置 548 题大包；测试时可导入 TwoBooks-All-548-Tutor50-v0.4.3.olympiadpack。
+          EOF
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: OlympiadTutor-Native-v0.5.0-ReadingMVP
+          path: dist/*
+          retention-days: 30
