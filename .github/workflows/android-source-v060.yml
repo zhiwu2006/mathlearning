@@ -1,0 +1,93 @@
+name: Olympiad Tutor v0.6 Comprehension v0.2 Verify
+
+on:
+  push:
+    branches:
+      - chatgpt/olympiad-comprehension-v0.6
+    paths:
+      - "ci06/**"
+      - ".github/workflows/android-source-v060.yml"
+  workflow_dispatch:
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    permissions:
+      actions: read
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Recover verified v0.5.1 source
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          mkdir -p /tmp/base-artifact /tmp/src
+          curl -L --fail             -H "Authorization: Bearer $GH_TOKEN"             -H "Accept: application/vnd.github+json"             "https://api.github.com/repos/${{ github.repository }}/actions/artifacts/10926596829/zip"             -o /tmp/v051-artifact.zip
+          unzip -q /tmp/v051-artifact.zip -d /tmp/base-artifact
+          unzip -q /tmp/base-artifact/OlympiadTutorAndroid_v0.5.1-ReadingMVP-source.zip -d /tmp/src
+          SRC="$(find /tmp/src -maxdepth 1 -type d -name 'OlympiadTutorAndroid*src' | head -n 1)"
+          test -n "$SRC"
+          mv "$SRC" /tmp/olympiad-src
+          test -f /tmp/olympiad-src/app/build.gradle
+
+      - name: Apply v0.6 source patch and content
+        shell: bash
+        run: |
+          cat ci06/v06_patch_00.b64 ci06/v06_patch_01.b64 ci06/v06_patch_02.b64             | tr -d '\n\r' | base64 -d | gzip -d > /tmp/v06.patch
+          cd /tmp/olympiad-src
+          patch -p1 < /tmp/v06.patch
+
+          cat "$GITHUB_WORKSPACE"/ci06/v06_asset_00.b64               "$GITHUB_WORKSPACE"/ci06/v06_asset_01.b64               "$GITHUB_WORKSPACE"/ci06/v06_asset_02.b64             | tr -d '\n\r' | base64 -d | gzip -d             > app/src/main/assets/comprehension_v0.2.json
+          rm -f app/src/main/assets/comprehension_v0.1.json
+
+          python tools/verify_comprehension_v02.py app/src/main/assets/comprehension_v0.2.json
+          grep -n 'versionCode\|versionName' app/build.gradle
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+
+      - name: Set up Gradle
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: "8.9"
+
+      - name: Configure Android SDK
+        shell: bash
+        run: |
+          SDK_ROOT="${ANDROID_HOME:-/usr/local/lib/android/sdk}"
+          echo "ANDROID_HOME=$SDK_ROOT" >> "$GITHUB_ENV"
+          echo "ANDROID_SDK_ROOT=$SDK_ROOT" >> "$GITHUB_ENV"
+          SDKMANAGER="$(find "$SDK_ROOT/cmdline-tools" -type f -name sdkmanager | sort -V | tail -n 1)"
+          test -n "$SDKMANAGER"
+          yes | "$SDKMANAGER" --licenses >/dev/null || true
+          "$SDKMANAGER" "platforms;android-35" "build-tools;35.0.0"
+
+      - name: Compile verification
+        working-directory: /tmp/olympiad-src
+        run: gradle --no-daemon :app:assembleDebug
+
+      - name: Record verification summary
+        shell: bash
+        run: |
+          cat > /tmp/BUILD_VERIFICATION_v0.6.txt <<'EOF'
+          v0.6.0 ComprehensionGraph v0.2
+          - Comprehension JSON QA: PASS
+          - Android Gradle :app:assembleDebug: PASS
+          - Room schema target: 5
+          - v0.5.1 -> v0.6 source patch: PASS
+          EOF
+          mkdir -p dist
+          cp /tmp/BUILD_VERIFICATION_v0.6.txt dist/
+
+      - name: Upload verification record
+        uses: actions/upload-artifact@v4
+        with:
+          name: OlympiadTutor-v0.6-build-verification
+          path: dist/BUILD_VERIFICATION_v0.6.txt
+          retention-days: 30
