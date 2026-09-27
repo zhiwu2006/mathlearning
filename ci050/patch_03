@@ -1,0 +1,177 @@
+sage by remember { mutableStateOf<String?>(null) }
+ 
+     MaterialTheme {
+         Scaffold(
+             bottomBar = {
+-                if (screen !in listOf(Screen.TUTOR, Screen.RESULT)) {
++                if (screen !in listOf(Screen.TUTOR, Screen.RESULT, Screen.READING, Screen.READING_RESULT)) {
+                     NavigationBar {
+                         listOf(
+                             Triple(Screen.HOME, "首页", "⌂"),
+@@ -69,7 +74,7 @@ fun OlympiadApp(
+                 }
+             },
+             topBar = {
+-                if (screen !in listOf(Screen.TUTOR, Screen.RESULT)) {
++                if (screen !in listOf(Screen.TUTOR, Screen.RESULT, Screen.READING, Screen.READING_RESULT)) {
+                     Surface(shadowElevation = 1.dp) {
+                         Column(
+                             modifier = Modifier
+@@ -85,13 +90,14 @@ fun OlympiadApp(
+                                     Screen.PROGRESS -> "学习记录"
+                                     Screen.PACKS -> "题库管理"
+                                     Screen.DETAIL -> "题目详情"
++                                    Screen.READING -> "读题训练"
+                                     else -> ""
+                                 },
+                                 style = MaterialTheme.typography.titleLarge,
+                                 fontWeight = FontWeight.Bold
+                             )
+                             Text(
+-                                "原生手机版 v0.4.2 · Quality Gate",
++                                "原生手机版 v0.5.0 · Read → Think → Solve",
+                                 style = MaterialTheme.typography.labelSmall,
+                                 color = MaterialTheme.colorScheme.onSurfaceVariant
+                             )
+@@ -110,7 +116,16 @@ fun OlympiadApp(
+                     Screen.HOME -> HomeScreen(
+                         total = questions.size,
+                         tutorReady = tutorQuestions.size,
++                        readingReady = comprehensionQuestions.size,
+                         attempts = attempts.size,
++                        readingAttempts = comprehensionAttempts.size,
++                        onReading = {
++                            val q = pickReadingSmart(comprehensionQuestions, comprehensionAttempts)
++                            if (q != null) {
++                                selectedQuestion = q
++                                screen = Screen.READING
++                            } else message = "当前没有可训练的读题题目"
++                        },
+                         onStart = {
+                             val q = pickSmart(tutorQuestions, mastery)
+                             if (q != null) {
+@@ -125,7 +140,7 @@ fun OlympiadApp(
+                         questions = questions,
+                         onQuestion = { q ->
+                             selectedQuestion = q
+-                            screen = if (q.tier == "tutor") Screen.TUTOR else Screen.DETAIL
++                            screen = Screen.DETAIL
+                         }
+                     )
+                     Screen.PRACTICE -> PracticeScreen(
+@@ -139,7 +154,7 @@ fun OlympiadApp(
+                             } else message = "暂无可训练题目"
+                         }
+                     )
+-                    Screen.PROGRESS -> ProgressScreen(attempts, mastery)
++                    Screen.PROGRESS -> ProgressScreen(attempts, mastery, comprehensionAttempts, comprehensionMastery)
+                     Screen.PACKS -> PackManagerScreen(
+                         packs = packs,
+                         importer = importer,
+@@ -149,6 +164,35 @@ fun OlympiadApp(
+                         QuestionDetailScreen(
+                             question = q,
+                             onBack = { screen = Screen.LIBRARY },
++                            onReading = { screen = Screen.READING },
++                            onTutor = { screen = Screen.TUTOR },
++                        )
++                    }
++                    Screen.READING -> selectedQuestion?.let { q ->
++                        ReadingScreen(
++                            question = q,
++                            repository = repository,
++                            onExit = { screen = Screen.HOME },
++                            onFinished = { score ->
++                                readingResultScore = score
++                                screen = Screen.READING_RESULT
++                            }
++                        )
++                    }
++                    Screen.READING_RESULT -> selectedQuestion?.let { q ->
++                        ReadingResultScreen(
++                            question = q,
++                            score = readingResultScore,
++                            onSolve = if (q.tier == "tutor") ({ screen = Screen.TUTOR }) else null,
++                            onNext = {
++                                val next = pickReadingSmart(comprehensionQuestions.filter { it.id != q.id }, comprehensionAttempts)
++                                    ?: pickReadingSmart(comprehensionQuestions, comprehensionAttempts)
++                                if (next != null) {
++                                    selectedQuestion = next
++                                    screen = Screen.READING
++                                } else screen = Screen.HOME
++                            },
++                            onHome = { screen = Screen.HOME },
+                         )
+                     }
+                     Screen.TUTOR -> selectedQuestion?.let { q ->
+@@ -204,11 +248,23 @@ private fun pickSmart(
+     return questions.minByOrNull { scores[it.family] ?: -1.0 }
+ }
+ 
++private fun pickReadingSmart(
++    questions: List<QuestionEntity>,
++    attempts: List<ComprehensionAttemptEntity>,
++): QuestionEntity? {
++    if (questions.isEmpty()) return null
++    val counts = attempts.groupingBy { it.questionId }.eachCount()
++    return questions.minWithOrNull(compareBy<QuestionEntity> { counts[it.id] ?: 0 }.thenBy { it.id })
++}
++
+ @Composable
+ private fun HomeScreen(
+     total: Int,
+     tutorReady: Int,
++    readingReady: Int,
+     attempts: Int,
++    readingAttempts: Int,
++    onReading: () -> Unit,
+     onStart: () -> Unit,
+     onLibrary: () -> Unit,
+     onPacks: () -> Unit,
+@@ -220,27 +276,39 @@ private fun HomeScreen(
+     ) {
+         item {
+             ElevatedCard(
+-                colors = CardDefaults.elevatedCardColors(
+-                    containerColor = MaterialTheme.colorScheme.primaryContainer
+-                ),
++                colors = CardDefaults.elevatedCardColors(containerColor = MaterialTheme.colorScheme.primaryContainer),
+                 shape = RoundedCornerShape(26.dp)
+             ) {
+                 Column(Modifier.padding(22.dp)) {
+-                    Text("今天先练“怎么想”", style = MaterialTheme.typography.labelMedium)
++                    Text("READ · 先读懂", style = MaterialTheme.typography.labelMedium)
+                     Spacer(Modifier.height(6.dp))
+                     Text(
+-                        "一道题，一次只推进一个推理节点",
++                        "先弄清题目在说什么，再决定怎么算",
+                         style = MaterialTheme.typography.headlineSmall,
+                         fontWeight = FontWeight.Bold
+                     )
+                     Spacer(Modifier.height(8.dp))
+                     Text(
+-                        "答错时停留当前步骤；答对后才进入下一步。题库内容与 App 解耦，可通过 .olympiadpack 持续更新。",
++                        "训练题意概括、已知条件、未知量、最终目标和题目结构。先不计算。",
+                         style = MaterialTheme.typography.bodyMedium
+                     )
+                     Spacer(Modifier.height(16.dp))
+-                    Button(onClick = onStart, modifier = Modifier.fillMaxWidth()) {
+-                        Text("开始思路训练")
++                    Button(onClick = onReading, modifier = Modifier.fillMaxWidth()) {
++                        Text("开始读题训练 · $readingReady 道")
++                    }
++                }
++            }
++        }
++
++        item {
++            ElevatedCard(shape = RoundedCornerShape(22.dp)) {
++                Column(Modifier.padding(20.dp)) {
++                    Text("THINK → SOLVE · 思路训练", style = MaterialTheme.typography.labelMedium, color = MaterialTheme.colorScheme.primary)
++                    Spacer(Modifier.height(5.dp))
++                    Text("读懂后，再训练策略、第一步、计算与验证", fontWeight = FontWeight.Bold)
++                    Spacer(Modifier.height(12.dp))
++                    OutlinedButton(onClick = onStart, modifier = Modifier.fillMaxWidth()) {
++                        Text("开始思路训练 · $tutorReady 道")
+                     }
+       
