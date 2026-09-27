@@ -1,0 +1,153 @@
+diff --git a/app/build.gradle b/app/build.gradle
+index d592491..554df92 100644
+--- a/app/build.gradle
++++ b/app/build.gradle
+@@ -12,8 +12,8 @@ android {
+         applicationId "com.zhiwu.olympiadtutor"
+         minSdk 26
+         targetSdk 35
+-        versionCode 6
+-        versionName "0.4.3-tutor50"
++        versionCode 8
++        versionName "0.5.0-reading20"
+     }
+ 
+     buildFeatures { compose true }
+diff --git a/app/src/main/java/com/zhiwu/olympiadtutor/MainActivity.kt b/app/src/main/java/com/zhiwu/olympiadtutor/MainActivity.kt
+index f492bd9..da976c0 100644
+--- a/app/src/main/java/com/zhiwu/olympiadtutor/MainActivity.kt
++++ b/app/src/main/java/com/zhiwu/olympiadtutor/MainActivity.kt
+@@ -13,6 +13,11 @@ import kotlinx.coroutines.launch
+ import kotlinx.coroutines.withContext
+ 
+ class MainActivity : ComponentActivity() {
++    companion object {
++        private const val BUILT_IN_BUNDLE_ID = "two-books-full-548-tutor50-v0.4.3"
++        private const val BUILT_IN_BUNDLE_VERSION = "0.5.0"
++    }
++
+     override fun onCreate(savedInstanceState: Bundle?) {
+         super.onCreate(savedInstanceState)
+         val db = AppDatabase.get(this)
+@@ -20,8 +25,12 @@ class MainActivity : ComponentActivity() {
+         val importer = ContentPackImporter(this, db)
+ 
+         lifecycleScope.launch {
+-            val count = withContext(Dispatchers.IO) { db.questionDao().countOnce() }
+-            if (count == 0) runCatching { importer.importBuiltIn() }
++            val shouldRefresh = withContext(Dispatchers.IO) {
++                val count = db.questionDao().countOnce()
++                val current = db.packDao().getById(BUILT_IN_BUNDLE_ID)
++                count == 0 || current == null || current.bundleVersion != BUILT_IN_BUNDLE_VERSION
++            }
++            if (shouldRefresh) runCatching { importer.importBuiltIn() }
+         }
+ 
+         setContent { OlympiadApp(repository = repository, importer = importer) }
+diff --git a/app/src/main/java/com/zhiwu/olympiadtutor/data/AppDatabase.kt b/app/src/main/java/com/zhiwu/olympiadtutor/data/AppDatabase.kt
+index 1fe0d7d..da98e5e 100644
+--- a/app/src/main/java/com/zhiwu/olympiadtutor/data/AppDatabase.kt
++++ b/app/src/main/java/com/zhiwu/olympiadtutor/data/AppDatabase.kt
+@@ -8,15 +8,27 @@ import androidx.room.migration.Migration
+ import androidx.sqlite.db.SupportSQLiteDatabase
+ 
+ @Database(
+-    entities = [ContentPackEntity::class, QuestionEntity::class, ReasoningNodeEntity::class, AttemptEntity::class, MasteryEntity::class],
+-    version = 3,
++    entities = [
++        ContentPackEntity::class,
++        QuestionEntity::class,
++        ReasoningNodeEntity::class,
++        ComprehensionNodeEntity::class,
++        AttemptEntity::class,
++        MasteryEntity::class,
++        ComprehensionAttemptEntity::class,
++        ComprehensionNodeAttemptEntity::class,
++        ComprehensionMasteryEntity::class,
++    ],
++    version = 4,
+     exportSchema = false
+ )
+ abstract class AppDatabase : RoomDatabase() {
+     abstract fun questionDao(): QuestionDao
+     abstract fun reasoningNodeDao(): ReasoningNodeDao
++    abstract fun comprehensionNodeDao(): ComprehensionNodeDao
+     abstract fun packDao(): PackDao
+     abstract fun learningDao(): LearningDao
++    abstract fun comprehensionLearningDao(): ComprehensionLearningDao
+ 
+     companion object {
+         private val MIGRATION_1_2 = object : Migration(1, 2) {
+@@ -40,6 +52,24 @@ abstract class AppDatabase : RoomDatabase() {
+                 db.execSQL("CREATE INDEX IF NOT EXISTS index_questions_review_status ON questions(review_status)")
+             }
+         }
++        private val MIGRATION_3_4 = object : Migration(3, 4) {
++            override fun migrate(db: SupportSQLiteDatabase) {
++                db.execSQL("ALTER TABLE content_packs ADD COLUMN comprehension_ready_count INTEGER NOT NULL DEFAULT 0")
++                db.execSQL("ALTER TABLE questions ADD COLUMN comprehension_quality TEXT NOT NULL DEFAULT 'none'")
++                db.execSQL("CREATE INDEX IF NOT EXISTS index_questions_comprehension_quality ON questions(comprehension_quality)")
++                db.execSQL("CREATE TABLE IF NOT EXISTS comprehension_nodes (question_id TEXT NOT NULL, ordinal INTEGER NOT NULL, `key` TEXT NOT NULL, skill TEXT NOT NULL, label TEXT NOT NULL, type TEXT NOT NULL, prompt TEXT NOT NULL, payload_json TEXT NOT NULL, hint TEXT NOT NULL, feedback TEXT NOT NULL, PRIMARY KEY(question_id, ordinal), FOREIGN KEY(question_id) REFERENCES questions(id) ON UPDATE NO ACTION ON DELETE CASCADE)")
++                db.execSQL("CREATE INDEX IF NOT EXISTS index_comprehension_nodes_question_id ON comprehension_nodes(question_id)")
++                db.execSQL("CREATE INDEX IF NOT EXISTS index_comprehension_nodes_skill ON comprehension_nodes(skill)")
++                db.execSQL("CREATE TABLE IF NOT EXISTS comprehension_attempts (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, question_id TEXT NOT NULL, score INTEGER NOT NULL, finished_at INTEGER NOT NULL)")
++                db.execSQL("CREATE INDEX IF NOT EXISTS index_comprehension_attempts_question_id ON comprehension_attempts(question_id)")
++                db.execSQL("CREATE INDEX IF NOT EXISTS index_comprehension_attempts_finished_at ON comprehension_attempts(finished_at)")
++                db.execSQL("CREATE TABLE IF NOT EXISTS comprehension_node_attempts (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, question_id TEXT NOT NULL, ordinal INTEGER NOT NULL, skill TEXT NOT NULL, first_try_correct INTEGER NOT NULL, hint_used INTEGER NOT NULL, attempts INTEGER NOT NULL, finished_at INTEGER NOT NULL)")
++                db.execSQL("CREATE INDEX IF NOT EXISTS index_comprehension_node_attempts_question_id ON comprehension_node_attempts(question_id)")
++                db.execSQL("CREATE INDEX IF NOT EXISTS index_comprehension_node_attempts_skill ON comprehension_node_attempts(skill)")
++                db.execSQL("CREATE INDEX IF NOT EXISTS index_comprehension_node_attempts_finished_at ON comprehension_node_attempts(finished_at)")
++                db.execSQL("CREATE TABLE IF NOT EXISTS comprehension_mastery (skill TEXT NOT NULL, score REAL NOT NULL, evidence_count INTEGER NOT NULL, updated_at INTEGER NOT NULL, PRIMARY KEY(skill))")
++            }
++        }
+ 
+         @Volatile private var INSTANCE: AppDatabase? = null
+         fun get(context: Context): AppDatabase = INSTANCE ?: synchronized(this) {
+@@ -47,7 +77,7 @@ abstract class AppDatabase : RoomDatabase() {
+                 context.applicationContext,
+                 AppDatabase::class.java,
+                 "olympiad_tutor_runtime.db"
+-            ).addMigrations(MIGRATION_1_2, MIGRATION_2_3).build().also { INSTANCE = it }
++            ).addMigrations(MIGRATION_1_2, MIGRATION_2_3, MIGRATION_3_4).build().also { INSTANCE = it }
+         }
+     }
+ }
+diff --git a/app/src/main/java/com/zhiwu/olympiadtutor/data/ContentPackImporter.kt b/app/src/main/java/com/zhiwu/olympiadtutor/data/ContentPackImporter.kt
+index f9624e5..aac4fda 100644
+--- a/app/src/main/java/com/zhiwu/olympiadtutor/data/ContentPackImporter.kt
++++ b/app/src/main/java/com/zhiwu/olympiadtutor/data/ContentPackImporter.kt
+@@ -20,11 +20,12 @@ data class ImportResult(
+     val goldLabeledCount: Int,
+     val structuredCount: Int,
+     val assetCount: Int,
++    val comprehensionReadyCount: Int,
+ )
+ 
+ class ContentPackImporter(private val context: Context, private val db: AppDatabase) {
+     companion object {
+-        private val SUPPORTED_SCHEMAS = setOf("0.2.0", "0.3.0", "0.4.0")
++        private val SUPPORTED_SCHEMAS = setOf("0.2.0", "0.3.0", "0.4.0", "0.5.0")
+         private val ALLOWED_TIERS = setOf("tutor", "gold", "structured")
+         private const val MAX_JSON_ENTRY_BYTES = 24 * 1024 * 1024
+         private const val MAX_ASSET_BYTES = 12 * 1024 * 1024
+@@ -80,7 +81,7 @@ class ContentPackImporter(private val context: Context, private val db: AppDatab
+             require(actual.equals(expectedDigest, ignoreCase = true)) { "questions.json 校验失败" }
+         }
+ 
+-        if (schemaVersion in setOf("0.3.0", "0.4.0")) {
++        if (schemaVersion in setOf("0.3.0", "0.4.0", "0.5.0")) {
+             val expectedAssets = manifest.optJSONObject("assets_sha256") ?: JSONObject()
+             require(manifest.optInt("asset_count", expectedAssets.length()) == assets.size) { "图片资产数量与 manifest 不一致" }
+             val keys = expectedAssets.keys()
+@@ -105,6 +106,7 @@ class ContentPackImporter(private val context: Context, private val db: AppDatab
+         var tutorReady = 0
+         var goldLabeled = 0
+         var structured = 0
++        var comprehensionReady = 0
+         for (i in 0 until questions.length()) {
+             val q = questions.getJSONObject(i)
+             val id = q.getString("id")
+@@ -119,7 +121,7 @@ class ContentPackImporter(private val context: Context, private val db: AppDatab
+             val nodes = q.optJSONArray("nodes") ?: JSONArray()
+             if (tier == "tutor") {
+                 requir
