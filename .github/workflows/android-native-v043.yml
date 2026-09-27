@@ -1,0 +1,81 @@
+name: Olympiad Tutor Native v0.4.3 APK
+
+on:
+  push:
+    branches:
+      - chatgpt/olympiad-apk-v0.4.3
+    paths:
+      - "ci043/**"
+      - ".github/workflows/android-native-v043.yml"
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Reconstruct source tree
+        shell: bash
+        run: |
+          mkdir -p /tmp/olympiad-src
+          cat ci043/chunk_00.txt ci043/chunk_01.txt ci043/chunk_02.txt ci043/chunk_03.txt | tr -d '\n\r' | base64 -d > /tmp/native-ci-source.zip
+          unzip -t /tmp/native-ci-source.zip
+          unzip -q /tmp/native-ci-source.zip -d /tmp/olympiad-src
+          find /tmp/olympiad-src -maxdepth 3 -type f | sort
+          test -f /tmp/olympiad-src/settings.gradle
+          test -f /tmp/olympiad-src/app/build.gradle
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+
+      - name: Set up Gradle
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: "8.9"
+
+      - name: Configure Android SDK
+        shell: bash
+        run: |
+          SDK_ROOT="${ANDROID_HOME:-/usr/local/lib/android/sdk}"
+          echo "ANDROID_HOME=$SDK_ROOT" >> "$GITHUB_ENV"
+          echo "ANDROID_SDK_ROOT=$SDK_ROOT" >> "$GITHUB_ENV"
+          SDKMANAGER="$(find "$SDK_ROOT/cmdline-tools" -type f -name sdkmanager | sort -V | tail -n 1)"
+          test -n "$SDKMANAGER"
+          yes | "$SDKMANAGER" --licenses >/dev/null || true
+          "$SDKMANAGER" "platforms;android-35" "build-tools;35.0.0"
+
+      - name: Build debug APK
+        working-directory: /tmp/olympiad-src
+        run: gradle --no-daemon :app:assembleDebug
+
+      - name: Verify APK
+        shell: bash
+        run: |
+          APK="/tmp/olympiad-src/app/build/outputs/apk/debug/app-debug.apk"
+          test -s "$APK"
+          unzip -t "$APK" >/dev/null
+          mkdir -p dist
+          cp "$APK" dist/OlympiadTutor-Native-v0.4.3-debug.apk
+          sha256sum dist/OlympiadTutor-Native-v0.4.3-debug.apk | tee dist/APK_SHA256.txt
+          cat > dist/INSTALL.txt <<'EOF'
+          奥数思路训练 Native v0.4.3 / Tutor50
+          ====================================
+          1. 安装 OlympiadTutor-Native-v0.4.3-debug.apk。
+          2. 本 APK 是原生 Kotlin + Compose + Room 测试版。
+          3. APK 本身不内置 548 题大包；首次打开若题库为空，请在“题库管理”导入：
+             TwoBooks-All-548-Tutor50-v0.4.3.olympiadpack
+          4. 题库导入后应显示：548题，其中 Tutor Ready 50题。
+          5. 本包为 debug 签名，仅供内部测试。
+          EOF
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: OlympiadTutor-Native-v0.4.3-test
+          path: dist/*
+          retention-days: 30
