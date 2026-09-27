@@ -37,7 +37,9 @@ jobs:
 
       - name: Expand native project
         run: |
-          unzip -q androidnative-src.zip
+          rm -rf androidnative
+          mkdir -p androidnative
+          unzip -q androidnative-src.zip -d androidnative
           test -f androidnative/app/build.gradle
 
       - name: Build native debug APK
@@ -59,7 +61,6 @@ jobs:
         run: |
           mkdir -p dist
           cp androidnative/app/build/outputs/apk/debug/app-debug.apk dist/OlympiadTutor-Native-v0.2-debug.apk
-          cp androidnative/app/src/main/assets/starter.olympiadpack dist/Olympiad-Starter-v0.2.olympiadpack
           cp androidnative-src.zip dist/OlympiadTutor-Native-v0.2-source.zip
           cp APK_SHA256.txt dist/APK_SHA256.txt
           cat > dist/README.txt <<'EOF'
@@ -67,7 +68,8 @@ jobs:
           =========================
           - Kotlin + Jetpack Compose + Room
           - 题库管理支持导入 .olympiadpack
-          - Starter Pack 51 道：10 道 Tutor Ready + 41 道 Structured
+          - 内置 Starter：10 道 Tutor Ready
+          - 支持外部导入 .olympiadpack 扩展题库
           - Debug 签名，仅用于测试
           EOF
 
