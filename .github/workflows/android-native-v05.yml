@@ -31,6 +31,7 @@ jobs:
           cat ci05/patch_0.b64 ci05/patch_1.b64 ci05/patch_2.b64 ci05/patch_3.b64 | tr -d '\n\r' | base64 -d | gzip -d > /tmp/v05.patch
           cd /tmp/olympiad-src
           patch -p1 < /tmp/v05.patch
+          patch -p1 < "$GITHUB_WORKSPACE/ci05/hotfix_format.patch"
           mkdir -p app/src/main/assets
           cat "$GITHUB_WORKSPACE"/ci05/comprehension_0.b64 "$GITHUB_WORKSPACE"/ci05/comprehension_1.b64 "$GITHUB_WORKSPACE"/ci05/comprehension_2.b64 | tr -d '\n\r' | base64 -d | gzip -d > app/src/main/assets/comprehension_v0.1.json
           python - <<'PY'
