@@ -1,0 +1,128 @@
+     },
++                                modifier = Modifier.fillMaxWidth(),
++                                colors = if (isSelected) ButtonDefaults.outlinedButtonColors(containerColor = MaterialTheme.colorScheme.primaryContainer)
++                                else ButtonDefaults.outlinedButtonColors()
++                            ) {
++                                Text("${('A'.code + i).toChar()}. ${options.optString(i)}")
++                            }
++                            Spacer(Modifier.height(7.dp))
++                        }
++
++                        feedback?.let {
++                            Spacer(Modifier.height(10.dp))
++                            Surface(
++                                color = if (correct) MaterialTheme.colorScheme.primaryContainer else MaterialTheme.colorScheme.errorContainer,
++                                shape = RoundedCornerShape(13.dp)
++                            ) { Text(it, modifier = Modifier.padding(12.dp)) }
++                        }
++                        if (hintVisible && node.hint.isNotBlank()) {
++                            Spacer(Modifier.height(10.dp))
++                            Surface(color = MaterialTheme.colorScheme.tertiaryContainer, shape = RoundedCornerShape(13.dp)) {
++                                Text("提示：${node.hint}", modifier = Modifier.padding(12.dp))
++                            }
++                        }
++
++                        Spacer(Modifier.height(14.dp))
++                        Button(
++                            onClick = {
++                                if (correct) {
++                                    if (index == nodes.lastIndex) {
++                                        val evidence = nodes.mapIndexed { i, n ->
++                                            ComprehensionNodeEvidence(
++                                                ordinal = i,
++                                                skill = n.skill,
++                                                firstTryCorrect = i !in wrongNodes,
++                                                hintUsed = i in hintNodes,
++                                                attempts = submitCounts[i] ?: 1,
++                                            )
++                                        }
++                                        val score = evidence.map { readingEvidenceScore(it.firstTryCorrect, it.hintUsed) }.average().roundToInt()
++                                        scope.launch {
++                                            repository.recordComprehensionAttempt(question, score, evidence)
++                                            onFinished(score)
++                                        }
++                                    } else index++
++                                } else {
++                                    submitCounts[index] = (submitCounts[index] ?: 0) + 1
++                                    val hasSelection = if (node.type == "multi_choice") selectedMulti.isNotEmpty() else selected != null
++                                    if (!hasSelection) {
++                                        feedback = "先选择你的答案。"
++                                    } else {
++                                        val ok = evaluateComprehensionNode(node.type, payload, selected, selectedMulti.toSet())
++                                        if (ok) {
++                                            correct = true
++                                            feedback = node.feedback.ifBlank { "正确，可以进入下一步。" }
++                                        } else {
++                                            if (index !in wrongNodes) wrongNodes.add(index)
++                                            feedback = "这一层理解还不准确。先不要计算，重新回到题目文字找证据。"
++                                        }
++                                    }
++                                }
++                            },
++                            modifier = Modifier.fillMaxWidth()
++                        ) { Text(if (correct) if (index == nodes.lastIndex) "完成读题" else "下一步" else "确认这一步") }
++
++                        if (!correct) {
++                            Spacer(Modifier.height(8.dp))
++                            OutlinedButton(
++                                onClick = {
++                                    hintVisible = true
++                                    if (index !in hintNodes) hintNodes.add(index)
++                                },
++                                modifier = Modifier.fillMaxWidth()
++                            ) { Text("给我一个提示") }
++                        }
++                    }
++                }
++            }
++        }
++    }
++}
++
++@Composable
++private fun ReadingResultScreen(
++    question: QuestionEntity,
++    score: Int,
++    onSolve: (() -> Unit)?,
++    onNext: () -> Unit,
++    onHome: () -> Unit,
++) {
++    Scaffold { padding ->
++        LazyColumn(
++            modifier = Modifier.fillMaxSize().padding(padding),
++            contentPadding = PaddingValues(20.dp),
++            verticalArrangement = Arrangement.spacedBy(14.dp),
++            horizontalAlignment = Alignment.CenterHorizontally
++        ) {
++            item { Spacer(Modifier.height(24.dp)) }
++            item { Text("读题完成", style = MaterialTheme.typography.headlineMedium, fontWeight = FontWeight.Bold) }
++            item { Text("$score", style = MaterialTheme.typography.displayMedium, fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.primary) }
++            item {
++                ElevatedCard(shape = RoundedCornerShape(20.dp), modifier = Modifier.fillMaxWidth()) {
++                    Column(Modifier.padding(18.dp)) {
++                        Text("你刚才练的是", fontWeight = FontWeight.Bold)
++                        Spacer(Modifier.height(10.dp))
++                        Text("① 这道题讲了什么")
++                        Text("② 已知条件有哪些")
++                        Text("③ 哪些量还不知道")
++                        Text("④ 最终要求什么")
++                        Text("⑤ 它属于什么数学结构")
++                        Spacer(Modifier.height(10.dp))
++                        Text("结构：${question.family}", color = MaterialTheme.colorScheme.primary, fontWeight = FontWeight.Medium)
++                    }
++                }
++            }
++            if (onSolve != null) {
++                item {
++                    Button(onClick = onSolve, modifier = Modifier.fillMaxWidth()) { Text("读懂了，进入思路训练") }
++                }
++            }
++            item { OutlinedButton(onClick = onNext, modifier = Modifier.fillMaxWidth()) { Text("再练一道读题") } }
++            item { TextButton(onClick = onHome, modifier = Modifier.fillMaxWidth()) { Text("回首页") } }
++        }
++    }
++}
++
+ @Composable
+ private fun TutorScreen(
+     question: QuestionEntity,
